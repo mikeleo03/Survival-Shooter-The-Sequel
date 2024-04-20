@@ -34,7 +34,7 @@ namespace UnityEngine.PostProcessing
         {
             var bloom = model.settings.bloom;
             var lensDirt = model.settings.lensDirt;
-            var material = context.materialFactory.Get("Hidden/Post FX/Bloom");
+            var material = context.materialFactory.Get("Hidden/PostProcessing/Bloom");
             material.shaderKeywords = null;
 
             // Apply auto exposure before the prefiltering pass
