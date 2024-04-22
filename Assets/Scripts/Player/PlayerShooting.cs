@@ -49,6 +49,17 @@ namespace Nightmare
             // Add the time since Update was last called to the timer.
             timer += Time.deltaTime;
 
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                ChangeWeapon(0);
+            } else if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                ChangeWeapon(1);
+            } else if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                ChangeWeapon(2);
+            }
+
 #if !MOBILE_INPUT
             if (timer >= currWeapon.timeBetweenBullets && Time.timeScale != 0)
             {
@@ -91,6 +102,7 @@ namespace Nightmare
 
         void ChangeWeapon(int idx)
         {
+            DisableEffects();
             if (idx < 0)
             {
                 idx = weaponsList.Count - 1;
