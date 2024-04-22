@@ -49,6 +49,12 @@ namespace Nightmare
             // Add the time since Update was last called to the timer.
             timer += Time.deltaTime;
 
+            if (Input.GetAxis("Mouse ScrollWheel") != 0)
+            {
+                currWeaponIdx -= Mathf.RoundToInt(Mathf.Sign(Input.GetAxis("Mouse ScrollWheel")));
+                ChangeWeapon(currWeaponIdx);
+            }
+
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 ChangeWeapon(0);
