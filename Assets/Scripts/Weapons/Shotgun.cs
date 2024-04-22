@@ -2,13 +2,11 @@ using Nightmare;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Shotgun : Weapons
 {
     RaycastHit[] shootHit;
     ParticleSystem gunParticles;
-    AudioSource gunAudio;
     Light gunLight;
     Light faceLight;
 
@@ -16,7 +14,7 @@ public class Shotgun : Weapons
     {
         // Set up the references.
         gunParticles = GetComponent<ParticleSystem>();
-        gunAudio = GetComponent<AudioSource>();
+        triggerAudio = GetComponent<AudioSource>();
         gunLight = GetComponent<Light>();
         faceLight = GetComponentInChildren<Light>();
     }
@@ -24,7 +22,7 @@ public class Shotgun : Weapons
     public override void Shoot()
     {
         // Play the gun shot audioclip.
-        gunAudio.Play();
+        triggerAudio.Play();
 
         // Enable the lights.
         gunLight.enabled = true;

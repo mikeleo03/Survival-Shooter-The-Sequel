@@ -10,7 +10,6 @@ public class DefaultGun : Weapons
     RaycastHit shootHit;
     ParticleSystem gunParticles;
     LineRenderer gunLine;
-    AudioSource gunAudio;
     Light gunLight;
     Light faceLight;
     
@@ -19,7 +18,7 @@ public class DefaultGun : Weapons
         // Set up the references.
         gunParticles = GetComponent<ParticleSystem>();
         gunLine = GetComponent<LineRenderer>();
-        gunAudio = GetComponent<AudioSource>();
+        triggerAudio = GetComponent<AudioSource>();
         gunLight = GetComponent<Light>();
         faceLight = GetComponentInChildren<Light>();
     }
@@ -27,7 +26,7 @@ public class DefaultGun : Weapons
     public override void Shoot()
     {
         // Play the gun shot audioclip.
-        gunAudio.Play();
+        triggerAudio.Play();
 
         // Enable the lights.
         gunLight.enabled = true;

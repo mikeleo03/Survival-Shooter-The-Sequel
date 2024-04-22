@@ -12,6 +12,8 @@ public abstract class Weapons : MonoBehaviour
     public float effectsDisplayTime;
     public int shootableMask;
 
+    [HideInInspector] public AudioSource triggerAudio;
+
     private void Start()
     {
         shootableMask = LayerMask.GetMask("Shootable", "Enemy");

@@ -9,19 +9,18 @@ public class Sword : Weapons
     Ray shootRay = new Ray();
     RaycastHit shootHit;
     ParticleSystem gunParticles;
-    AudioSource swordAudio;
 
     private void Awake()
     {
         // Set up the references.
         gunParticles = GetComponent<ParticleSystem>();
-        swordAudio = GetComponent<AudioSource>();
+        triggerAudio = GetComponent<AudioSource>();
     }
 
     public override void Shoot()
     {
         // Play the gun shot audioclip.
-        swordAudio.Play();
+        triggerAudio.Play();
 
         // Stop the particles from playing if they were, then start the particles.
         gunParticles.Stop();
