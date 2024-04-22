@@ -102,7 +102,10 @@ namespace Nightmare
 
         void ChangeWeapon(int idx)
         {
-            DisableEffects();
+            if (currWeapon != null)
+            {
+                DisableEffects();
+            }
             if (idx < 0)
             {
                 idx = weaponsList.Count - 1;
@@ -114,7 +117,7 @@ namespace Nightmare
             GameObject currWeaponObj = Instantiate(weaponsList[currWeaponIdx], transform);
             currWeaponObj.transform.SetPositionAndRotation(transform.position, transform.rotation);
             currWeapon = currWeaponObj.GetComponent<Weapons>();
-            weaponMesh.sharedMesh = currWeapon.gunMesh;
+            weaponMesh.sharedMesh = currWeapon.weaponMesh;
         }
 
         void Shoot ()

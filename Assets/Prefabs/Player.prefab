@@ -221,6 +221,7 @@ MonoBehaviour:
   weaponsList:
   - {fileID: 6517554577502634727, guid: 654eb4aab37345147a96aba1eaf65063, type: 3}
   - {fileID: 7075423823514085712, guid: 541fd80819fc7354bb855fe83c2eab55, type: 3}
+  - {fileID: 6850498534687742087, guid: c9926b074804d9443bef546542f641aa, type: 3}
   weaponMesh: {fileID: 13700002}
 --- !u!1 &100006
 GameObject:

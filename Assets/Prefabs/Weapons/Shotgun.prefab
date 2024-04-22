@@ -143,9 +143,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a93b86714ba084d4aafdd6a91dcd5926, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunMesh: {fileID: 4300000, guid: f1d84cc28597f5641a3d9cbc4df7e306, type: 3}
+  weaponMesh: {fileID: 4300000, guid: f1d84cc28597f5641a3d9cbc4df7e306, type: 3}
   damagePerShot: 40
-  timeBetweenBullets: 1
+  timeBetweenBullets: 3
   range: 4
   effectsDisplayTime: 0.2
   shootableMask: 0
