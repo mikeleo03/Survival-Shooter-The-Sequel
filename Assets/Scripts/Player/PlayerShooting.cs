@@ -18,7 +18,7 @@ namespace Nightmare
         public List<GameObject> weaponsList;
         private Weapons currWeapon;
         private int currWeaponIdx;
-        [SerializeField] SkinnedMeshRenderer weaponMesh;
+        [SerializeField] Transform weaponPos;
   
         private UnityAction listener;
 
@@ -105,6 +105,7 @@ namespace Nightmare
             if (currWeapon != null)
             {
                 DisableEffects();
+                Destroy(currWeapon.gameObject);
             }
             if (idx < 0)
             {
@@ -117,7 +118,10 @@ namespace Nightmare
             GameObject currWeaponObj = Instantiate(weaponsList[currWeaponIdx], transform);
             currWeaponObj.transform.SetPositionAndRotation(transform.position, transform.rotation);
             currWeapon = currWeaponObj.GetComponent<Weapons>();
-            weaponMesh.sharedMesh = currWeapon.weaponMesh;
+            if (currWeaponIdx != 2)
+            {
+                currWeapon.weaponModel.transform.position = weaponPos.position;
+            }
         }
 
         void Shoot ()

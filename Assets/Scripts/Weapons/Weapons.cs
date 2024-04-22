@@ -5,7 +5,7 @@ using UnityEngine;
 
 public abstract class Weapons : MonoBehaviour
 {
-    public Mesh weaponMesh;
+    public GameObject weaponModel;
     public int damagePerShot;
     public float timeBetweenBullets;
     public float range;
