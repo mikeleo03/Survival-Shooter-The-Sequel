@@ -9,18 +9,27 @@ public class Sword : Weapons
     Ray shootRay = new Ray();
     RaycastHit shootHit;
     ParticleSystem gunParticles;
+    Coroutine swordStop;
+    Animator swordAnim;
 
     private void Awake()
     {
         // Set up the references.
         gunParticles = GetComponent<ParticleSystem>();
         triggerAudio = GetComponent<AudioSource>();
+        swordAnim = GetComponentInChildren<Animator>();
     }
 
     public override void Shoot()
     {
         // Play the gun shot audioclip.
         triggerAudio.Play();
+
+        if (swordAnim != null)
+        {
+            // Play sword animation
+            swordAnim.SetBool("IsAttacking", true);
+        }
 
         // Stop the particles from playing if they were, then start the particles.
         gunParticles.Stop();
@@ -47,6 +56,7 @@ public class Sword : Weapons
 
     public override void DisableEffects()
     {
+        swordAnim.SetBool("IsAttacking", false);
         return;
     }
 }
