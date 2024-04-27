@@ -10386,8 +10386,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageOverTime: 2
-  playerDmgDebuff: 0
-  playerSpeedDebuff: 0
+  playerDmgDebuff: 0.3
+  playerSpeedDebuff: 1
   dotInterval: 0.5
   isRaja: 1
 --- !u!198 &57872702056128477

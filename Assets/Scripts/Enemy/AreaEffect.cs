@@ -9,11 +9,13 @@ public class AreaEffect : PausibleObject
     bool playerInRange;
     EnemyHealth enemyHealth;
     PlayerHealth playerHealth;
+    PlayerShooting playerShooting;
+    PlayerMovement playerMovement;
     float timer;
 
     public int damageOverTime;
-    public int playerDmgDebuff; // Damage debuff value in percent
-    public int playerSpeedDebuff; // Speed debuff value in percent
+    public float playerDmgDebuff; // Damage debuff value in percent
+    public float playerSpeedDebuff; // Speed debuff value (not percent)
     public float dotInterval;
     public bool isRaja;
     private void Awake()
@@ -21,6 +23,8 @@ public class AreaEffect : PausibleObject
         playerInRange = false;
         player = GameObject.FindGameObjectWithTag("Player");
         playerHealth = player.GetComponent<PlayerHealth>();
+        playerMovement = player.GetComponent<PlayerMovement>();
+        playerShooting = player.GetComponentInChildren<PlayerShooting>();
         enemyHealth = transform.parent.GetComponent<EnemyHealth>();
         StartPausible();
     }
@@ -37,6 +41,12 @@ public class AreaEffect : PausibleObject
         {
             // ... player is in range
             playerInRange = true;
+            // Apply debuff is enemy is Raja
+            if (isRaja)
+            {
+                playerMovement.speed -= playerSpeedDebuff;
+                playerShooting.damagePercent -= playerDmgDebuff;
+            }
         }
     }
 
@@ -47,6 +57,12 @@ public class AreaEffect : PausibleObject
         {
             // ... player is out of range
             playerInRange = false;
+            // Deapply debuff to player
+            if (isRaja)
+            {
+                playerMovement.speed += playerSpeedDebuff;
+                playerShooting.damagePercent += playerDmgDebuff;
+            }
         }
     }
 

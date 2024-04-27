@@ -12,6 +12,7 @@ namespace Nightmare
         public GameObject grenade;
         public float grenadeSpeed = 200f;
         public float grenadeFireDelay = 0.5f;
+        public float damagePercent = 1;
         int grenadeStock = 99;
         
         float timer;
@@ -19,6 +20,7 @@ namespace Nightmare
         private Weapons currWeapon;
         private int currWeaponIdx;
         [SerializeField] Transform weaponPos;
+        float realWeaponDamage;
   
         private UnityAction listener;
 
@@ -48,6 +50,8 @@ namespace Nightmare
 
             // Add the time since Update was last called to the timer.
             timer += Time.deltaTime;
+
+            currWeapon.damagePerShot = Mathf.RoundToInt(realWeaponDamage * damagePercent);
 
             if (Input.GetAxis("Mouse ScrollWheel") != 0)
             {
@@ -128,6 +132,7 @@ namespace Nightmare
             {
                 currWeapon.weaponModel.transform.position = weaponPos.position;
             }
+            realWeaponDamage = currWeapon.damagePerShot;
         }
 
         void Shoot ()
