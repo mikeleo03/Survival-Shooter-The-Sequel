@@ -8,9 +8,12 @@ public class EnemySpawner : PausibleObject
     [SerializeField] GameObject enemyToSpawn;
     [SerializeField] int spawnTimer;
     PlayerHealth playerHealth;
+    EnemyHealth enemyHealth;
+
     private void Awake()
     {
         playerHealth = FindObjectOfType<PlayerHealth>();
+        enemyHealth = GetComponent<EnemyHealth>();
         InvokeRepeating("Spawn", spawnTimer, spawnTimer);
         StartPausible();
     }
@@ -23,7 +26,7 @@ public class EnemySpawner : PausibleObject
     void Spawn()
     {
         // If the player has no health left...
-        if (playerHealth.currentHealth <= 0f)
+        if (playerHealth.currentHealth <= 0f || enemyHealth.CurrentHealth() <= 0f)
         {
             // ... exit the function.
             return;
