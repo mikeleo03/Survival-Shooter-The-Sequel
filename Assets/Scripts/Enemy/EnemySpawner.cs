@@ -26,7 +26,7 @@ public class EnemySpawner : PausibleObject
     void Spawn()
     {
         // If the player has no health left...
-        if (playerHealth.currentHealth <= 0f || enemyHealth.CurrentHealth() <= 0f)
+        if (playerHealth.currentHealth <= 0f || enemyHealth.CurrentHealth() <= 0f || isPaused)
         {
             // ... exit the function.
             return;
