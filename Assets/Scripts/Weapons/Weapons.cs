@@ -11,6 +11,7 @@ public abstract class Weapons : MonoBehaviour
     public float range;
     public float effectsDisplayTime;
     public int shootableMask;
+    public bool isEnemyWeapon;
 
     [HideInInspector] public AudioSource triggerAudio;
 

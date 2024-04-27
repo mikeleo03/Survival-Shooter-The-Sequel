@@ -32,15 +32,18 @@ public class Shotgun : Weapons
         gunParticles.Stop();
         gunParticles.Play();
 
-        shootHit = Physics.SphereCastAll(transform.position, range, transform.forward, range, shootableMask);
-        foreach(RaycastHit hit in shootHit)
+        if (!isEnemyWeapon)
         {
-            EnemyHealth enemyHealth = hit.collider.GetComponent<EnemyHealth>();
-            // If the EnemyHealth component exist...
-            if (enemyHealth != null)
+            shootHit = Physics.SphereCastAll(transform.position, range, transform.forward, range, shootableMask, QueryTriggerInteraction.Ignore);
+            foreach (RaycastHit hit in shootHit)
             {
-                // ... the enemy should take damage.
-                enemyHealth.TakeDamage(damagePerShot, hit.point);
+                EnemyHealth enemyHealth = hit.collider.GetComponent<EnemyHealth>();
+                // If the EnemyHealth component exist...
+                if (enemyHealth != null)
+                {
+                    // ... the enemy should take damage.
+                    enemyHealth.TakeDamage(damagePerShot, hit.point);
+                }
             }
         }
     }

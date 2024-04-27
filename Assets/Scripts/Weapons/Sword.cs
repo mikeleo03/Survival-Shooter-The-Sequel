@@ -35,21 +35,24 @@ public class Sword : Weapons
         gunParticles.Stop();
         gunParticles.Play();
 
-        // Set the shootRay so that it starts at the end of the gun and points forward from the barrel.
-        shootRay.origin = transform.position;
-        shootRay.direction = transform.forward;
-
-        // Perform the raycast against gameobjects on the shootable layer and if it hits something...
-        if (Physics.Raycast(shootRay, out shootHit, range, shootableMask))
+        if (!isEnemyWeapon)
         {
-            // Try and find an EnemyHealth script on the gameobject hit.
-            EnemyHealth enemyHealth = shootHit.collider.GetComponent<EnemyHealth>();
+            // Set the shootRay so that it starts at the end of the gun and points forward from the barrel.
+            shootRay.origin = transform.position;
+            shootRay.direction = transform.forward;
 
-            // If the EnemyHealth component exist...
-            if (enemyHealth != null)
+            // Perform the raycast against gameobjects on the shootable layer and if it hits something...
+            if (Physics.Raycast(shootRay, out shootHit, range, shootableMask, QueryTriggerInteraction.Ignore))
             {
-                // ... the enemy should take damage.
-                enemyHealth.TakeDamage(damagePerShot, shootHit.point);
+                // Try and find an EnemyHealth script on the gameobject hit.
+                EnemyHealth enemyHealth = shootHit.collider.GetComponent<EnemyHealth>();
+
+                // If the EnemyHealth component exist...
+                if (enemyHealth != null)
+                {
+                    // ... the enemy should take damage.
+                    enemyHealth.TakeDamage(damagePerShot, shootHit.point);
+                }
             }
         }
     }

@@ -12,6 +12,7 @@ namespace Nightmare
         GameObject player;
         PlayerHealth playerHealth;
         EnemyHealth enemyHealth;
+        Weapons heldWeapon;
         bool playerInRange;
         float timer;
 
@@ -22,6 +23,7 @@ namespace Nightmare
             playerHealth = player.GetComponent <PlayerHealth> ();
             enemyHealth = GetComponent<EnemyHealth>();
             anim = GetComponent <Animator> ();
+            heldWeapon = GetComponentInChildren<Weapons>();
 
             StartPausible();
         }
@@ -58,6 +60,10 @@ namespace Nightmare
             
             // Add the time since Update was last called to the timer.
             timer += Time.deltaTime;
+            if (timer >= 0.2f)
+            {
+                heldWeapon.DisableEffects();
+            }
 
             // If the timer exceeds the time between attacks, the player is in range and this enemy is alive...
             if(timer >= timeBetweenAttacks && playerInRange && enemyHealth.CurrentHealth() > 0)
@@ -83,6 +89,7 @@ namespace Nightmare
             if(playerHealth.currentHealth > 0)
             {
                 // ... damage the player.
+                heldWeapon.Shoot();
                 playerHealth.TakeDamage (attackDamage);
             }
         }
