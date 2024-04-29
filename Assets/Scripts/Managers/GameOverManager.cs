@@ -7,6 +7,7 @@ namespace Nightmare {
     public class GameOverManager : MonoBehaviour {
         private PlayerHealth playerHealth;
         [SerializeField] private TimerManager timerManager;
+        [SerializeField] private CountdownManager countdownManager;
         Animator anim;
         LevelManager lm;
 
@@ -22,12 +23,7 @@ namespace Nightmare {
         void Update() {
             if (playerHealth.currentHealth <= 0) {
                 anim.SetTrigger("GameOver");
-                restartTimer += Time.deltaTime;
-
-                if (restartTimer >= restartDelay) {
-                    SceneManager.LoadScene("Menu");
-                    anim.SetBool("GameOver", false);
-                }
+                countdownManager.StartCountdown();
             }
         }
 
