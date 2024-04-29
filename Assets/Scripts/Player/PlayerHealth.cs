@@ -14,7 +14,6 @@ namespace Nightmare
         public AudioClip deathClip;
         public float flashSpeed = 5f;
         public Color flashColour = new Color(1f, 0f, 0f, 0.1f);
-        public bool godMode = false;
 
         Animator anim;
         AudioSource playerAudio;
@@ -22,6 +21,9 @@ namespace Nightmare
         PlayerShooting playerShooting;
         bool isDead;
         bool damaged;
+
+        // Cheat No Damage
+        public bool isCheatNoDamage = false;
 
         void Awake()
         {
@@ -68,7 +70,7 @@ namespace Nightmare
 
         public void TakeDamage(int amount)
         {
-            if (godMode)
+            if (isCheatNoDamage)
                 return;
 
             // Set the damaged flag so the screen will flash.
@@ -114,6 +116,12 @@ namespace Nightmare
         public void RestartLevel()
         {
             EventManager.TriggerEvent("GameOver");
+        }
+
+        // Activate or deactivate cheat no damage
+        public void SetCheatNoDamage(bool isActive)
+        {
+            isCheatNoDamage = isActive;
         }
     }
 }

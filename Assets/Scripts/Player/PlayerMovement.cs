@@ -7,6 +7,7 @@ namespace Nightmare
     public class PlayerMovement : PausibleObject
     {
         public float speed = 6f;            // The speed that the player will move at.
+        public float prevSpeed;             // For twice speed cheat purpose
 
 
         Vector3 movement;                   // The vector to store the direction of the player's movement.
@@ -27,6 +28,9 @@ namespace Nightmare
             // Set up references.
             anim = GetComponent <Animator> ();
             playerRigidbody = GetComponent <Rigidbody> ();
+
+            // Set prev speed to speed
+            prevSpeed = speed;
 
             StartPausible();
         }
@@ -123,5 +127,20 @@ namespace Nightmare
             // Tell the animator whether or not the player is walking.
             anim.SetBool ("IsWalking", walking);
         }
+
+        // Reset speed to default
+        public void ResetSpeed()
+        {
+            this.speed = 6f; // Back to default
+        }
+
+        // Activate twice speed cheat
+        public void ActivateCheatXTwoSpeed()
+        {
+            if (this.speed * 2 > prevSpeed * 2)
+                return;
+            this.speed *= 2;
+        }
+
     }
 }
