@@ -7,6 +7,7 @@ namespace Nightmare
     public class GameOverManager : MonoBehaviour
     {
         private PlayerHealth playerHealth;
+        [SerializeField] private TimerManager timerManager;
         Animator anim;
 
         LevelManager lm;
@@ -28,6 +29,7 @@ namespace Nightmare
         void ShowGameOver()
         {
             anim.SetBool("GameOver", true);
+            timerManager.ResetTimer();
         }
 
         private void ResetLevel()
