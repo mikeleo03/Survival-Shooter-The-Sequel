@@ -22,6 +22,7 @@ public class CheatManager : MonoBehaviour
     HUDisplay hud;
     PlayerHealth playerHealth;
     PlayerMovement playerMovement;
+    EnemyHealth enemyHealth;
     string textInput;
     public InputField inputField;
 
@@ -33,15 +34,20 @@ public class CheatManager : MonoBehaviour
         hud = GameObject.Find("HUDCanvas").GetComponent<HUDisplay>();
         playerHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();
         playerMovement = GameObject.Find("Player").GetComponent<PlayerMovement>();
+        enemyHealth = GameObject.Find("Enemy").GetComponent<EnemyHealth>();
     }
 
     private void Update()
     {
-        if (UnityEngine.Input.GetKeyDown(KeyCode.Y)) // Open
+        // Reason: the read string conditionals do not contain Y or Z character
+        // Open input field by pressing Y key
+        if (UnityEngine.Input.GetKeyDown(KeyCode.Y)) 
         {
             hud.OpenInput();
         }
-        if (UnityEngine.Input.GetKeyDown(KeyCode.Z)) // Close
+
+        // Close input field by pressing Z key
+        if (UnityEngine.Input.GetKeyDown(KeyCode.Z)) 
         {
             hud.CloseInput();
         }
@@ -103,7 +109,9 @@ public class CheatManager : MonoBehaviour
 
     private void ActivateOneHitKill()
     {
-        // TODO
+        enemyHealth.SetCheatOneHitKill(true);
+        hud.OpenPanel("One Hit Kill Cheat Activated!");
+        cheats[(int)CheatsType.ONEHITKILL] = true;
     }
 
     private void ActivateXTwoSpeed()
@@ -117,6 +125,7 @@ public class CheatManager : MonoBehaviour
     {
         playerHealth.SetCheatNoDamage(false);
         playerMovement.ResetSpeed();
+        enemyHealth.SetCheatOneHitKill(false);
         hud.OpenPanel("Successfully Reset Cheat(s)!");
     }
 
