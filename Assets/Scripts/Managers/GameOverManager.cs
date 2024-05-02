@@ -29,6 +29,8 @@ namespace Nightmare {
 
         private void ResetLevel() {
             ScoreManager.score = 0;
+            // lm.LoadInitialLevel();
+            // playerHealth.ResetPlayer();
             timerManager.ResetTimer();
         }
     }

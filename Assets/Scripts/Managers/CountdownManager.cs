@@ -31,7 +31,7 @@ public class CountdownManager : MonoBehaviour {
     }
 
     private void LoadMenuScene() {
-        SceneManager.LoadScene("Menu");
+        SceneManager.LoadScene("Menu", LoadSceneMode.Single);
     }
 
     public void ResetCountdown() {
