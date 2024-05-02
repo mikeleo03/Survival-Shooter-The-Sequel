@@ -2607,8 +2607,8 @@ CanvasGroup:
   m_GameObject: {fileID: 1139190131}
   m_Enabled: 1
   m_Alpha: 1
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
 --- !u!114 &1139190136
 MonoBehaviour:
@@ -3223,7 +3223,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1506604690}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -40}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3672,7 +3672,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7b6e7c3c78b01d4eb3cc6223c46fc2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 0}
   countdownTime: 10
   countdownDisplay: {fileID: 1664263449}
 --- !u!1 &1693354704
@@ -4432,7 +4431,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1863767944}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -40}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4537,7 +4536,7 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1863767944}
-  m_CullTransparentMesh: 1
+  m_CullTransparentMesh: 0
 --- !u!1 &1878018287
 GameObject:
   m_ObjectHideFlags: 0
