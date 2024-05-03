@@ -34,7 +34,7 @@ public class CheatManager : MonoBehaviour
         hud = GameObject.Find("HUDCanvas").GetComponent<HUDisplay>();
         playerHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();
         playerMovement = GameObject.Find("Player").GetComponent<PlayerMovement>();
-        enemyHealth = GameObject.Find("Enemy").GetComponent<EnemyHealth>();
+        enemyHealth = GameObject.Find("GameManager").GetComponent<EnemyHealth>();
     }
 
     private void Update()
