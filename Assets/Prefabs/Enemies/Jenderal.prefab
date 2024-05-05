@@ -177,7 +177,6 @@ GameObject:
   - component: {fileID: 11489230}
   - component: {fileID: 8253350}
   - component: {fileID: -6620328187992343354}
-  - component: {fileID: 1365331777603741750}
   - component: {fileID: -3932758777418565364}
   m_Layer: 6
   m_Name: Jenderal
@@ -451,20 +450,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f58c1d9ce56e1749830b8aebe8ba3bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1365331777603741750
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 124990}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 825e6e0215d690a4b8d9b37c3ec9211d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyToSpawn: {fileID: 100002, guid: e5171f72421770240bd7c3989fe351e3, type: 3}
-  spawnTimer: 15
 --- !u!54 &-3932758777418565364
 Rigidbody:
   m_ObjectHideFlags: 0

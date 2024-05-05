@@ -169,6 +169,7 @@ MonoBehaviour:
   sinkSpeed: 2.5
   scoreValue: 11
   deathClip: {fileID: 8300000, guid: 62366b8d2c37a49dca550841c741317f, type: 3}
+  isCheatOneHitKill: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -331,7 +332,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyToSpawn: {fileID: 100002, guid: e5171f72421770240bd7c3989fe351e3, type: 3}
-  spawnTimer: 15
+  spawnTimer: 25
 --- !u!1 &100002
 GameObject:
   m_ObjectHideFlags: 0
