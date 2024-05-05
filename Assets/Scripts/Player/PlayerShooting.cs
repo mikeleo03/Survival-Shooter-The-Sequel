@@ -4,6 +4,7 @@ using System.Text;
 using UnitySampleAssets.CrossPlatformInput;
 using System.Collections.Generic;
 using System;
+using UnityEngine.InputSystem;
 
 namespace Nightmare
 {
@@ -24,8 +25,18 @@ namespace Nightmare
   
         private UnityAction listener;
 
+        // Input actions
+        PlayerInput pInput;
+        InputAction fire, grenadeAct, changeWeapon, scroll;
+
         void Awake ()
         {
+            pInput = GetComponent<PlayerInput>();
+            fire = pInput.actions["Fire"];
+            grenadeAct = pInput.actions["Grenade"];
+            changeWeapon = pInput.actions["ChangeWeapon"];
+            scroll = pInput.actions["Scroll"];
+
             timer = 0;
             ChangeWeapon(0);
             AdjustGrenadeStock(0);
@@ -35,6 +46,27 @@ namespace Nightmare
             EventManager.StartListening("GrenadePickup", CollectGrenade);
 
             StartPausible();
+        }
+
+        private void OnEnable()
+        {
+            fire.Enable();
+            grenadeAct.Enable();
+            changeWeapon.Enable();
+            scroll.Enable();
+
+            changeWeapon.performed += OnChangeWeaponInput;
+
+        }
+
+        private void OnDisable()
+        {
+            changeWeapon.performed -= OnChangeWeaponInput;
+
+            fire.Disable();
+            grenadeAct.Disable();
+            changeWeapon.Disable();
+            scroll.Disable();
         }
 
         void OnDestroy()
@@ -53,35 +85,24 @@ namespace Nightmare
 
             currWeapon.damagePerShot = Mathf.RoundToInt(realWeaponDamage * damagePercent);
 
-            if (Input.GetAxis("Mouse ScrollWheel") != 0)
+            if (scroll.ReadValue<float>() != 0)
             {
-                currWeaponIdx -= Mathf.RoundToInt(Mathf.Sign(Input.GetAxis("Mouse ScrollWheel")));
+                currWeaponIdx -= Mathf.RoundToInt(Mathf.Sign(scroll.ReadValue<float>()));
                 ChangeWeapon(currWeaponIdx);
-            }
-
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                ChangeWeapon(0);
-            } else if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                ChangeWeapon(1);
-            } else if (Input.GetKeyDown(KeyCode.Alpha3))
-            {
-                ChangeWeapon(2);
             }
 
 #if !MOBILE_INPUT
             if (timer >= currWeapon.timeBetweenBullets && Time.timeScale != 0)
             {
                 // If the Fire1 button is being press and it's time to fire...
-                if (Input.GetButton("Fire2") && grenadeStock > 0)
+                if (grenadeAct.IsPressed() && grenadeStock > 0)
                 {
                     // ... shoot a grenade.
                     ShootGrenade();
                 }
 
                 // If the Fire1 button is being press and it's time to fire...
-                else if (Input.GetButton("Fire1"))
+                else if (fire.IsPressed())
                 {
                     // ... shoot the gun.
                     Shoot();
@@ -90,7 +111,7 @@ namespace Nightmare
             
 #else
             // If there is input on the shoot direction stick and it's time to fire...
-            if ((CrossPlatformInputManager.GetAxisRaw("Mouse X") != 0 || CrossPlatformInputManager.GetAxisRaw("Mouse Y") != 0) && timer >= timeBetweenBullets)
+            if ((CrossPlatformInputManager.GetAxisRaw("Mouse X") != 0 || CrossPlatformInputManager.GetAxisRaw("Mouse Y") != 0) && timer >= currWeapon.timeBetweenBullets)
             {
                 // ... shoot the gun
                 Shoot();
@@ -108,6 +129,11 @@ namespace Nightmare
         public void DisableEffects ()
         {
             currWeapon.DisableEffects();
+        }
+
+        void OnChangeWeaponInput(InputAction.CallbackContext ctx)
+        {
+            ChangeWeapon(Mathf.RoundToInt(ctx.ReadValue<float>()-1));
         }
 
         void ChangeWeapon(int idx)

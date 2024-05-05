@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnitySampleAssets.CrossPlatformInput;
 
 namespace Nightmare
@@ -9,6 +10,9 @@ namespace Nightmare
         public float speed = 6f;            // The speed that the player will move at.
         public float prevSpeed;             // For twice speed cheat purpose
 
+        // Input actions
+        PlayerInput pInput;
+        InputAction move;
 
         Vector3 movement;                   // The vector to store the direction of the player's movement.
         Animator anim;                      // Reference to the animator component.
@@ -20,6 +24,8 @@ namespace Nightmare
 
         void Awake ()
         {
+            pInput = GetComponent<PlayerInput>();
+            move = pInput.actions["Move"];
 #if !MOBILE_INPUT
             // Create a layer mask for the floor layer.
             floorMask = LayerMask.GetMask ("Floor");
@@ -35,6 +41,16 @@ namespace Nightmare
             StartPausible();
         }
 
+        private void OnEnable()
+        {
+            move.Enable();
+        }
+
+        private void OnDisable()
+        {
+            move.Disable();
+        }
+
         void OnDestroy()
         {
             StopPausible();
@@ -46,8 +62,8 @@ namespace Nightmare
                 return;
 
             // Store the input axes.
-            float h = CrossPlatformInputManager.GetAxisRaw("Horizontal");
-            float v = CrossPlatformInputManager.GetAxisRaw("Vertical");
+            float h = move.ReadValue<Vector2>().x;
+            float v = move.ReadValue<Vector2>().y;
 
             // Move the player around the scene.
             Move (h, v);
