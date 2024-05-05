@@ -305,7 +305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ea9a6ed18654d14db02bf0076cfe488, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visionRange: 8
+  visionRange: 12
   hearingRange: 20
   wanderDistance: 40
   idleTimeRange: {x: 0.5, y: 2}

@@ -10216,7 +10216,7 @@ MonoBehaviour:
   hearingRange: 32
   wanderDistance: 20
   idleTimeRange: {x: 2, y: 6}
-  psychicLevels: 0.05
+  psychicLevels: 1
   timer: 0
 --- !u!114 &11402556
 MonoBehaviour:
@@ -10234,6 +10234,7 @@ MonoBehaviour:
   sinkSpeed: 2.5
   scoreValue: 77
   deathClip: {fileID: 8300000, guid: 8c615fd0429f34edf85539d70279360d, type: 3}
+  isCheatOneHitKill: 0
 --- !u!114 &11415352
 MonoBehaviour:
   m_ObjectHideFlags: 0
