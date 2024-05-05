@@ -44,7 +44,6 @@ public class Shotgun : Weapons
                     // ... the enemy should take damage.
                     // Damage is lower the farther the enemy is.
                     int finalDamage = Mathf.Max(10, Mathf.RoundToInt(damagePerShot - hit.distance/range*damagePerShot));
-                    Debug.Log(finalDamage);
                     enemyHealth.TakeDamage(finalDamage, hit.point);
                 }
             }
