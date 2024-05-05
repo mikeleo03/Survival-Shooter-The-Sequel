@@ -22,11 +22,10 @@ public class CheatManager : MonoBehaviour
     HUDisplay hud;
     PlayerHealth playerHealth;
     PlayerMovement playerMovement;
-    EnemyHealth enemyHealth;
     string textInput;
     public InputField inputField;
 
-    // Cheats
+    public static bool GlobalIsCheatOneHitKill = false; // Flag for One Hit Kill Cheat
     bool[] cheats = new bool[4];
 
     private void Start()
@@ -34,20 +33,19 @@ public class CheatManager : MonoBehaviour
         hud = GameObject.Find("HUDCanvas").GetComponent<HUDisplay>();
         playerHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();
         playerMovement = GameObject.Find("Player").GetComponent<PlayerMovement>();
-        enemyHealth = GameObject.Find("GameManager").GetComponent<EnemyHealth>();
     }
 
     private void Update()
     {
         // Reason: the read string conditionals do not contain Y or Z character
         // Open input field by pressing Y key
-        if (UnityEngine.Input.GetKeyDown(KeyCode.Y)) 
+        if (UnityEngine.Input.GetKeyDown(KeyCode.Y))
         {
             hud.OpenInput();
         }
 
         // Close input field by pressing Z key
-        if (UnityEngine.Input.GetKeyDown(KeyCode.Z)) 
+        if (UnityEngine.Input.GetKeyDown(KeyCode.Z))
         {
             hud.CloseInput();
         }
@@ -98,6 +96,7 @@ public class CheatManager : MonoBehaviour
             hud.CloseInput();
             return;
         }
+        return;
     }
 
     private void ActivateNoDamage()
@@ -109,7 +108,7 @@ public class CheatManager : MonoBehaviour
 
     private void ActivateOneHitKill()
     {
-        enemyHealth.SetCheatOneHitKill(true);
+        StartCoroutine(SetOneHitKill(true));
         hud.OpenPanel("One Hit Kill Cheat Activated!");
         cheats[(int)CheatsType.ONEHITKILL] = true;
     }
@@ -125,24 +124,42 @@ public class CheatManager : MonoBehaviour
     {
         playerHealth.SetCheatNoDamage(false);
         playerMovement.ResetSpeed();
-        enemyHealth.SetCheatOneHitKill(false);
+        StopCoroutine(SetOneHitKill(false));
+        GlobalIsCheatOneHitKill = false;
         hud.OpenPanel("Successfully Reset Cheat(s)!");
     }
 
     public void LoadCheat(bool[] gatheredCheats)
     {
-        if (gatheredCheats[(int) CheatsType.NODAMAGE])
+        if (gatheredCheats[(int)CheatsType.NODAMAGE])
         {
             ActivateNoDamage();
         }
-        if (gatheredCheats[(int) CheatsType.ONEHITKILL])
+        if (gatheredCheats[(int)CheatsType.ONEHITKILL])
         {
             ActivateOneHitKill();
         }
-        if (gatheredCheats[(int) CheatsType.XTWOSPEED])
+        if (gatheredCheats[(int)CheatsType.XTWOSPEED])
         {
             ActivateXTwoSpeed();
         }
     }
 
+    private IEnumerator SetOneHitKill(bool isActive) 
+    {
+        GlobalIsCheatOneHitKill = isActive;
+        while (true) {
+            // Get an array of all EnemyHealth scripts
+            EnemyHealth[] allEnemies = FindObjectsOfType<EnemyHealth>();
+
+            // Loop and set isCheatOneHitKill to true on each enemy
+            foreach (EnemyHealth eHealth in allEnemies)
+            {
+                eHealth.isCheatOneHitKill = GlobalIsCheatOneHitKill;
+            }
+
+            yield return null;
+        }
+            
+    }
 }

@@ -18,7 +18,6 @@ namespace Nightmare
 
         // Cheat One Hit Kill
         public bool isCheatOneHitKill = false;
-        public static bool IsActiveCheatOneHitKill = false; // For indicator to change isCheatOneHitKill
 
         void Awake ()
         {
@@ -43,8 +42,6 @@ namespace Nightmare
 
         void Update ()
         {
-            SetCheatOneHitKill(IsActiveCheatOneHitKill);
-
             if (IsDead())
             {
                 transform.Translate (-Vector3.up * sinkSpeed * Time.deltaTime);
@@ -60,26 +57,10 @@ namespace Nightmare
             return (currentHealth <= 0f);
         }
 
-        // Activate or deactivate cheat one hit kill
-        public void SetCheatOneHitKill(bool isActive)
-        {
-            // Get an array of all EnemyHealth scripts
-            EnemyHealth[] allEnemies = FindObjectsOfType<EnemyHealth>();
-
-            // Loop and set isCheatOneHitKill to true on each enemy
-            foreach (EnemyHealth eHealth in allEnemies)
-            {
-                eHealth.isCheatOneHitKill = isActive;
-            }
-
-            // Change indicator
-            IsActiveCheatOneHitKill = isActive;
-        }
-
         public void TakeDamage (int amount, Vector3 hitPoint)
         {
             if (!IsDead())
-            {  
+            {
                 // Cheat one hit kill
                 if (isCheatOneHitKill)
                 {
