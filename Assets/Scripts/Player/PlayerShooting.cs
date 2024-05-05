@@ -88,8 +88,7 @@ namespace Nightmare
 
             if (scroll.ReadValue<float>() != 0)
             {
-                currWeaponIdx -= Mathf.RoundToInt(Mathf.Sign(scroll.ReadValue<float>()));
-                ChangeWeapon(currWeaponIdx);
+                IncOrDecWeapon(-Mathf.RoundToInt(Mathf.Sign(scroll.ReadValue<float>())));
             }
 
             if (timer >= currWeapon.timeBetweenBullets && Time.timeScale != 0)
@@ -113,7 +112,8 @@ namespace Nightmare
                 {
                     if (touch.startScreenPosition != Vector2.zero)
                     {
-                        if (touch.startScreenPosition.x > Screen.width / 2)
+                        if (touch.startScreenPosition.x > Screen.width / 2 &&
+                            touch.startScreenPosition.x < Screen.width-Screen.width/7)
                         {
                             Shoot();
                         }
@@ -166,6 +166,12 @@ namespace Nightmare
             realWeaponDamage = currWeapon.damagePerShot;
         }
 
+        public void IncOrDecWeapon(int amount)
+        {
+            currWeaponIdx += amount;
+            ChangeWeapon(currWeaponIdx);
+        }
+
         void Shoot ()
         {
             // Reset the timer.
@@ -195,15 +201,18 @@ namespace Nightmare
             GrenadeManager.grenades = grenadeStock;
         }
 
-        void ShootGrenade()
+        public void ShootGrenade()
         {
-            AdjustGrenadeStock(-1);
-            timer = currWeapon.timeBetweenBullets - grenadeFireDelay;
-            GameObject clone = PoolManager.Pull("Grenade", transform.position, Quaternion.identity);
-            EventManager.TriggerEvent("ShootGrenade", grenadeSpeed * transform.forward);
-            //GameObject clone = Instantiate(grenade, transform.position, Quaternion.identity);
-            //Grenade grenadeClone = clone.GetComponent<Grenade>();
-            //grenadeClone.Shoot(grenadeSpeed * transform.forward);
+            if (timer >= currWeapon.timeBetweenBullets && Time.timeScale != 0)
+            {
+                AdjustGrenadeStock(-1);
+                timer = currWeapon.timeBetweenBullets - grenadeFireDelay;
+                GameObject clone = PoolManager.Pull("Grenade", transform.position, Quaternion.identity);
+                EventManager.TriggerEvent("ShootGrenade", grenadeSpeed * transform.forward);
+                //GameObject clone = Instantiate(grenade, transform.position, Quaternion.identity);
+                //Grenade grenadeClone = clone.GetComponent<Grenade>();
+                //grenadeClone.Shoot(grenadeSpeed * transform.forward);
+            }
         }
     }
 }

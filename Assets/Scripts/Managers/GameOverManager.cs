@@ -8,6 +8,7 @@ namespace Nightmare {
         private PlayerHealth playerHealth;
         [SerializeField] private TimerManager timerManager;
         [SerializeField] private CountdownManager countdownManager;
+        [SerializeField] GameObject mobileHUD;
         Animator anim;
         LevelManager lm;
 
@@ -18,10 +19,14 @@ namespace Nightmare {
             playerHealth = FindObjectOfType<PlayerHealth>();
             anim = GetComponent<Animator>();
             lm = FindObjectOfType<LevelManager>();
+#if MOBILE_INPUT
+            mobileHUD.SetActive(true);
+#endif
         }
 
         void Update() {
             if (playerHealth.currentHealth <= 0) {
+                mobileHUD.SetActive(false);
                 anim.SetTrigger("GameOver");
                 countdownManager.StartCountdown();
             }

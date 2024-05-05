@@ -83,7 +83,7 @@ namespace Nightmare
                     {
                         h = currDelta.x;
                         v = currDelta.y;
-                    } else
+                    } else if (touch.startScreenPosition.x < Screen.width - Screen.width / 7)
                     {
                         lookDir = currDelta;
                     }
