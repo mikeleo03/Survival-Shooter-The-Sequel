@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Playables;
 using UnityEngine.Video;
 
@@ -20,7 +21,26 @@ namespace Nightmare
         private VideoPlayer videoPlayer;
         private int currentCinematic;
 
+        private Controls control;
+        private InputAction skip;
+
         // Use this for initialization
+        private void Awake()
+        {
+            control = new Controls();
+            skip = control.UI.Skip;
+        }
+
+        private void OnEnable()
+        {
+            skip.Enable();
+        }
+
+        private void OnDisable()
+        {
+            skip.Disable();
+        }
+
         void Start()
         {
             cinematicTimeline = this.GetComponent<PlayableDirector>();
@@ -39,7 +59,7 @@ namespace Nightmare
         {
             if (currentCinematic >= 0)
             {
-                if (Input.GetKeyDown(KeyCode.Space))
+                if (skip.WasPressedThisFrame())
                 {
                     SkipCinematic();
                 }

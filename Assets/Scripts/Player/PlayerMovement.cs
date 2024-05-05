@@ -1,7 +1,8 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnitySampleAssets.CrossPlatformInput;
+using EnchancedTouch = UnityEngine.InputSystem.EnhancedTouch;
+using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 
 namespace Nightmare
 {
@@ -20,6 +21,8 @@ namespace Nightmare
 #if !MOBILE_INPUT
         int floorMask;                      // A layer mask so that a ray can be cast just at gameobjects on the floor layer.
         float camRayLength = 100f;          // The length of the ray from the camera into the scene.
+#else 
+        Vector2 lookDir;
 #endif
 
         void Awake ()
@@ -29,6 +32,8 @@ namespace Nightmare
 #if !MOBILE_INPUT
             // Create a layer mask for the floor layer.
             floorMask = LayerMask.GetMask ("Floor");
+#else 
+            EnchancedTouch.EnhancedTouchSupport.Enable();
 #endif
 
             // Set up references.
@@ -62,9 +67,29 @@ namespace Nightmare
                 return;
 
             // Store the input axes.
+#if !MOBILE_INPUT
             float h = move.ReadValue<Vector2>().x;
             float v = move.ReadValue<Vector2>().y;
+#else
+            float h = 0;
+            float v = 0;
 
+            foreach (var touch in Touch.activeTouches)
+            {
+                if (touch.startScreenPosition != Vector2.zero) {
+                    Vector2 currDelta = (
+                            touch.screenPosition - touch.startScreenPosition).normalized;
+                    if (touch.startScreenPosition.x < Screen.width / 2)
+                    {
+                        h = currDelta.x;
+                        v = currDelta.y;
+                    } else
+                    {
+                        lookDir = currDelta;
+                    }
+                }
+            }
+#endif
             // Move the player around the scene.
             Move (h, v);
 
@@ -93,7 +118,7 @@ namespace Nightmare
         {
 #if !MOBILE_INPUT
             // Create a ray from the mouse cursor on screen in the direction of the camera.
-            Ray camRay = Camera.main.ScreenPointToRay (Input.mousePosition);
+            Ray camRay = Camera.main.ScreenPointToRay (Mouse.current.position.ReadValue());
 
             // Create a RaycastHit variable to store information about what was hit by the ray.
             RaycastHit floorHit;
@@ -115,7 +140,7 @@ namespace Nightmare
             }
 #else
 
-            Vector3 turnDir = new Vector3(CrossPlatformInputManager.GetAxisRaw("Mouse X") , 0f , CrossPlatformInputManager.GetAxisRaw("Mouse Y"));
+            Vector3 turnDir = new Vector3(lookDir.x, 0f, lookDir.y);
 
             if (turnDir != Vector3.zero)
             {

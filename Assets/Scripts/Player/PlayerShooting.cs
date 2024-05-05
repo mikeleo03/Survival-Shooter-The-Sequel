@@ -5,6 +5,7 @@ using UnitySampleAssets.CrossPlatformInput;
 using System.Collections.Generic;
 using System;
 using UnityEngine.InputSystem;
+using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 
 namespace Nightmare
 {
@@ -91,9 +92,9 @@ namespace Nightmare
                 ChangeWeapon(currWeaponIdx);
             }
 
-#if !MOBILE_INPUT
             if (timer >= currWeapon.timeBetweenBullets && Time.timeScale != 0)
             {
+#if !MOBILE_INPUT
                 // If the Fire1 button is being press and it's time to fire...
                 if (grenadeAct.IsPressed() && grenadeStock > 0)
                 {
@@ -107,16 +108,20 @@ namespace Nightmare
                     // ... shoot the gun.
                     Shoot();
                 }
-            }
-            
 #else
-            // If there is input on the shoot direction stick and it's time to fire...
-            if ((CrossPlatformInputManager.GetAxisRaw("Mouse X") != 0 || CrossPlatformInputManager.GetAxisRaw("Mouse Y") != 0) && timer >= currWeapon.timeBetweenBullets)
-            {
-                // ... shoot the gun
-                Shoot();
-            }
+                foreach (var touch in Touch.activeTouches)
+                {
+                    if (touch.startScreenPosition != Vector2.zero)
+                    {
+                        if (touch.startScreenPosition.x > Screen.width / 2)
+                        {
+                            Shoot();
+                        }
+                    }
+                }
 #endif
+            }
+
             // If the timer has exceeded the proportion of timeBetweenBullets that the effects should be displayed for...
             if(timer >= currWeapon.timeBetweenBullets * currWeapon.effectsDisplayTime)
             {
