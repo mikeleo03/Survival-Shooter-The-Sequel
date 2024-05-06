@@ -16,6 +16,7 @@ public class DialogueManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 0;
         textComponent.text = string.Empty;
         talkerComponent.text = string.Empty;
         StartDialogue();
@@ -51,7 +52,7 @@ public class DialogueManager : MonoBehaviour
         foreach (char c in lines[index].ToCharArray())
         {
             textComponent.text += c;
-            yield return new WaitForSeconds(textSpeed);
+            yield return new WaitForSecondsRealtime(textSpeed);
         }
     }
 
@@ -67,6 +68,7 @@ public class DialogueManager : MonoBehaviour
         else
         {
             gameObject.SetActive(false);
+            Time.timeScale = 1;
         }
     }
 }
