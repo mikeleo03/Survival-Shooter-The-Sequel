@@ -24,6 +24,9 @@ namespace Nightmare
   
         private UnityAction listener;
 
+        // Cheat One Hit Kill
+        public bool isCheatOneHitKill = false;
+
         void Awake ()
         {
             timer = 0;
@@ -50,6 +53,16 @@ namespace Nightmare
 
             // Add the time since Update was last called to the timer.
             timer += Time.deltaTime;
+
+            // Cheat One Hit Kill
+            if (isCheatOneHitKill)
+            {
+                damagePercent = 900; // Use the number greater than each enemy's max health
+            }
+            else
+            {
+                damagePercent = 1; // Reset if cheat is not active
+            }
 
             currWeapon.damagePerShot = Mathf.RoundToInt(realWeaponDamage * damagePercent);
 
@@ -173,6 +186,11 @@ namespace Nightmare
             //GameObject clone = Instantiate(grenade, transform.position, Quaternion.identity);
             //Grenade grenadeClone = clone.GetComponent<Grenade>();
             //grenadeClone.Shoot(grenadeSpeed * transform.forward);
+        }
+
+        public void SetCheatOneHitKill(bool isActive)
+        {
+            isCheatOneHitKill = isActive;
         }
     }
 }

@@ -22,10 +22,10 @@ public class CheatManager : MonoBehaviour
     HUDisplay hud;
     PlayerHealth playerHealth;
     PlayerMovement playerMovement;
+    PlayerShooting playerShooting;
     string textInput;
     public InputField inputField;
 
-    public static bool GlobalIsCheatOneHitKill = false; // Flag for One Hit Kill Cheat
     bool[] cheats = new bool[4];
 
     private void Start()
@@ -33,6 +33,7 @@ public class CheatManager : MonoBehaviour
         hud = GameObject.Find("HUDCanvas").GetComponent<HUDisplay>();
         playerHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();
         playerMovement = GameObject.Find("Player").GetComponent<PlayerMovement>();
+        playerShooting = GameObject.Find("Player").GetComponentInChildren<PlayerShooting>();
     }
 
     private void Update()
@@ -108,7 +109,7 @@ public class CheatManager : MonoBehaviour
 
     private void ActivateOneHitKill()
     {
-        StartCoroutine(SetOneHitKill(true));
+        playerShooting.SetCheatOneHitKill(true);
         hud.OpenPanel("One Hit Kill Cheat Activated!");
         cheats[(int)CheatsType.ONEHITKILL] = true;
     }
@@ -124,8 +125,7 @@ public class CheatManager : MonoBehaviour
     {
         playerHealth.SetCheatNoDamage(false);
         playerMovement.ResetSpeed();
-        StopCoroutine(SetOneHitKill(false));
-        GlobalIsCheatOneHitKill = false;
+        playerShooting.SetCheatOneHitKill(false);
         hud.OpenPanel("Successfully Reset Cheat(s)!");
     }
 
@@ -143,23 +143,5 @@ public class CheatManager : MonoBehaviour
         {
             ActivateXTwoSpeed();
         }
-    }
-
-    private IEnumerator SetOneHitKill(bool isActive) 
-    {
-        GlobalIsCheatOneHitKill = isActive;
-        while (true) {
-            // Get an array of all EnemyHealth scripts
-            EnemyHealth[] allEnemies = FindObjectsOfType<EnemyHealth>();
-
-            // Loop and set isCheatOneHitKill to true on each enemy
-            foreach (EnemyHealth eHealth in allEnemies)
-            {
-                eHealth.isCheatOneHitKill = GlobalIsCheatOneHitKill;
-            }
-
-            yield return null;
-        }
-            
     }
 }
