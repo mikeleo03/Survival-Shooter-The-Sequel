@@ -17,9 +17,6 @@ namespace Nightmare
         CapsuleCollider capsuleCollider;
         EnemyMovement enemyMovement;
 
-        // Cheat One Hit Kill
-        public bool isCheatOneHitKill = false;
-
         // Orbs
         public GameObject increaseDamageOrbPrefab; // Increase Damage Orb
         public GameObject restoreHealthOrbPrefab; // Restore Health Orb
@@ -67,12 +64,6 @@ namespace Nightmare
         {
             if (!IsDead())
             {
-                // Cheat one hit kill
-                if (isCheatOneHitKill)
-                {
-                    currentHealth = 0;
-                }
-
                 enemyAudio.Play();
                 currentHealth -= amount;
 
@@ -99,12 +90,15 @@ namespace Nightmare
             switch (orbType)
             {
                 case 0:
+                    Debug.Log("Get ID");
                     orbPrefab = increaseDamageOrbPrefab;
                     break;
                 case 1:
+                    Debug.Log("Get RH");
                     orbPrefab = restoreHealthOrbPrefab;
                     break;
                 case 2:
+                    Debug.Log("Get IS");
                     orbPrefab = increaseSpeedOrbPrefab;
                     break;
                 default:

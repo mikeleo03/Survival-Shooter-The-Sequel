@@ -109,7 +109,7 @@ public class CheatManager : MonoBehaviour
 
     private void ActivateOneHitKill()
     {
-        playerShooting.SetCheatOneHitKill(true);
+        playerShooting.ActivateCheatOneHitKill();
         hud.OpenPanel("One Hit Kill Cheat Activated!");
         cheats[(int)CheatsType.ONEHITKILL] = true;
     }
@@ -125,7 +125,7 @@ public class CheatManager : MonoBehaviour
     {
         playerHealth.SetCheatNoDamage(false);
         playerMovement.ResetSpeed();
-        playerShooting.SetCheatOneHitKill(false);
+        playerShooting.ResetPlayerDamage();
         hud.OpenPanel("Successfully Reset Cheat(s)!");
     }
 
