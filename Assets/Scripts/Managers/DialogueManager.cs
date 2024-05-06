@@ -34,6 +34,7 @@ public class DialogueManager : MonoBehaviour
             {
                 StopAllCoroutines();
                 textComponent.text = lines[index];
+                talkerComponent.text = talker[index];
             }
         }
     }
