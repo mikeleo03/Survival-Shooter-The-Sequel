@@ -174,5 +174,15 @@ namespace Nightmare
             //Grenade grenadeClone = clone.GetComponent<Grenade>();
             //grenadeClone.Shoot(grenadeSpeed * transform.forward);
         }
+
+        public void ResetPlayerDamage()
+        {
+            damagePercent = 1;
+        }
+
+        public void ActivateCheatOneHitKill()
+        {
+            damagePercent = 900;
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Nightmare
 {
@@ -18,8 +19,10 @@ namespace Nightmare
         CapsuleCollider capsuleCollider;
         EnemyMovement enemyMovement;
 
-        // Cheat One Hit Kill
-        public bool isCheatOneHitKill = false;
+        // Orbs
+        public GameObject increaseDamageOrbPrefab; // Increase Damage Orb
+        public GameObject restoreHealthOrbPrefab; // Restore Health Orb
+        public GameObject increaseSpeedOrbPrefab; // Increase Speed Orb
 
         void Awake ()
         {
@@ -63,17 +66,12 @@ namespace Nightmare
         {
             if (!IsDead())
             {
-                // Cheat one hit kill
-                if (isCheatOneHitKill)
-                {
-                    currentHealth = 0;
-                }
-
                 enemyAudio.Play();
                 currentHealth -= amount;
 
                 if (currentHealth <= 0)
                 {
+
                     Death();
                 }
                 else
@@ -88,6 +86,34 @@ namespace Nightmare
 
         void Death ()
         {
+            int orbType = Random.Range(0, 3);
+            GameObject orbPrefab;
+
+            switch (orbType)
+            {
+                case 0:
+                    orbPrefab = increaseDamageOrbPrefab;
+                    break;
+                case 1:
+                    orbPrefab = restoreHealthOrbPrefab;
+                    break;
+                case 2:
+                    orbPrefab = increaseSpeedOrbPrefab;
+                    break;
+                default:
+                    Debug.LogError("Invalid orb type");
+                    return;
+            }
+
+            if (orbPrefab != null)
+            {
+                GameObject orbInstance = Instantiate(orbPrefab, this.transform.position, Quaternion.identity);
+            }
+            else
+            {
+                Debug.LogError("Orb prefab is null");
+            }
+
             EventManager.TriggerEvent("Sound", this.transform.position);
             anim.SetTrigger ("Dead");
 
