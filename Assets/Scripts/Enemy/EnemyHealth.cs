@@ -86,33 +86,39 @@ namespace Nightmare
 
         void Death ()
         {
-            int orbType = Random.Range(0, 3);
-            GameObject orbPrefab;
+            float orbSpawnProbability = 0.3f; // Orb Spawn Probability
 
-            switch (orbType)
+            if (Random.value <= orbSpawnProbability)
             {
-                case 0:
-                    orbPrefab = increaseDamageOrbPrefab;
-                    break;
-                case 1:
-                    orbPrefab = restoreHealthOrbPrefab;
-                    break;
-                case 2:
-                    orbPrefab = increaseSpeedOrbPrefab;
-                    break;
-                default:
-                    Debug.LogError("Invalid orb type");
-                    return;
-            }
+                int orbType = Random.Range(0, 3);
+                GameObject orbPrefab;
 
-            if (orbPrefab != null)
-            {
-                GameObject orbInstance = Instantiate(orbPrefab, this.transform.position, Quaternion.identity);
+                switch (orbType)
+                {
+                    case 0:
+                        orbPrefab = increaseDamageOrbPrefab;
+                        break;
+                    case 1:
+                        orbPrefab = restoreHealthOrbPrefab;
+                        break;
+                    case 2:
+                        orbPrefab = increaseSpeedOrbPrefab;
+                        break;
+                    default:
+                        Debug.LogError("Invalid orb type");
+                        return;
+                }
+
+                if (orbPrefab != null)
+                {
+                    GameObject orbInstance = Instantiate(orbPrefab, this.transform.position, Quaternion.identity);
+                }
+                else
+                {
+                    Debug.LogError("Orb prefab is null");
+                }
             }
-            else
-            {
-                Debug.LogError("Orb prefab is null");
-            }
+            
 
             EventManager.TriggerEvent("Sound", this.transform.position);
             anim.SetTrigger ("Dead");
