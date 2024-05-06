@@ -90,15 +90,12 @@ namespace Nightmare
             switch (orbType)
             {
                 case 0:
-                    Debug.Log("Get ID");
                     orbPrefab = increaseDamageOrbPrefab;
                     break;
                 case 1:
-                    Debug.Log("Get RH");
                     orbPrefab = restoreHealthOrbPrefab;
                     break;
                 case 2:
-                    Debug.Log("Get IS");
                     orbPrefab = increaseSpeedOrbPrefab;
                     break;
                 default:

@@ -7,6 +7,7 @@ namespace Nightmare
     public class PlayerMovement : PausibleObject
     {
         public float speed = 6f;            // The speed that the player will move at.
+        public float originalSpeed = 6f;    // For speed orb purpose
         public float prevSpeed;             // For twice speed cheat purpose
 
 
@@ -137,7 +138,7 @@ namespace Nightmare
         // Activate twice speed cheat
         public void ActivateCheatXTwoSpeed()
         {
-            if (this.speed * 2 > prevSpeed * 2)
+            if (this.speed > prevSpeed)
                 return;
             this.speed *= 2;
         }
