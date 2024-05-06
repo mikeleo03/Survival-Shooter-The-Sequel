@@ -2,14 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Orbs : MonoBehaviour
+public abstract class Orbs : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        // Destroy object after 5 seconds
-        Destroy(gameObject, 5f);
-    }
+    public abstract void ApplyOrbEffect(GameObject Player);
 
     void OnTriggerEnter(Collider other)
     {
@@ -21,9 +16,11 @@ public class Orbs : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    // Start is called before the first frame update
+    void Start()
     {
-        
+        // Destroy object after 5 seconds
+        Destroy(gameObject, 5f);
     }
 }
+
