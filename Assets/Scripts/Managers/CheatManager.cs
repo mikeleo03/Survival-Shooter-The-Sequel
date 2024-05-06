@@ -23,6 +23,12 @@ public class CheatManager : MonoBehaviour
     PlayerHealth playerHealth;
     PlayerMovement playerMovement;
     PlayerShooting playerShooting;
+
+    // Orbs
+    public GameObject increaseDamageOrbPrefab; // Increase Damage Orb
+    public GameObject restoreHealthOrbPrefab; // Restore Health Orb
+    public GameObject increaseSpeedOrbPrefab; // Increase Speed Orb
+
     string textInput;
     public InputField inputField;
 
@@ -87,6 +93,16 @@ public class CheatManager : MonoBehaviour
             hud.CloseInput();
             return;
         }
+        if (textInput == "GETORB")
+        {
+            ActivateGetRandomOrb();
+            // Reset the input field text
+            inputField.text = "";
+
+            // Close the input field
+            hud.CloseInput();
+            return;
+        }
         if (textInput == "RESETCHEATS")
         {
             ActivateReset();
@@ -119,6 +135,39 @@ public class CheatManager : MonoBehaviour
         playerMovement.ActivateCheatXTwoSpeed();
         hud.OpenPanel("Two Times Speed Cheat Activated!");
         cheats[(int)CheatsType.XTWOSPEED] = true;
+    }
+
+    private void ActivateGetRandomOrb()
+    {
+        int orbType = Random.Range(0, 3);
+        GameObject orbPrefab;
+
+        switch (orbType)
+        {
+            case 0:
+                orbPrefab = increaseDamageOrbPrefab;
+                break;
+            case 1:
+                orbPrefab = restoreHealthOrbPrefab;
+                break;
+            case 2:
+                orbPrefab = increaseSpeedOrbPrefab;
+                break;
+            default:
+                Debug.LogError("Invalid orb type");
+                return;
+        }
+
+        if (orbPrefab != null)
+        {
+            GameObject orbInstance = Instantiate(orbPrefab, playerMovement.transform.position, Quaternion.identity);
+        }
+        else
+        {
+            Debug.LogError("Orb prefab is null");
+        }
+
+        hud.OpenPanel("Get Random Orb Cheat Activated!");
     }
 
     private void ActivateReset()

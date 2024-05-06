@@ -659,6 +659,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ff677c124d78674988964b59f11fec4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  increaseDamageOrbPrefab: {fileID: 5928907673800009345, guid: eb4274969abbb7944acd2b2888294bba, type: 3}
+  restoreHealthOrbPrefab: {fileID: 108012326883433976, guid: cbc7c018424f013499d4f4feb5ff52db, type: 3}
+  increaseSpeedOrbPrefab: {fileID: 6926906167359508983, guid: 842d4cdd8e369c745bf786e8286b0723, type: 3}
   inputField: {fileID: 7602487}
 --- !u!1 &177326011
 GameObject:
@@ -5100,7 +5103,6 @@ Transform:
   - {fileID: 461218465}
   - {fileID: 1222083999}
   - {fileID: 125324177}
-  - {fileID: 2096416321}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1796129604
@@ -5145,6 +5147,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ff677c124d78674988964b59f11fec4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  increaseDamageOrbPrefab: {fileID: 0}
+  restoreHealthOrbPrefab: {fileID: 0}
+  increaseSpeedOrbPrefab: {fileID: 0}
   inputField: {fileID: 0}
 --- !u!114 &1796129607
 MonoBehaviour:
@@ -5772,7 +5777,9 @@ MonoBehaviour:
   sinkSpeed: 2.5
   scoreValue: 10
   deathClip: {fileID: 0}
-  isCheatOneHitKill: 0
+  increaseDamageOrbPrefab: {fileID: 0}
+  restoreHealthOrbPrefab: {fileID: 0}
+  increaseSpeedOrbPrefab: {fileID: 0}
 --- !u!54 &1889514487
 Rigidbody:
   m_ObjectHideFlags: 0
