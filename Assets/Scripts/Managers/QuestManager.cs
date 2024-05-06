@@ -30,12 +30,12 @@ public class QuestManager : MonoBehaviour
 
     void LateUpdate()
     {
-        questText.text = "Quest : \n";
+        questText.text = "Quest\n";
         if (currQuest.timeLimit > 0)
         {
-            questText.text += "Time limit : " + 
+            questText.text += "Batas waktu : " + 
                 currQuest.timeLimit.ToString()
-                + " seconds\n";
+                + " detik\n";
             double currTime = timerManager.GetCurrentTime();
             if (currTime >= currQuest.timeLimit)
             {
@@ -55,15 +55,15 @@ public class QuestManager : MonoBehaviour
 
         if (currQuest.kerocoReq > 0 || currQuest.kepalaReq > 0 || currQuest.jenderalReq > 0 || currQuest.rajaReq > 0)
         {
-            questText.text += "Enemies left :\n";
+            questText.text += "Musuh tersisa\n";
             questText.text += currQuest.kerocoReq > 0 ? 
-                "Keroco : " + kerocoCount.ToString() + "/" + currQuest.kerocoReq.ToString() + "\n" : "";
+                "- Keroco : " + kerocoCount.ToString() + "/" + currQuest.kerocoReq.ToString() + "\n" : "";
             questText.text += currQuest.kepalaReq > 0 ?
-                "Kepala Keroco : " + kepalaCount.ToString() + "/" + currQuest.kepalaReq.ToString() + "\n" : "";
+                "- Kepala Keroco : " + kepalaCount.ToString() + "/" + currQuest.kepalaReq.ToString() + "\n" : "";
             questText.text += currQuest.jenderalReq > 0 ?
-                "Jenderal : " + jenderalCount.ToString() + "/" + currQuest.jenderalReq.ToString() + "\n" : "";
+                "- Jenderal : " + jenderalCount.ToString() + "/" + currQuest.jenderalReq.ToString() + "\n" : "";
             questText.text += currQuest.rajaReq > 0 ?
-                "Raja : " + rajaCount.ToString() + "/" + currQuest.rajaReq.ToString() + "\n" : "";
+                "- Raja : " + rajaCount.ToString() + "/" + currQuest.rajaReq.ToString() + "\n" : "";
             if (kerocoCount >= currQuest.kerocoReq && kepalaCount >= currQuest.kepalaReq &&
                 jenderalCount >= currQuest.jenderalReq && rajaCount >= currQuest.rajaReq
                 && !loadedNext)
