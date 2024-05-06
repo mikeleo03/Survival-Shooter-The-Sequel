@@ -114,9 +114,8 @@ namespace Nightmare
 
             if (orbPrefab != null)
             {
-                GameObject orb = Instantiate(orbPrefab, this.transform.position, Quaternion.identity);
-                Debug.Log("Enemy position: " + this.transform.position);
-                Debug.Log("Orb position: " + orb.transform.position);
+                GameObject orbInstance = Instantiate(orbPrefab, this.transform.position, Quaternion.identity);
+                orbInstance.AddComponent<Orbs>();
             }
             else
             {
