@@ -3,8 +3,10 @@ using UnityEngine.UIElements;
 
 namespace Nightmare
 {
+    public enum enemyTypes { Keroco, Kepala, Jenderal, Raja };
     public class EnemyHealth : MonoBehaviour
     {
+        public enemyTypes type;
         public int startingHealth = 100;
         public float sinkSpeed = 2.5f;
         public int scoreValue = 10;
@@ -125,6 +127,19 @@ namespace Nightmare
             SetKinematics(true);
 
             ScoreManager.score += scoreValue;
+            if (type == enemyTypes.Keroco)
+            {
+                QuestManager.kerocoCount++;
+            } else if (type == enemyTypes.Kepala)
+            {
+                QuestManager.kepalaCount++;
+            } else if (type == enemyTypes.Jenderal)
+            {
+                QuestManager.jenderalCount++;
+            } else
+            {
+                QuestManager.rajaCount++;
+            }
         }
 
         public int CurrentHealth()
