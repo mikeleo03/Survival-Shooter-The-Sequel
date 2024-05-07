@@ -23,4 +23,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Quest04.unity
     guid: edc9a7d9952dc44489c1218e4a2c4e17
-  m_configObjects: {}
+  m_configObjects:
+    UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: bdc52526ddc3306489d10221ce26f4ee, type: 2}
+    com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 52a9862de58a2844cbb9a6de8093a794, type: 2}

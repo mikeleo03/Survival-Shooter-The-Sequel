@@ -67,15 +67,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
-                },
-                {
-                    "name": "Touch",
-                    "type": "Value",
-                    "id": "9c4ae70a-793c-4353-a827-02b589e14849",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -294,7 +285,7 @@
                     "path": "<Touchscreen>/touch2/tap",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Touch",
+                    "groups": "Touch;XR",
                     "action": "Cheat",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -340,17 +331,6 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Scroll",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "8f007a3a-e6b8-4a84-a4e9-4507cc68862e",
-                    "path": "<Touchscreen>/touch0/delta",
-                    "interactions": "",
-                    "processors": "NormalizeVector2",
-                    "groups": "Touch",
-                    "action": "Touch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

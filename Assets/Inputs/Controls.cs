@@ -89,15 +89,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""Touch"",
-                    ""type"": ""Value"",
-                    ""id"": ""9c4ae70a-793c-4353-a827-02b589e14849"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -316,7 +307,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""path"": ""<Touchscreen>/touch2/tap"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Touch"",
+                    ""groups"": ""Touch;XR"",
                     ""action"": ""Cheat"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -362,17 +353,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Scroll"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""8f007a3a-e6b8-4a84-a4e9-4507cc68862e"",
-                    ""path"": ""<Touchscreen>/touch0/delta"",
-                    ""interactions"": """",
-                    ""processors"": ""NormalizeVector2"",
-                    ""groups"": ""Touch"",
-                    ""action"": ""Touch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -987,7 +967,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player_Cheat = m_Player.FindAction("Cheat", throwIfNotFound: true);
         m_Player_Grenade = m_Player.FindAction("Grenade", throwIfNotFound: true);
         m_Player_Scroll = m_Player.FindAction("Scroll", throwIfNotFound: true);
-        m_Player_Touch = m_Player.FindAction("Touch", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1069,7 +1048,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Cheat;
     private readonly InputAction m_Player_Grenade;
     private readonly InputAction m_Player_Scroll;
-    private readonly InputAction m_Player_Touch;
     public struct PlayerActions
     {
         private @Controls m_Wrapper;
@@ -1081,7 +1059,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @Cheat => m_Wrapper.m_Player_Cheat;
         public InputAction @Grenade => m_Wrapper.m_Player_Grenade;
         public InputAction @Scroll => m_Wrapper.m_Player_Scroll;
-        public InputAction @Touch => m_Wrapper.m_Player_Touch;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1112,9 +1089,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Scroll.started += instance.OnScroll;
             @Scroll.performed += instance.OnScroll;
             @Scroll.canceled += instance.OnScroll;
-            @Touch.started += instance.OnTouch;
-            @Touch.performed += instance.OnTouch;
-            @Touch.canceled += instance.OnTouch;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1140,9 +1114,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Scroll.started -= instance.OnScroll;
             @Scroll.performed -= instance.OnScroll;
             @Scroll.canceled -= instance.OnScroll;
-            @Touch.started -= instance.OnTouch;
-            @Touch.performed -= instance.OnTouch;
-            @Touch.canceled -= instance.OnTouch;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1340,7 +1311,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnCheat(InputAction.CallbackContext context);
         void OnGrenade(InputAction.CallbackContext context);
         void OnScroll(InputAction.CallbackContext context);
-        void OnTouch(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
