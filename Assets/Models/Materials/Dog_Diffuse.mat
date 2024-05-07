@@ -8,13 +8,13 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Dog_Diffuse
-  m_Shader: {fileID: 4800000, guid: cfd716deb3b6e5e47b16e11f8e65db43, type: 3}
+  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords:
+  m_ValidKeywords:
   - _EMISSION
   - _NORMALMAP
+  m_InvalidKeywords: []
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -25,10 +25,6 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _AddTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 2800000, guid: e663d809eabc044488775ecd912da71e, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -74,7 +70,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.654
     - _GlossyReflections: 1
-    - _Metallic: 0.16
+    - _Metallic: 0.091
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02

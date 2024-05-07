@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: -3425513320783047542}
   - component: {fileID: 1710111314302422553}
   - component: {fileID: 6463223805953395358}
-  - component: {fileID: 8114352596397094925}
-  - component: {fileID: 3565244428136871259}
+  - component: {fileID: 3670450924342021335}
+  - component: {fileID: 3105907903363696943}
+  - component: {fileID: 4091910057909131193}
   m_Layer: 0
   m_Name: Enemy Pet
   m_TagString: Pet
@@ -36,7 +37,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5994871670130569482}
-  - {fileID: 7415347744642967892}
+  - {fileID: 6292430350735309942}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &2978678365177196666
@@ -126,13 +127,34 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 3
   m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8114352596397094925
+--- !u!95 &3670450924342021335
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7022846624846827769}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 04eb5d04905503f4e821d22cfd8fb2f8, type: 3}
+  m_Controller: {fileID: 9100000, guid: 01a4305115e797046b18f38c9ca7420b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3105907903363696943
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -150,18 +172,27 @@ MonoBehaviour:
   idleTimeRange: {x: 0, y: 0}
   psychicLevels: 0.2
   timer: 0
---- !u!114 &3565244428136871259
-MonoBehaviour:
+--- !u!135 &4091910057909131193
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7022846624846827769}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3d6e23648618224a9462d5db1783202, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  serializedVersion: 3
+  m_Radius: 7
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7802705231799653789
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,7 +276,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1001 &7415347744643363796
+--- !u!1001 &6292430350734911222
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -302,8 +333,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04eb5d04905503f4e821d22cfd8fb2f8, type: 3}
---- !u!4 &7415347744642967892 stripped
+--- !u!4 &6292430350735309942 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 04eb5d04905503f4e821d22cfd8fb2f8, type: 3}
-  m_PrefabInstance: {fileID: 7415347744643363796}
+  m_PrefabInstance: {fileID: 6292430350734911222}
   m_PrefabAsset: {fileID: 0}

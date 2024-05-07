@@ -11,8 +11,7 @@ namespace Nightmare
         public int attackDamage = 10;
 
         // Animator anim;
-        GameObject player;
-        PlayerHealth playerHealth;
+     
         List<GameObject> nearbyEnemies;
         float timer;
 

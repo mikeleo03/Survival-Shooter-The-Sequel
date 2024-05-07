@@ -2,28 +2,29 @@
 using System.Collections;
 using UnityEngine.AI;
 using UnityEngine.Events;
+using Unity.VisualScripting;
 
 namespace Nightmare
 {
-    public class HealingPetMovement : PausibleObject
+    public class EnemyPetMovement : PausibleObject
     {
-        public float visionRange = 10f;
-        public float hearingRange = 20f;
+   
         public float wanderDistance = 10f;
         public Vector2 idleTimeRange;
         [Range(0f,1f)]
-        public float psychicLevels = 0.2f;
-
+    
         float currentVision; 
         Transform player;
         PlayerHealth playerHealth;
+        Animator anim; 
+
+        bool isPlayerInRange;
 
         NavMeshAgent nav;
         public float timer = 0f;
-        float healthTimer = 0f;
-
         void Awake ()
         {
+            anim = GetComponent<Animator>();
             player = GameObject.FindGameObjectWithTag ("Player").transform;
             playerHealth = player.GetComponent <PlayerHealth> ();
             nav = GetComponent<NavMeshAgent>();
@@ -34,9 +35,25 @@ namespace Nightmare
         {
             nav.enabled = true;
             ClearPath();
-            ScaleVision(1f);
-            IsPsychic();
+            AvoidPlayer();
             timer = 0f;
+        }
+
+        void OnTriggerEnter (Collider other)
+        {
+            Debug.Log("OnTriggerEnter" + isPlayerInRange);
+            if(other.CompareTag("Player"))
+            {
+                isPlayerInRange = true;
+            }
+        }
+
+        void OnTriggerExit (Collider other)
+        {
+            if(other.CompareTag("Player"))
+            {
+                isPlayerInRange = false;
+            }
         }
 
         void ClearPath()
@@ -47,30 +64,36 @@ namespace Nightmare
 
         void Update ()
         {
-            
-            healthTimer += Time.deltaTime;
-            if (healthTimer >= 1f)
-            {
-                healthTimer = 0f;
-                if (playerHealth.currentHealth < 100 - 10) {
-                    playerHealth.currentHealth += 10;
-                    Debug.Log(playerHealth.currentHealth);
-                }
-            }
-
             if (!isPaused)
             {
-                // If both the enemy and the player have health left...
-                // if (enemyHealth.CurrentHealth() > 0 && playerHealth.currentHealth > 0)
-                // {
-                    LookForPlayer();
+                if (playerHealth.currentHealth > 0)
+                {
+                    if (isPlayerInRange) AvoidPlayer();
                     WanderOrIdle();
+                    Animate();
+                }
+                else
+                {
+                    nav.enabled = false;
+                }
+            }
+        }
 
-            //     }
-            //     else
-            //     {
-            //         nav.enabled = false;
-            //     }
+        void AvoidPlayer()
+        {
+            Debug.Log("Avoiding Player");
+            GoToPosition(new Vector3(-player.position.x, -player.position.y, -player.position.z));
+        }
+
+        void Animate()
+        {
+            if (nav.velocity.magnitude < 0.1f)
+            {
+                anim.SetBool("IsWalking", false);
+            }
+            else
+            {
+                anim.SetBool("IsWalking", true);
             }
         }
 
@@ -92,36 +115,11 @@ namespace Nightmare
                 nav.isStopped = false;
         }
 
-        private void LookForPlayer()
-        {
-            TestSense(player.position, currentVision);
-        }
-
-        private void HearPoint(Vector3 position)
-        {
-            TestSense(position, hearingRange);
-        }
-
-        private void TestSense(Vector3 position, float senseRange)
-        {
-            if (Vector3.Distance(this.transform.position, position) <= senseRange)
-            {
-                GoToPosition(position);
-            }
-        }
-
-        public void GoToPlayer()
-        {
-            GoToPosition(player.position);
-        }
 
         private void GoToPosition(Vector3 position)
         {
             timer = -1f;
-            // if (!enemyHealth.IsDead())
-            // {
-                SetDestination(position);
-            // }
+            SetDestination(position);
         }
 
         private void SetDestination(Vector3 position)
@@ -152,11 +150,6 @@ namespace Nightmare
             }
         }
 
-        private void IsPsychic()
-        {
-            GoToPlayer();
-        }
-
         private Vector3 GetRandomPoint(float distance, int layermask)
         {
             Vector3 randomPoint = UnityEngine.Random.insideUnitSphere * distance + this.transform.position;;
@@ -167,11 +160,6 @@ namespace Nightmare
             return navHit.position;
         }
 
-        public void ScaleVision(float scale)
-        {
-            currentVision = visionRange * scale;
-        }
-
         private int GetCurrentNavArea()
         {
             NavMeshHit navHit;
@@ -180,13 +168,5 @@ namespace Nightmare
             return navHit.mask;
         }
 
-        //void OnDrawGizmos()
-        //{
-        //    Vector3 position = this.transform.position;
-        //    Gizmos.color = Color.red;
-        //    Gizmos.DrawWireSphere(position, currentVision);
-        //    Gizmos.color = Color.yellow;
-        //    Gizmos.DrawWireSphere(position, hearingRange);
-        //}
     }
 }

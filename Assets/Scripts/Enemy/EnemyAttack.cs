@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
+using Unity.VisualScripting;
 
 namespace Nightmare
 {
@@ -15,6 +17,8 @@ namespace Nightmare
         Weapons heldWeapon;
         bool playerInRange;
         float timer;
+        int buff = 0;
+        float buffRate = 0.2f;
 
         void Awake ()
         {
@@ -84,14 +88,27 @@ namespace Nightmare
         {
             // Reset the timer.
             timer = 0f;
-
+        
+            int totalDamage = (int) Math.Round(attackDamage  + attackDamage * buff * buffRate);
             // If the player has health to lose...
             if(playerHealth.currentHealth > 0)
             {
                 // ... damage the player.
                 heldWeapon.Shoot();
-                playerHealth.TakeDamage (attackDamage);
+                playerHealth.TakeDamage (totalDamage);
             }
         }
+
+        public void Buff()
+        {
+            buff++;
+        }
+
+        public void Debuff()
+        {
+            buff++;
+        }
     }
+
+    
 }
