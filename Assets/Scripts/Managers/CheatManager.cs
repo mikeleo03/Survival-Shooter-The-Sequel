@@ -23,6 +23,7 @@ public class CheatManager : MonoBehaviour
     PlayerHealth playerHealth;
     PlayerMovement playerMovement;
     PlayerShooting playerShooting;
+    LevelManager levelManager;
 
     // Orbs
     public GameObject increaseDamageOrbPrefab; // Increase Damage Orb
@@ -40,6 +41,7 @@ public class CheatManager : MonoBehaviour
         playerHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();
         playerMovement = GameObject.Find("Player").GetComponent<PlayerMovement>();
         playerShooting = GameObject.Find("Player").GetComponentInChildren<PlayerShooting>();
+        levelManager = FindObjectOfType<LevelManager>();
     }
 
     private void Update()
@@ -65,39 +67,38 @@ public class CheatManager : MonoBehaviour
         // Activate cheats based on text input
         if (textInput == "NODAMAGE")
         {
-            ActivateNoDamage();
             ResetInputField();
+            ActivateNoDamage();
             return;
         }
         if (textInput == "ONEHITKILL")
         {
-            ActivateOneHitKill();
             ResetInputField();
+            ActivateOneHitKill();
             return;
         }
         if (textInput == "XTWOSPEED")
         {
-            ActivateXTwoSpeed();
             ResetInputField();
+            ActivateXTwoSpeed();
             return;
         }
         if (textInput == "GETORB")
         {
-            ActivateGetRandomOrb();
             ResetInputField();
+            ActivateGetRandomOrb();
             return;
         }
         if (textInput == "SKIPLEVEL")
         {
-            ActivateSkipLevel();
-            // Reset the input field text
             ResetInputField();
+            ActivateSkipLevel();
             return;
         }
         if (textInput == "RESETCHEATS")
         {
-            ActivateReset();
             ResetInputField();
+            ActivateReset();
             return;
         }
         return;
@@ -164,11 +165,14 @@ public class CheatManager : MonoBehaviour
         }
 
         hud.OpenPanel("Get Random Orb Cheat Activated!");
+        cheats[(int)CheatsType.GETORB] = true;
     }
 
     private void ActivateSkipLevel()
     {
-        Debug.Log("SKIP");
+        levelManager.AdvanceLevel();
+        hud.OpenPanel("Skip Level Cheat Activated!");
+        cheats[(int)CheatsType.SKIPLEVEL] = true;
     }
 
     private void ActivateReset()
