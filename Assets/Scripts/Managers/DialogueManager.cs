@@ -10,13 +10,17 @@ public class DialogueManager : MonoBehaviour
     public string[] lines;
     public string[] talker;
     public float textSpeed;
+    [SerializeField] private Canvas QuestCanvas;
+    [SerializeField] private Canvas DialogueCanvas;
 
     private int index;
+    private bool isDialogueFinished = false;
 
     // Start is called before the first frame update
     void Start()
     {
         Time.timeScale = 0;
+        QuestCanvas.enabled = false;
         textComponent.text = string.Empty;
         talkerComponent.text = string.Empty;
         StartDialogue();
@@ -27,15 +31,32 @@ public class DialogueManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (textComponent.text == lines[index])
+            if (isDialogueFinished == false)
             {
-                NextLine();
+                if (textComponent.text == lines[index])
+                {
+                    NextLine();
+                }
+                else
+                {
+                    StopAllCoroutines();
+                    textComponent.text = lines[index];
+                    talkerComponent.text = talker[index];
+                }
             }
             else
             {
-                StopAllCoroutines();
-                textComponent.text = lines[index];
-                talkerComponent.text = talker[index];
+                if (QuestCanvas.enabled == false)
+                {
+                    QuestCanvas.enabled = true;
+                    DialogueCanvas.enabled = false;
+                } 
+                else
+                {
+                    QuestCanvas.enabled = false;
+                    gameObject.SetActive(false);
+                    Time.timeScale = 1;
+                }
             }
         }
     }
@@ -64,11 +85,12 @@ public class DialogueManager : MonoBehaviour
             textComponent.text = string.Empty;
             talkerComponent.text = string.Empty;
             StartCoroutine(TypeLine());
-        }
-        else
-        {
-            gameObject.SetActive(false);
-            Time.timeScale = 1;
+
+            // Check is it end?
+            if (index == lines.Length - 1)
+            {
+                isDialogueFinished = true;
+            }
         }
     }
 }

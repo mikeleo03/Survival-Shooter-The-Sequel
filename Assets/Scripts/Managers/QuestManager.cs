@@ -1,4 +1,5 @@
 using Nightmare;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -16,11 +17,33 @@ public class QuestManager : MonoBehaviour
     [SerializeField] LevelManager lm;
     [SerializeField] PlayerHealth ph;
     [SerializeField] Text questText;
+    [SerializeField] Canvas CompletedCanvas;
 
     private void Awake()
     {
         currQuest = questList[0];
+        CompletedCanvas.enabled = false;
         loadedNext = false;
+    }
+
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0)) 
+        {
+            if (CompletedCanvas.enabled == true)
+            {
+                CompletedCanvas.enabled = false;
+                Time.timeScale = 1;
+                if (lm.GetCurrLevel() < 3)
+                {
+                    lm.AdvanceLevel();
+                }
+                else
+                {
+                    SceneManager.LoadScene("Cutscene02", LoadSceneMode.Single);
+                }
+            }
+        }
     }
 
     void OnEnable()
@@ -43,7 +66,11 @@ public class QuestManager : MonoBehaviour
                 {
                     loadedNext = true;
                     timerManager.ResetTimer();
-                    lm.AdvanceLevel();
+                    if (CompletedCanvas.enabled == false)
+                    {
+                        Time.timeScale = 0;
+                        CompletedCanvas.enabled = true;
+                    }
                 }
                 else
                 {
@@ -70,7 +97,11 @@ public class QuestManager : MonoBehaviour
             {
                 loadedNext = true;
                 timerManager.ResetTimer();
-                lm.AdvanceLevel();
+                if (CompletedCanvas.enabled == false)
+                {
+                    Time.timeScale = 0;
+                    CompletedCanvas.enabled = true;
+                }
             }
         }
     }
