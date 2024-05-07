@@ -31,6 +31,17 @@ namespace Nightmare
             hitParticles = GetComponentInChildren <ParticleSystem> ();
             capsuleCollider = GetComponent <CapsuleCollider> ();
             enemyMovement = this.GetComponent<EnemyMovement>();
+
+            int difficultyLvl = PlayerPrefs.GetInt("Difficulty", 0);
+            if (difficultyLvl == 1)
+            {
+                startingHealth = Mathf.RoundToInt(startingHealth * 1.5f);
+                scoreValue *= 2;
+            } else if (difficultyLvl == 2)
+            {
+                startingHealth = Mathf.RoundToInt(startingHealth * 2f);
+                scoreValue *= 3;
+            }
         }
 
         void OnEnable()
