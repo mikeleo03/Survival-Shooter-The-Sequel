@@ -94,25 +94,20 @@ namespace Nightmare
             }
 
 #if !MOBILE_INPUT
-            if (grenadeTimer >= grenadeFireDelay && Time.timeScale != 0)
+            // If the Fire1 button is being press and it's time to fire...
+            if (grenadeAct.IsPressed() && grenadeStock > 0)
             {
-#if !MOBILE_INPUT
-                // If the Fire1 button is being press and it's time to fire...
-                if (grenadeAct.IsPressed() && grenadeStock > 0)
-                {
-                    // ... shoot a grenade.
-                    ShootGrenade();
-                }
+                // ... shoot a grenade.
+                ShootGrenade();
             }
 
-            if (timer >= currWeapon.timeBetweenBullets && Time.timeScale != 0)
+            
+            // If the Fire1 button is being press and it's time to fire...
+            if (fire.IsPressed())
             {
-                // If the Fire1 button is being press and it's time to fire...
-                else if (fire.IsPressed())
-                {
-                    // ... shoot the gun.
-                    Shoot();
-                }
+                // ... shoot the gun.
+                Shoot();
+            }
 #else
                 foreach (var touch in Touch.activeTouches)
                 {
@@ -126,7 +121,6 @@ namespace Nightmare
                     }
                 }
 #endif
-            }
 
             // If the timer has exceeded the proportion of timeBetweenBullets that the effects should be displayed for...
             if(timer >= currWeapon.timeBetweenBullets * currWeapon.effectsDisplayTime)
@@ -180,9 +174,12 @@ namespace Nightmare
 
         void Shoot ()
         {
-            // Reset the timer.
-            timer = 0f;
-            currWeapon.Shoot();
+            if (timer >= currWeapon.timeBetweenBullets && Time.timeScale != 0)
+            {
+                // Reset the timer.
+                timer = 0f;
+                currWeapon.Shoot();
+            }
         }
 
         //private void ChangeGunLine(float midPoint)
@@ -209,13 +206,16 @@ namespace Nightmare
 
         void ShootGrenade()
         {
-            AdjustGrenadeStock(-1);
-            grenadeTimer = 0;
-            GameObject clone = PoolManager.Pull("Grenade", transform.position, Quaternion.identity);
-            EventManager.TriggerEvent("ShootGrenade", grenadeSpeed * transform.forward);
-            //GameObject clone = Instantiate(grenade, transform.position, Quaternion.identity);
-            //Grenade grenadeClone = clone.GetComponent<Grenade>();
-            //grenadeClone.Shoot(grenadeSpeed * transform.forward);
+            if (grenadeTimer >= grenadeFireDelay && Time.timeScale != 0)
+            {
+                AdjustGrenadeStock(-1);
+                grenadeTimer = 0;
+                GameObject clone = PoolManager.Pull("Grenade", transform.position, Quaternion.identity);
+                EventManager.TriggerEvent("ShootGrenade", grenadeSpeed * transform.forward);
+                //GameObject clone = Instantiate(grenade, transform.position, Quaternion.identity);
+                //Grenade grenadeClone = clone.GetComponent<Grenade>();
+                //grenadeClone.Shoot(grenadeSpeed * transform.forward);
+            }
         }
 
         public void ResetPlayerDamage()

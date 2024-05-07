@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -12,31 +13,45 @@ public class DialogueManager : MonoBehaviour
     public float textSpeed;
 
     private int index;
+    private Controls controls;
+    private InputAction click;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
+        controls = new Controls();
+        click = controls.UI.Click;
+
         Time.timeScale = 0;
         textComponent.text = string.Empty;
         talkerComponent.text = string.Empty;
         StartDialogue();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        if (Input.GetMouseButtonDown(0))
+        click.Enable();
+
+        click.performed += AdvanceDialog;
+    }
+
+    private void OnDisable()
+    {
+        click.performed -= AdvanceDialog;
+
+        click.Disable();
+    }
+
+    private void AdvanceDialog(InputAction.CallbackContext ctx)
+    {
+        if (textComponent.text == lines[index])
         {
-            if (textComponent.text == lines[index])
-            {
-                NextLine();
-            }
-            else
-            {
-                StopAllCoroutines();
-                textComponent.text = lines[index];
-                talkerComponent.text = talker[index];
-            }
+            NextLine();
+        }
+        else
+        {
+            StopAllCoroutines();
+            textComponent.text = lines[index];
+            talkerComponent.text = talker[index];
         }
     }
 
