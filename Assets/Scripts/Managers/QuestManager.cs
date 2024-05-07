@@ -34,7 +34,14 @@ public class QuestManager : MonoBehaviour
             {
                 CompletedCanvas.enabled = false;
                 Time.timeScale = 1;
-                lm.AdvanceLevel();
+                if (lm.GetCurrLevel() < 3)
+                {
+                    lm.AdvanceLevel();
+                }
+                else
+                {
+                    SceneManager.LoadScene("Cutscene02", LoadSceneMode.Single);
+                }
             }
         }
     }
