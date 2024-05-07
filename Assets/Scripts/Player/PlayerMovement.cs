@@ -24,6 +24,7 @@ namespace Nightmare
         float camRayLength = 100f;          // The length of the ray from the camera into the scene.
 #else 
         Vector2 lookDir;
+        int isAR;
 #endif
 
         void Awake ()
@@ -35,6 +36,7 @@ namespace Nightmare
             floorMask = LayerMask.GetMask ("Floor");
 #else 
             EnchancedTouch.EnhancedTouchSupport.Enable();
+            isAR = PlayerPrefs.GetInt("isAR", 0);
 #endif
 
             // Set up references.
@@ -84,7 +86,7 @@ namespace Nightmare
                     {
                         h = currDelta.x;
                         v = currDelta.y;
-                    } else if (touch.startScreenPosition.x < Screen.width - Screen.width / 7)
+                    } else if (touch.startScreenPosition.x < Screen.width - Screen.width / 7 && isAR == 0)
                     {
                         lookDir = currDelta;
                     }
@@ -105,7 +107,13 @@ namespace Nightmare
         void Move (float h, float v)
         {
             // Set the movement vector based on the axis input.
-            movement.Set (h, 0f, v);
+            if (isAR == 0)
+            {
+                movement.Set(h, 0f, v);
+            } else
+            {
+                movement = transform.right * h + transform.forward * v;
+            }
             
             // Normalise the movement vector and make it proportional to the speed per second.
             movement = movement.normalized * speed * Time.deltaTime;

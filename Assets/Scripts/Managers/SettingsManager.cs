@@ -7,11 +7,14 @@ public class SettingsManager : MonoBehaviour
     [SerializeField] TMP_InputField nameInput;
     [SerializeField] Slider effectSlider, musicSlider;
     [SerializeField] Toggle[] toggles;
+    [SerializeField] Toggle arToggle;
 
     private void Awake()
     {
         nameInput.text = PlayerPrefs.GetString("PlayerName", "");
         toggles[PlayerPrefs.GetInt("Difficulty", 0)].isOn = true;
+
+        arToggle.isOn = PlayerPrefs.GetInt("isAR", 0) != 0;
     }
 
     public void SetPlayerName(string name)
@@ -41,5 +44,10 @@ public class SettingsManager : MonoBehaviour
         {
             PlayerPrefs.SetInt("Difficulty", 2);
         }
+    }
+
+    public void SetIsAR(bool isTrue)
+    {
+        PlayerPrefs.SetInt("isAR", isTrue ?  1 : 0);
     }
 }

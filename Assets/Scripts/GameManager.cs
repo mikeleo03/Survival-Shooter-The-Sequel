@@ -6,7 +6,13 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour {
     static GameManager instance;
     public void startGame() {
-        SceneManager.LoadScene("Main", LoadSceneMode.Single);
+        if (PlayerPrefs.GetInt("isAR", 0) != 0)
+        {
+            SceneManager.LoadScene("AR", LoadSceneMode.Single);
+        } else
+        {
+            SceneManager.LoadScene("Main", LoadSceneMode.Single);
+        }
     }
 
     public void goToMenu() {
