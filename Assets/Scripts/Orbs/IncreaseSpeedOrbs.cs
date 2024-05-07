@@ -35,9 +35,9 @@ public class IncreaseSpeedOrbs : Orbs
 
     public override void ApplyOrbEffect()
     {
-        Debug.Log("APPLY");
         isEffectActive = true;
         playerMovement.speed = originalSpeed + originalSpeed * speedMultiplier;
+        playerMovement.prevSpeed = playerMovement.speed;
 
         // Disable the child objects of the orb
         foreach (Transform child in transform)
@@ -71,8 +71,8 @@ public class IncreaseSpeedOrbs : Orbs
         // If the current time is past the end time and the game object is not being destroyed, reset the speed
         if (Time.time >= endTime && !isDestroying)
         {
-            Debug.Log("RESET AND DESTROY");
             playerMovement.speed = originalSpeed;
+            playerMovement.prevSpeed = originalSpeed;
             isEffectActive = false;  // Set isEffectActive to false when the speed is reset
             isDestroying = true;
             Destroy(gameObject);
