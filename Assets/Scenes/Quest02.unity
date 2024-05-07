@@ -5534,6 +5534,7 @@ MonoBehaviour:
   textSpeed: 0.05
   QuestCanvas: {fileID: 115557951}
   DialogueCanvas: {fileID: 1473427762}
+  TalkerBox: {fileID: 237220550}
 --- !u!114 &1473427760
 MonoBehaviour:
   m_ObjectHideFlags: 0
