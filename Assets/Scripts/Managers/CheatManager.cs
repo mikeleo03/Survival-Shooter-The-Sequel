@@ -66,54 +66,50 @@ public class CheatManager : MonoBehaviour
         if (textInput == "NODAMAGE")
         {
             ActivateNoDamage();
-            // Reset the input field text
-            inputField.text = "";
-
-            // Close the input field
-            hud.CloseInput();
+            ResetInputField();
             return;
         }
         if (textInput == "ONEHITKILL")
         {
             ActivateOneHitKill();
-            // Reset the input field text
-            inputField.text = "";
-
-            // Close the input field
-            hud.CloseInput();
+            ResetInputField();
             return;
         }
         if (textInput == "XTWOSPEED")
         {
             ActivateXTwoSpeed();
-            // Reset the input field text
-            inputField.text = "";
-
-            // Close the input field
-            hud.CloseInput();
+            ResetInputField();
             return;
         }
         if (textInput == "GETORB")
         {
             ActivateGetRandomOrb();
+            ResetInputField();
+            return;
+        }
+        if (textInput == "SKIPLEVEL")
+        {
+            ActivateSkipLevel();
             // Reset the input field text
-            inputField.text = "";
-
-            // Close the input field
-            hud.CloseInput();
+            ResetInputField();
             return;
         }
         if (textInput == "RESETCHEATS")
         {
             ActivateReset();
-            // Reset the input field text
-            inputField.text = "";
-
-            // Close the input field
-            hud.CloseInput();
+            ResetInputField();
             return;
         }
         return;
+    }
+
+    private void ResetInputField()
+    {
+        // Reset the input field text
+        inputField.text = "";
+
+        // Close the input field
+        hud.CloseInput();
     }
 
     private void ActivateNoDamage()
@@ -168,6 +164,11 @@ public class CheatManager : MonoBehaviour
         }
 
         hud.OpenPanel("Get Random Orb Cheat Activated!");
+    }
+
+    private void ActivateSkipLevel()
+    {
+        Debug.Log("SKIP");
     }
 
     private void ActivateReset()
