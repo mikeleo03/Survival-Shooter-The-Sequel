@@ -23,7 +23,14 @@ public class CheatManager : MonoBehaviour
     HUDisplay hud;
     PlayerHealth playerHealth;
     PlayerMovement playerMovement;
-    EnemyHealth enemyHealth;
+    PlayerShooting playerShooting;
+    LevelManager levelManager;
+
+    // Orbs
+    public GameObject increaseDamageOrbPrefab; // Increase Damage Orb
+    public GameObject restoreHealthOrbPrefab; // Restore Health Orb
+    public GameObject increaseSpeedOrbPrefab; // Increase Speed Orb
+
     string textInput;
     public InputField inputField;
     bool cheatOpened;
@@ -31,7 +38,6 @@ public class CheatManager : MonoBehaviour
     Controls control;
     InputAction cheatInput;
 
-    // Cheats
     bool[] cheats = new bool[4];
 
     private void Awake()
@@ -43,7 +49,8 @@ public class CheatManager : MonoBehaviour
         hud = GameObject.Find("HUDCanvas").GetComponent<HUDisplay>();
         playerHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();
         playerMovement = GameObject.Find("Player").GetComponent<PlayerMovement>();
-        enemyHealth = GameObject.Find("GameManager").GetComponent<EnemyHealth>();
+        playerShooting = GameObject.Find("Player").GetComponentInChildren<PlayerShooting>();
+        levelManager = FindObjectOfType<LevelManager>();
     }
 
     private void OnEnable()
@@ -79,44 +86,50 @@ public class CheatManager : MonoBehaviour
         // Activate cheats based on text input
         if (textInput == "NODAMAGE")
         {
+            ResetInputField();
             ActivateNoDamage();
-            // Reset the input field text
-            inputField.text = "";
-
-            // Close the input field
-            hud.CloseInput();
             return;
         }
         if (textInput == "ONEHITKILL")
         {
+            ResetInputField();
             ActivateOneHitKill();
-            // Reset the input field text
-            inputField.text = "";
-
-            // Close the input field
-            hud.CloseInput();
             return;
         }
         if (textInput == "XTWOSPEED")
         {
+            ResetInputField();
             ActivateXTwoSpeed();
-            // Reset the input field text
-            inputField.text = "";
-
-            // Close the input field
-            hud.CloseInput();
+            return;
+        }
+        if (textInput == "GETORB")
+        {
+            ResetInputField();
+            ActivateGetRandomOrb();
+            return;
+        }
+        if (textInput == "SKIPLEVEL")
+        {
+            ResetInputField();
+            ActivateSkipLevel();
             return;
         }
         if (textInput == "RESETCHEATS")
         {
+            ResetInputField();
             ActivateReset();
-            // Reset the input field text
-            inputField.text = "";
-
-            // Close the input field
-            hud.CloseInput();
             return;
         }
+        return;
+    }
+
+    private void ResetInputField()
+    {
+        // Reset the input field text
+        inputField.text = "";
+
+        // Close the input field
+        hud.CloseInput();
     }
 
     private void ActivateNoDamage()
@@ -128,7 +141,7 @@ public class CheatManager : MonoBehaviour
 
     private void ActivateOneHitKill()
     {
-        enemyHealth.SetCheatOneHitKill(true);
+        playerShooting.ActivateCheatOneHitKill();
         hud.OpenPanel("One Hit Kill Cheat Activated!");
         cheats[(int)CheatsType.ONEHITKILL] = true;
     }
@@ -140,28 +153,68 @@ public class CheatManager : MonoBehaviour
         cheats[(int)CheatsType.XTWOSPEED] = true;
     }
 
+    private void ActivateGetRandomOrb()
+    {
+        int orbType = Random.Range(0, 3);
+        GameObject orbPrefab;
+
+        switch (orbType)
+        {
+            case 0:
+                orbPrefab = increaseDamageOrbPrefab;
+                break;
+            case 1:
+                orbPrefab = restoreHealthOrbPrefab;
+                break;
+            case 2:
+                orbPrefab = increaseSpeedOrbPrefab;
+                break;
+            default:
+                Debug.LogError("Invalid orb type");
+                return;
+        }
+
+        if (orbPrefab != null)
+        {
+            GameObject orbInstance = Instantiate(orbPrefab, playerMovement.transform.position, Quaternion.identity);
+        }
+        else
+        {
+            Debug.LogError("Orb prefab is null");
+        }
+
+        hud.OpenPanel("Get Random Orb Cheat Activated!");
+        cheats[(int)CheatsType.GETORB] = true;
+    }
+
+    private void ActivateSkipLevel()
+    {
+        levelManager.AdvanceLevel();
+        hud.OpenPanel("Skip Level Cheat Activated!");
+        cheats[(int)CheatsType.SKIPLEVEL] = true;
+    }
+
     private void ActivateReset()
     {
         playerHealth.SetCheatNoDamage(false);
         playerMovement.ResetSpeed();
-        enemyHealth.SetCheatOneHitKill(false);
+        playerShooting.ResetPlayerDamage();
         hud.OpenPanel("Successfully Reset Cheat(s)!");
     }
 
     public void LoadCheat(bool[] gatheredCheats)
     {
-        if (gatheredCheats[(int) CheatsType.NODAMAGE])
+        if (gatheredCheats[(int)CheatsType.NODAMAGE])
         {
             ActivateNoDamage();
         }
-        if (gatheredCheats[(int) CheatsType.ONEHITKILL])
+        if (gatheredCheats[(int)CheatsType.ONEHITKILL])
         {
             ActivateOneHitKill();
         }
-        if (gatheredCheats[(int) CheatsType.XTWOSPEED])
+        if (gatheredCheats[(int)CheatsType.XTWOSPEED])
         {
             ActivateXTwoSpeed();
         }
     }
-
 }

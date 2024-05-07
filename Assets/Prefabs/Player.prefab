@@ -164,7 +164,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grenade: {fileID: 1105787354104060, guid: 41a4c48eef428174cb5039adb608d30c, type: 3}
   grenadeSpeed: 400
-  grenadeFireDelay: 0.75
+  grenadeFireDelay: 3
   damagePercent: 1
   weaponsList:
   - {fileID: 6517554577502634727, guid: 654eb4aab37345147a96aba1eaf65063, type: 3}
@@ -324,7 +324,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 6
-  prevSpeed: 0
 --- !u!136 &13600000
 CapsuleCollider:
   m_ObjectHideFlags: 0

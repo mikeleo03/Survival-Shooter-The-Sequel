@@ -34,6 +34,11 @@ public class TimerManager : MonoBehaviour {
         return r;
     }
 
+    public double GetCurrentTime()
+    {
+        return time;
+    }
+
     public void StartTimer() {
         isRunning = true;
     }

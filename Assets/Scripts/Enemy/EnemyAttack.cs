@@ -25,6 +25,16 @@ namespace Nightmare
             anim = GetComponent <Animator> ();
             heldWeapon = GetComponentInChildren<Weapons>();
 
+            int difficultyLvl = PlayerPrefs.GetInt("Difficulty", 0);
+            if (difficultyLvl == 1)
+            {
+                attackDamage = Mathf.RoundToInt(attackDamage * 1.5f);
+            }
+            else if (difficultyLvl == 2)
+            {
+                attackDamage = Mathf.RoundToInt(attackDamage * 2f);
+            }
+
             StartPausible();
         }
 

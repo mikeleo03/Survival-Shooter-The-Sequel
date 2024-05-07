@@ -92,5 +92,10 @@ namespace Nightmare
             SceneManager.sceneLoaded -= OnSceneLoaded;
             SceneManager.sceneUnloaded -= OnSceneUnloaded;
         }
+
+        public int GetCurrLevel()
+        {
+            return currentLevel;
+        }
     }
 }
