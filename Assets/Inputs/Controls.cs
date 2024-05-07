@@ -312,6 +312,17 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""af54a20d-71ca-41b8-a113-71f7aa6c972c"",
+                    ""path"": ""<Touchscreen>/touch2/tap"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Touch"",
+                    ""action"": ""Cheat"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""fcb3c3f1-f136-4fed-ae1b-a46f9e0d82fe"",
                     ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
