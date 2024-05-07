@@ -12,6 +12,7 @@ public class DialogueManager : MonoBehaviour
     public float textSpeed;
     [SerializeField] private Canvas QuestCanvas;
     [SerializeField] private Canvas DialogueCanvas;
+    [SerializeField] private GameObject TalkerBox;
 
     private int index;
     private bool isDialogueFinished = false;
@@ -42,6 +43,7 @@ public class DialogueManager : MonoBehaviour
                     StopAllCoroutines();
                     textComponent.text = lines[index];
                     talkerComponent.text = talker[index];
+                    // TalkerBox.SetActive(!string.IsNullOrEmpty(talker[index]));
                 }
             }
             else
@@ -57,6 +59,19 @@ public class DialogueManager : MonoBehaviour
                     gameObject.SetActive(false);
                     Time.timeScale = 1;
                 }
+            }
+        }
+
+        // Check if talkerComponent is empty and disable the TalkerBox
+        if (TalkerBox != null)
+        {
+            if (string.IsNullOrEmpty(talkerComponent.text))
+            {
+                TalkerBox.SetActive(false);
+            }
+            else
+            {
+                TalkerBox.SetActive(true);
             }
         }
     }
