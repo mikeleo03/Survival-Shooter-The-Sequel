@@ -5,6 +5,18 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Windows;
 
+/* CHEATS DOCUMENTATION */
+/*
+ * NODAMAGE     : Player becomes invicible (HP do not decrease)
+ * ONEHITKILL   : Player deals one hit kill attack on enemies
+ * MOTHERLODE   : Player gets infinite money
+ * XTWOSPEED    : Player's movement becomes twice faster
+ * FULLHPPET    : Player's pet becomes invicible (HP do not increase)
+ * KILLPET      : Player's pet gets killed instantly
+ * GETORB       : Player gets random orb
+ * SKIPLEVEL    : Player skips 1 level
+ */
+
 public enum CheatsType
 {
     NODAMAGE,
