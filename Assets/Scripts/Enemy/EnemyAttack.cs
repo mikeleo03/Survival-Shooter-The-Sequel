@@ -20,6 +20,8 @@ namespace Nightmare
         int buff = 0;
         float buffRate = 0.2f;
 
+        GameObject allyPet;
+
         void Awake ()
         {
             // Setting up the references.
@@ -55,6 +57,10 @@ namespace Nightmare
                 // ... the player is in range.
                 playerInRange = true;
             }
+            if(other.gameObject.CompareTag("AllyPet"))
+            {
+                allyPet = other.gameObject;
+            }
         }
 
         void OnTriggerExit (Collider other)
@@ -64,6 +70,10 @@ namespace Nightmare
             {
                 // ... the player is no longer in range.
                 playerInRange = false;
+            }
+            if(other.gameObject == allyPet)
+            {
+                allyPet = null;
             }
         }
 
@@ -84,6 +94,9 @@ namespace Nightmare
             {
                 // ... attack.
                 Attack ();
+            } else if (timer >= timeBetweenAttacks && allyPet != null && enemyHealth.CurrentHealth() > 0)
+            {
+                AttackAllyPet();
             }
 
             // If the player has zero or less health...
@@ -106,6 +119,23 @@ namespace Nightmare
                 // ... damage the player.
                 heldWeapon.Shoot();
                 playerHealth.TakeDamage (totalDamage);
+            }
+        }
+
+        void AttackAllyPet ()
+        {
+            // Reset the timer.
+            timer = 0f;
+        
+            int totalDamage = (int) Math.Round(attackDamage  + attackDamage * buff * buffRate);
+            // If the player has health to lose...
+            AllyPetHealth allyPetHealth = allyPet.GetComponent<AllyPetHealth>();
+            
+            if(allyPetHealth.CurrentHealth() > 0)
+            {
+                // ... damage the player.
+                heldWeapon.Shoot();
+                allyPetHealth.TakeDamage (totalDamage);
             }
         }
 

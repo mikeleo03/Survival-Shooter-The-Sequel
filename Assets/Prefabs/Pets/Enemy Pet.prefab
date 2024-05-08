@@ -4919,7 +4919,7 @@ GameObject:
   - component: {fileID: 3602550947185119034}
   m_Layer: 6
   m_Name: Enemy Pet
-  m_TagString: Pet
+  m_TagString: EnemyPet
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

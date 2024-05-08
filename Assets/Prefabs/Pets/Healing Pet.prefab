@@ -17,9 +17,10 @@ GameObject:
   - component: {fileID: 112077284798668802}
   - component: {fileID: 2233282263561071573}
   - component: {fileID: -5055994461671483121}
+  - component: {fileID: 106813417300794050}
   m_Layer: 0
   m_Name: Healing Pet
-  m_TagString: Pet
+  m_TagString: AllyPet
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -208,6 +209,20 @@ MonoBehaviour:
   idleTimeRange: {x: 0, y: 0}
   psychicLevels: 0.2
   timer: 0
+--- !u!114 &106813417300794050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7022846624846827769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa57937dd9c8c814da3a4ab7dfb4fbd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingHealth: 50
+  sinkSpeed: 2.5
 --- !u!1 &7802705231799653789
 GameObject:
   m_ObjectHideFlags: 0

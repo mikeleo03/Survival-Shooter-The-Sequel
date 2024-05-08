@@ -18,9 +18,10 @@ GameObject:
   - component: {fileID: 132348842853780067}
   - component: {fileID: 5844981639974514901}
   - component: {fileID: 8194363426116593021}
+  - component: {fileID: 2757899900776092879}
   m_Layer: 0
   m_Name: Attacking Pet
-  m_TagString: Pet
+  m_TagString: AllyPet
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -215,6 +216,20 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 3
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2757899900776092879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7022846624846827769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa57937dd9c8c814da3a4ab7dfb4fbd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingHealth: 50
+  sinkSpeed: 2.5
 --- !u!1 &8278644761665043571
 GameObject:
   m_ObjectHideFlags: 0

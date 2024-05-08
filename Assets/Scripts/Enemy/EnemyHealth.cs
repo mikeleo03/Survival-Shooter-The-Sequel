@@ -4,7 +4,7 @@ using UnityEngine.UIElements;
 
 namespace Nightmare
 {
-    public enum enemyTypes { Keroco, Kepala, Jenderal, Raja };
+    public enum enemyTypes { Keroco, Kepala, Jenderal, Raja, Pet };
     public class EnemyHealth : MonoBehaviour
     {
         public enemyTypes type;
@@ -63,9 +63,13 @@ namespace Nightmare
 
         void Update ()
         {
-            Debug.Log("EnemyHealth Update" + currentHealth);
             if (IsDead())
             {
+                if (isPet) 
+                {
+                    // TODO: Set rigidbody to kinematic and sink instead of vanish immediately
+                    Destroy(gameObject);
+                };
                 transform.Translate (-Vector3.up * sinkSpeed * Time.deltaTime);
                 if (transform.position.y < -10f)
                 {
@@ -84,8 +88,9 @@ namespace Nightmare
             if (isPet) Debug.Log("kaing");
             if (!IsDead())
             {
-                if (enemyAudio) enemyAudio.Play();
+                if (!isPet) enemyAudio.Play();
                 currentHealth -= amount;
+                if (isPet) Debug.Log("Dog health : " + currentHealth );
 
                 if (currentHealth <= 0)
                 {
