@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms;
 using UnityEngine.UI;
 
 public class QuestManager : MonoBehaviour
@@ -24,6 +25,11 @@ public class QuestManager : MonoBehaviour
         currQuest = questList[0];
         CompletedCanvas.enabled = false;
         loadedNext = false;
+    }
+
+    public Quest getCurrentQuest()
+    {
+        return currQuest;
     }
 
     void Update()
