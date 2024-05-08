@@ -15,6 +15,7 @@ namespace Nightmare
         CapsuleCollider capsuleCollider;
         EnemyMovement enemyMovement;
 
+
         void Awake ()
         {
             anim = GetComponent <Animator> ();
@@ -54,6 +55,7 @@ namespace Nightmare
 
         public void TakeDamage (int amount, Vector3 hitPoint)
         {
+            
             if (!IsDead())
             {
                 // enemyAudio.Play();
@@ -70,9 +72,7 @@ namespace Nightmare
         }
 
         void Death ()
-        {
-            float orbSpawnProbability = 0.3f; // Orb Spawn Probability            
-
+        {        
             // EventManager.TriggerEvent("Sound", transform.position);
             anim.SetBool ("IsWalking", false);
 
@@ -91,6 +91,11 @@ namespace Nightmare
         public int CurrentHealth()
         {
             return currentHealth;
+        }
+
+        public void ActivateCheatKillPet()
+        {
+            currentHealth = 0;
         }
     }
 }

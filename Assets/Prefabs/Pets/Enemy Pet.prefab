@@ -4917,6 +4917,7 @@ GameObject:
   - component: {fileID: 3105907903363696943}
   - component: {fileID: 4091910057909131193}
   - component: {fileID: 3602550947185119034}
+  - component: {fileID: -4014878211567507810}
   m_Layer: 6
   m_Name: Enemy Pet
   m_TagString: EnemyPet
@@ -5112,6 +5113,21 @@ MonoBehaviour:
   increaseDamageOrbPrefab: {fileID: 0}
   restoreHealthOrbPrefab: {fileID: 0}
   increaseSpeedOrbPrefab: {fileID: 0}
+--- !u!114 &-4014878211567507810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7022846624846827769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69f59409edf28e145a65fd1ea658f5ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingHealth: 50
+  sinkSpeed: 2.5
+  scoreValue: 10
 --- !u!1 &7802705231799653789
 GameObject:
   m_ObjectHideFlags: 0

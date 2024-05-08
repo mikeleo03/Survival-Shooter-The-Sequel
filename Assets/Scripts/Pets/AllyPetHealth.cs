@@ -70,7 +70,9 @@ namespace Nightmare
         public int CurrentHealth()
         {
             return currentHealth;
-        }        // Activate or deactivate cheat full hp pet
+        }        
+        
+        // Activate or deactivate cheat full hp pet
         public void SetCheatFullHPPet(bool isActive)
         {
             isCheatFullHPPet = isActive;

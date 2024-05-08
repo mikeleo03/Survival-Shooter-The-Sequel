@@ -35,8 +35,6 @@ public class CheatManager : MonoBehaviour
     PlayerHealth playerHealth;
     PlayerMovement playerMovement;
     PlayerShooting playerShooting;
-    AllyPetHealth allyPetHealth;
-    EnemyPetHealth enemyPetHealth;
     LevelManager levelManager;
 
     // Orbs
@@ -175,6 +173,14 @@ public class CheatManager : MonoBehaviour
 
     private void ActivateKillPet()
     {
+        GameObject[] enemyPets = GameObject.FindGameObjectsWithTag("EnemyPet");
+        Debug.Log(enemyPets.Length);
+        foreach (GameObject enemyPet in enemyPets)
+        {
+            EnemyPetHealth enemyPetHealth = enemyPet.GetComponent<EnemyPetHealth>();
+            enemyPetHealth.ActivateCheatKillPet();
+        }
+
         hud.OpenPanel("Kill Pet Cheat Activated!");
     }
 
@@ -231,7 +237,7 @@ public class CheatManager : MonoBehaviour
             AllyPetHealth allyPetHealth = allyPet.GetComponent<AllyPetHealth>();
             allyPetHealth.SetCheatFullHPPet(false);
         }
-        
+
         hud.OpenPanel("Successfully Reset Cheat(s)!");
     }
 
