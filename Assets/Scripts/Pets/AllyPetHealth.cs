@@ -11,7 +11,10 @@ namespace Nightmare
         Animator anim;
         CapsuleCollider capsuleCollider;
         int currentHealth;
-        
+
+        // Cheat Full HP Pet
+        public bool isCheatFullHPPet = false;
+
 
         void Awake ()
         {
@@ -55,6 +58,10 @@ namespace Nightmare
         {
             if (!IsDead())
             {
+                // Cheat Full HP Pet (Invicible)
+                if (isCheatFullHPPet)
+                    return;
+
                 Debug.Log("AllyPetHealth: " + currentHealth);
                 currentHealth -= amount;
             }
@@ -63,7 +70,10 @@ namespace Nightmare
         public int CurrentHealth()
         {
             return currentHealth;
-        }   
-        
+        }        // Activate or deactivate cheat full hp pet
+        public void SetCheatFullHPPet(bool isActive)
+        {
+            isCheatFullHPPet = isActive;
+        }
     }
 }
