@@ -47,7 +47,7 @@ public class CheatManager : MonoBehaviour
     public InputField inputField;
     int prevBalance;
 
-    bool[] cheats = new bool[8];
+    bool[] cheats = new bool[3];
 
     private void Start()
     {
@@ -184,7 +184,6 @@ public class CheatManager : MonoBehaviour
         }
         
         hud.OpenPanel("Full HP Pet Cheat Activated!");
-        cheats[(int)CheatsType.FULLHPPET] = true;
     }
 
     private void ActivateKillPet()
@@ -231,14 +230,12 @@ public class CheatManager : MonoBehaviour
         }
 
         hud.OpenPanel("Get Random Orb Cheat Activated!");
-        cheats[(int)CheatsType.GETORB] = true;
     }
 
     private void ActivateSkipLevel()
     {
         levelManager.AdvanceLevel();
         hud.OpenPanel("Skip Level Cheat Activated!");
-        cheats[(int)CheatsType.SKIPLEVEL] = true;
     }
 
     /* RESET CHEATS DOCUMENTATION */
