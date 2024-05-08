@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 08df75ef7b6a74349bcf1f8ac6d06c0b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - healingPet: {fileID: 7022846624846827769, guid: f86d09f168862644d8d36c6929850322, type: 3}
+  - attackingPet: {fileID: 7022846624846827769, guid: 89d690d2254d9714f88745a7913a6bf3, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
