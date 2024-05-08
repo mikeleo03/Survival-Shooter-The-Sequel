@@ -186,6 +186,7 @@ GameObject:
   - component: {fileID: 13600000}
   - component: {fileID: 8200002}
   - component: {fileID: 1666025366709550463}
+  - component: {fileID: 7588598180635152441}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -293,6 +294,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 6
+  originalSpeed: 6
   prevSpeed: 0
 --- !u!136 &13600000
 CapsuleCollider:
@@ -428,6 +430,18 @@ MonoBehaviour:
   healingPet: {fileID: 7022846624846827769, guid: f86d09f168862644d8d36c6929850322, type: 3}
   attackingPet: {fileID: 7022846624846827769, guid: 89d690d2254d9714f88745a7913a6bf3, type: 3}
   enemyPet: {fileID: 7022846624846827769, guid: b72eb3b0ce197e843ab3106ef6048505, type: 3}
+--- !u!114 &7588598180635152441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c07b35243918104da53773333c73e60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &100008
 GameObject:
   m_ObjectHideFlags: 0
