@@ -17,22 +17,26 @@ using UnityEngine.Windows;
  * SKIPLEVEL    : Player skips 1 level
  */
 
+
+/* CHEATS THAT CAN BE SAVED */
+/*
+ * NODAMAGE
+ * ONEHITKILL
+ * XTWOSPEED
+ */
+
 public enum CheatsType
 {
     NODAMAGE,
     ONEHITKILL,
-    MOTHERLODE,
-    XTWOSPEED,
-    FULLHPPET,
-    KILLPET,
-    GETORB,
-    SKIPLEVEL
+    XTWOSPEED
 }
 
 public class CheatManager : MonoBehaviour
 {
     HUDisplay hud;
     PlayerHealth playerHealth;
+    PlayerCurrency playerCurrency;
     PlayerMovement playerMovement;
     PlayerShooting playerShooting;
     LevelManager levelManager;
@@ -44,14 +48,16 @@ public class CheatManager : MonoBehaviour
 
     string textInput;
     public InputField inputField;
+    int prevBalance;
 
-    bool[] cheats = new bool[8];
+    bool[] cheats = new bool[3];
 
     private void Start()
     {
         hud = GameObject.Find("HUDCanvas").GetComponent<HUDisplay>();
         playerHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();
-        playerMovement = GameObject.Find("Player").GetComponent<PlayerMovement>();
+        playerCurrency = GameObject.Find("Player").GetComponent<PlayerCurrency>();
+        playerMovement = GameObject.Find("Player").GetComponent<PlayerMovement>(); 
         playerShooting = GameObject.Find("Player").GetComponentInChildren<PlayerShooting>();
         levelManager = FindObjectOfType<LevelManager>();
     }
@@ -87,6 +93,12 @@ public class CheatManager : MonoBehaviour
         {
             ResetInputField();
             ActivateOneHitKill();
+            return;
+        }
+        if (textInput == "MOTHERLODE")
+        {
+            ResetInputField();
+            ActivateMotherlode();
             return;
         }
         if (textInput == "XTWOSPEED")
@@ -151,6 +163,13 @@ public class CheatManager : MonoBehaviour
         cheats[(int)CheatsType.ONEHITKILL] = true;
     }
 
+    private void ActivateMotherlode()
+    {
+        prevBalance = playerCurrency.balance;
+        playerCurrency.balance = 100000;
+        hud.OpenPanel("Motherlode Cheat Activated!");
+    }
+
     private void ActivateXTwoSpeed()
     {
         playerMovement.ActivateCheatXTwoSpeed();
@@ -168,7 +187,6 @@ public class CheatManager : MonoBehaviour
         }
         
         hud.OpenPanel("Full HP Pet Cheat Activated!");
-        cheats[(int)CheatsType.FULLHPPET] = true;
     }
 
     private void ActivateKillPet()
@@ -215,19 +233,27 @@ public class CheatManager : MonoBehaviour
         }
 
         hud.OpenPanel("Get Random Orb Cheat Activated!");
-        cheats[(int)CheatsType.GETORB] = true;
     }
 
     private void ActivateSkipLevel()
     {
         levelManager.AdvanceLevel();
         hud.OpenPanel("Skip Level Cheat Activated!");
-        cheats[(int)CheatsType.SKIPLEVEL] = true;
     }
+
+    /* RESET CHEATS DOCUMENTATION */
+    /*
+     * Makes player can take damage again
+     * Reset player's balance to previous balance
+     * Reset player's speed
+     * Reset player's attack damage
+     * Makes player's pets can take damage again
+     */
 
     private void ActivateReset()
     {
         playerHealth.SetCheatNoDamage(false);
+        playerCurrency.balance = prevBalance;
         playerMovement.ResetSpeed();
         playerShooting.ResetPlayerDamage();
 

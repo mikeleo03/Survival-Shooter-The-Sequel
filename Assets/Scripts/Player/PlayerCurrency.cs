@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class PlayerCurrency : MonoBehaviour
 {
-    int balance = 0; 
+    public int balance = 0;
+    
     // Start is called before the first frame update
     public void add(int nominal) 
     {
