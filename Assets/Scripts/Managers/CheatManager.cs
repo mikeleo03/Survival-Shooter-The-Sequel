@@ -33,6 +33,7 @@ public class CheatManager : MonoBehaviour
 {
     HUDisplay hud;
     PlayerHealth playerHealth;
+    PlayerCurrency playerCurrency;
     PlayerMovement playerMovement;
     PlayerShooting playerShooting;
     LevelManager levelManager;
@@ -44,6 +45,7 @@ public class CheatManager : MonoBehaviour
 
     string textInput;
     public InputField inputField;
+    int prevBalance;
 
     bool[] cheats = new bool[8];
 
@@ -51,7 +53,8 @@ public class CheatManager : MonoBehaviour
     {
         hud = GameObject.Find("HUDCanvas").GetComponent<HUDisplay>();
         playerHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();
-        playerMovement = GameObject.Find("Player").GetComponent<PlayerMovement>();
+        playerCurrency = GameObject.Find("Player").GetComponent<PlayerCurrency>();
+        playerMovement = GameObject.Find("Player").GetComponent<PlayerMovement>(); 
         playerShooting = GameObject.Find("Player").GetComponentInChildren<PlayerShooting>();
         levelManager = FindObjectOfType<LevelManager>();
     }
@@ -87,6 +90,12 @@ public class CheatManager : MonoBehaviour
         {
             ResetInputField();
             ActivateOneHitKill();
+            return;
+        }
+        if (textInput == "MOTHERLODE")
+        {
+            ResetInputField();
+            ActivateMotherlode();
             return;
         }
         if (textInput == "XTWOSPEED")
@@ -149,6 +158,13 @@ public class CheatManager : MonoBehaviour
         playerShooting.ActivateCheatOneHitKill();
         hud.OpenPanel("One Hit Kill Cheat Activated!");
         cheats[(int)CheatsType.ONEHITKILL] = true;
+    }
+
+    private void ActivateMotherlode()
+    {
+        prevBalance = playerCurrency.balance;
+        playerCurrency.balance = 100000;
+        hud.OpenPanel("Motherlode Cheat Activated!");
     }
 
     private void ActivateXTwoSpeed()
@@ -228,6 +244,7 @@ public class CheatManager : MonoBehaviour
     private void ActivateReset()
     {
         playerHealth.SetCheatNoDamage(false);
+        playerCurrency.balance = prevBalance;
         playerMovement.ResetSpeed();
         playerShooting.ResetPlayerDamage();
 
