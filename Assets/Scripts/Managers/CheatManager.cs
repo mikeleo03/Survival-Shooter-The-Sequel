@@ -45,7 +45,7 @@ public class CheatManager : MonoBehaviour
     string textInput;
     public InputField inputField;
 
-    bool[] cheats = new bool[4];
+    bool[] cheats = new bool[8];
 
     private void Start()
     {
@@ -93,6 +93,18 @@ public class CheatManager : MonoBehaviour
         {
             ResetInputField();
             ActivateXTwoSpeed();
+            return;
+        }
+        if (textInput == "FULLHPPET")
+        {
+            ResetInputField();
+            ActivateFullHPPet();
+            return;
+        }
+        if (textInput == "KILLPET")
+        {
+            ResetInputField();
+            ActivateKillPet();
             return;
         }
         if (textInput == "GETORB")
@@ -146,6 +158,32 @@ public class CheatManager : MonoBehaviour
         cheats[(int)CheatsType.XTWOSPEED] = true;
     }
 
+    private void ActivateFullHPPet()
+    {
+        GameObject[] allyPets = GameObject.FindGameObjectsWithTag("AllyPet");
+        foreach (GameObject allyPet in allyPets)
+        {
+            AllyPetHealth allyPetHealth = allyPet.GetComponent<AllyPetHealth>();
+            allyPetHealth.SetCheatFullHPPet(true);
+        }
+        
+        hud.OpenPanel("Full HP Pet Cheat Activated!");
+        cheats[(int)CheatsType.FULLHPPET] = true;
+    }
+
+    private void ActivateKillPet()
+    {
+        GameObject[] enemyPets = GameObject.FindGameObjectsWithTag("EnemyPet");
+        Debug.Log(enemyPets.Length);
+        foreach (GameObject enemyPet in enemyPets)
+        {
+            EnemyPetHealth enemyPetHealth = enemyPet.GetComponent<EnemyPetHealth>();
+            enemyPetHealth.ActivateCheatKillPet();
+        }
+
+        hud.OpenPanel("Kill Pet Cheat Activated!");
+    }
+
     private void ActivateGetRandomOrb()
     {
         int orbType = Random.Range(0, 3);
@@ -192,6 +230,14 @@ public class CheatManager : MonoBehaviour
         playerHealth.SetCheatNoDamage(false);
         playerMovement.ResetSpeed();
         playerShooting.ResetPlayerDamage();
+
+        GameObject[] allyPets = GameObject.FindGameObjectsWithTag("AllyPet");
+        foreach (GameObject allyPet in allyPets)
+        {
+            AllyPetHealth allyPetHealth = allyPet.GetComponent<AllyPetHealth>();
+            allyPetHealth.SetCheatFullHPPet(false);
+        }
+
         hud.OpenPanel("Successfully Reset Cheat(s)!");
     }
 
