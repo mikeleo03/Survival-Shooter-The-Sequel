@@ -48,7 +48,6 @@ public class CheatManager : MonoBehaviour
 
     string textInput;
     public InputField inputField;
-    int prevBalance;
 
     bool[] cheats = new bool[3];
 
@@ -165,8 +164,7 @@ public class CheatManager : MonoBehaviour
 
     private void ActivateMotherlode()
     {
-        prevBalance = playerCurrency.balance;
-        playerCurrency.balance = 100000;
+        playerCurrency.ActivateMotherlode();
         hud.OpenPanel("Motherlode Cheat Activated!");
     }
 
@@ -253,7 +251,7 @@ public class CheatManager : MonoBehaviour
     private void ActivateReset()
     {
         playerHealth.SetCheatNoDamage(false);
-        playerCurrency.balance = prevBalance;
+        playerCurrency.ResetMotherlode();
         playerMovement.ResetSpeed();
         playerShooting.ResetPlayerDamage();
 

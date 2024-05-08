@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerCurrency : MonoBehaviour
 {
     public int balance = 0;
+    int prevBalance;
     
     // Start is called before the first frame update
     public void add(int nominal) 
@@ -27,5 +28,16 @@ public class PlayerCurrency : MonoBehaviour
     public int Balance() 
     {
         return balance;
+    }
+
+    public void ActivateMotherlode()
+    {
+        prevBalance = balance;
+        balance = 100000;
+    }
+
+    public void ResetMotherlode()
+    {
+        balance = prevBalance;
     }
 }
