@@ -24,10 +24,6 @@ namespace Nightmare
         void Update ()
         {
             sText.text = "Score: " + score;
-            //if (score >= levelThreshhold)
-            //{
-            //    AdvanceLevel();
-            //}
         }
 
         private void AdvanceLevel()
