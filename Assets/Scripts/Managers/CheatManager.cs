@@ -241,6 +241,15 @@ public class CheatManager : MonoBehaviour
         cheats[(int)CheatsType.SKIPLEVEL] = true;
     }
 
+    /* RESET CHEATS DOCUMENTATION */
+    /*
+     * Makes player can take damage again
+     * Reset player's balance to previous balance
+     * Reset player's speed
+     * Reset player's attack damage
+     * Makes player's pets can take damage again
+     */
+
     private void ActivateReset()
     {
         playerHealth.SetCheatNoDamage(false);
