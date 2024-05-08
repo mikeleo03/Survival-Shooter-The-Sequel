@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿// using System;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Nightmare
@@ -19,6 +20,8 @@ namespace Nightmare
         CapsuleCollider capsuleCollider;
         EnemyMovement enemyMovement;
 
+        bool isPet;
+
         // Orbs
         public GameObject increaseDamageOrbPrefab; // Increase Damage Orb
         public GameObject restoreHealthOrbPrefab; // Restore Health Orb
@@ -26,6 +29,8 @@ namespace Nightmare
 
         void Awake ()
         {
+            isPet = GetComponent<EnemyPetMovement>() != null;
+            if (isPet) { Debug.Log("Dogs");}
             anim = GetComponent <Animator> ();
             enemyAudio = GetComponent <AudioSource> ();
             hitParticles = GetComponentInChildren <ParticleSystem> ();
@@ -58,12 +63,13 @@ namespace Nightmare
 
         void Update ()
         {
+            Debug.Log("EnemyHealth Update" + currentHealth);
             if (IsDead())
             {
                 transform.Translate (-Vector3.up * sinkSpeed * Time.deltaTime);
                 if (transform.position.y < -10f)
                 {
-                    Destroy(this.gameObject);
+                    Destroy(gameObject);
                 }
             }
         }
@@ -75,9 +81,10 @@ namespace Nightmare
 
         public void TakeDamage (int amount, Vector3 hitPoint)
         {
+            if (isPet) Debug.Log("kaing");
             if (!IsDead())
             {
-                enemyAudio.Play();
+                if (enemyAudio) enemyAudio.Play();
                 currentHealth -= amount;
 
                 if (currentHealth <= 0)
@@ -87,7 +94,7 @@ namespace Nightmare
                 }
                 else
                 {
-                    enemyMovement.GoToPlayer();
+                    enemyMovement?.GoToPlayer();
                 }
             }
                 
@@ -126,7 +133,7 @@ namespace Nightmare
                 }
                 else
                 {
-                    Debug.LogError("Orb prefab is null");
+                    Debug.Log("Orb prefab is null");
                 }
             }
             
@@ -134,8 +141,12 @@ namespace Nightmare
             EventManager.TriggerEvent("Sound", this.transform.position);
             anim.SetTrigger ("Dead");
 
-            enemyAudio.clip = deathClip;
-            enemyAudio.Play ();
+            if (enemyAudio != null)
+            {
+                enemyAudio.clip = deathClip;
+                enemyAudio.Play ();
+            }
+     
         }
 
         public void StartSinking ()
