@@ -1,18 +1,50 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
+using UnityEngine.UI;
+using UnityEngine.Audio;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
-public class ShopManager : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        Debug.Log("ShopManager Start");
-    }
+public class ShopManager : MonoBehaviour {
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	public GameObject healingPet;
+	public GameObject attackingPet;
+	
+	Canvas canvas;
+	Transform player;
+
+	void Awake()
+	{
+		canvas = GetComponent<Canvas>();
+		player = GameObject.FindGameObjectWithTag("Player").transform;
+	}
+
+	void Start()
+	{
+		canvas = GetComponent<Canvas>();
+	}
+	
+	void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.B))
+		{
+			canvas.enabled = !canvas.enabled;
+		}
+	}
+
+    void Exit()
+	{
+		canvas.enabled = false;
+	}
+
+	void SpawnHealingPet()
+	{
+        Instantiate(healingPet, player.position, Quaternion.identity);     
+	}
+
+	void SpawnAttackingPet()
+	{
+		Instantiate(attackingPet, player.position, Quaternion.identity);
+	}	
 }
