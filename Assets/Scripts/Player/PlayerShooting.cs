@@ -15,7 +15,7 @@ namespace Nightmare
         public float damagePercent = 1;
         int grenadeStock = 99;
         
-        float timer;
+        float timer, grenadeTimer;
         public List<GameObject> weaponsList;
         private Weapons currWeapon;
         private int currWeaponIdx;
@@ -27,6 +27,7 @@ namespace Nightmare
         void Awake ()
         {
             timer = 0;
+            grenadeTimer = 0;
             ChangeWeapon(0);
             AdjustGrenadeStock(0);
 
@@ -50,6 +51,7 @@ namespace Nightmare
 
             // Add the time since Update was last called to the timer.
             timer += Time.deltaTime;
+            grenadeTimer += Time.deltaTime;
 
             currWeapon.damagePerShot = Mathf.RoundToInt(realWeaponDamage * damagePercent);
 
@@ -71,7 +73,7 @@ namespace Nightmare
             }
 
 #if !MOBILE_INPUT
-            if (timer >= currWeapon.timeBetweenBullets && Time.timeScale != 0)
+            if (grenadeTimer >= grenadeFireDelay && Time.timeScale != 0)
             {
                 // If the Fire1 button is being press and it's time to fire...
                 if (Input.GetButton("Fire2") && grenadeStock > 0)
@@ -79,9 +81,12 @@ namespace Nightmare
                     // ... shoot a grenade.
                     ShootGrenade();
                 }
+            }
 
+            if (timer >= currWeapon.timeBetweenBullets && Time.timeScale != 0)
+            {
                 // If the Fire1 button is being press and it's time to fire...
-                else if (Input.GetButton("Fire1"))
+                if (Input.GetButton("Fire1"))
                 {
                     // ... shoot the gun.
                     Shoot();
@@ -167,12 +172,22 @@ namespace Nightmare
         void ShootGrenade()
         {
             AdjustGrenadeStock(-1);
-            timer = currWeapon.timeBetweenBullets - grenadeFireDelay;
+            grenadeTimer = 0;
             GameObject clone = PoolManager.Pull("Grenade", transform.position, Quaternion.identity);
             EventManager.TriggerEvent("ShootGrenade", grenadeSpeed * transform.forward);
             //GameObject clone = Instantiate(grenade, transform.position, Quaternion.identity);
             //Grenade grenadeClone = clone.GetComponent<Grenade>();
             //grenadeClone.Shoot(grenadeSpeed * transform.forward);
+        }
+
+        public void ResetPlayerDamage()
+        {
+            damagePercent = 1;
+        }
+
+        public void ActivateCheatOneHitKill()
+        {
+            damagePercent = 100000;
         }
     }
 }

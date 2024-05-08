@@ -243,10 +243,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponModel: {fileID: 7278376730888836428}
   damagePerShot: 50
-  timeBetweenBullets: 2
+  timeBetweenBullets: 1.5
   range: 3
   effectsDisplayTime: 0.5
   shootableMask: 0
+  isEnemyWeapon: 0
   triggerAudio: {fileID: 0}
 --- !u!199 &1667718078436812581
 ParticleSystemRenderer:

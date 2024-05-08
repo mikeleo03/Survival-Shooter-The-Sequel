@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Nightmare
 {
+    public enum enemyTypes { Keroco, Kepala, Jenderal, Raja };
     public class EnemyHealth : MonoBehaviour
     {
+        public enemyTypes type;
         public int startingHealth = 100;
         public float sinkSpeed = 2.5f;
         public int scoreValue = 10;
@@ -16,9 +19,10 @@ namespace Nightmare
         CapsuleCollider capsuleCollider;
         EnemyMovement enemyMovement;
 
-        // Cheat One Hit Kill
-        public bool isCheatOneHitKill = false;
-        public static bool IsActiveCheatOneHitKill = false; // For indicator to change isCheatOneHitKill
+        // Orbs
+        public GameObject increaseDamageOrbPrefab; // Increase Damage Orb
+        public GameObject restoreHealthOrbPrefab; // Restore Health Orb
+        public GameObject increaseSpeedOrbPrefab; // Increase Speed Orb
 
         void Awake ()
         {
@@ -27,6 +31,17 @@ namespace Nightmare
             hitParticles = GetComponentInChildren <ParticleSystem> ();
             capsuleCollider = GetComponent <CapsuleCollider> ();
             enemyMovement = this.GetComponent<EnemyMovement>();
+
+            int difficultyLvl = PlayerPrefs.GetInt("Difficulty", 0);
+            if (difficultyLvl == 1)
+            {
+                startingHealth = Mathf.RoundToInt(startingHealth * 1.5f);
+                scoreValue *= 2;
+            } else if (difficultyLvl == 2)
+            {
+                startingHealth = Mathf.RoundToInt(startingHealth * 2f);
+                scoreValue *= 3;
+            }
         }
 
         void OnEnable()
@@ -43,8 +58,6 @@ namespace Nightmare
 
         void Update ()
         {
-            SetCheatOneHitKill(IsActiveCheatOneHitKill);
-
             if (IsDead())
             {
                 transform.Translate (-Vector3.up * sinkSpeed * Time.deltaTime);
@@ -60,37 +73,16 @@ namespace Nightmare
             return (currentHealth <= 0f);
         }
 
-        // Activate or deactivate cheat one hit kill
-        public void SetCheatOneHitKill(bool isActive)
-        {
-            // Get an array of all EnemyHealth scripts
-            EnemyHealth[] allEnemies = FindObjectsOfType<EnemyHealth>();
-
-            // Loop and set isCheatOneHitKill to true on each enemy
-            foreach (EnemyHealth eHealth in allEnemies)
-            {
-                eHealth.isCheatOneHitKill = isActive;
-            }
-
-            // Change indicator
-            IsActiveCheatOneHitKill = isActive;
-        }
-
         public void TakeDamage (int amount, Vector3 hitPoint)
         {
             if (!IsDead())
-            {  
-                // Cheat one hit kill
-                if (isCheatOneHitKill)
-                {
-                    currentHealth = 0;
-                }
-
+            {
                 enemyAudio.Play();
                 currentHealth -= amount;
 
                 if (currentHealth <= 0)
                 {
+
                     Death();
                 }
                 else
@@ -105,6 +97,40 @@ namespace Nightmare
 
         void Death ()
         {
+            float orbSpawnProbability = 0.3f; // Orb Spawn Probability
+
+            if (Random.value <= orbSpawnProbability)
+            {
+                int orbType = Random.Range(0, 3);
+                GameObject orbPrefab;
+
+                switch (orbType)
+                {
+                    case 0:
+                        orbPrefab = increaseDamageOrbPrefab;
+                        break;
+                    case 1:
+                        orbPrefab = restoreHealthOrbPrefab;
+                        break;
+                    case 2:
+                        orbPrefab = increaseSpeedOrbPrefab;
+                        break;
+                    default:
+                        Debug.LogError("Invalid orb type");
+                        return;
+                }
+
+                if (orbPrefab != null)
+                {
+                    GameObject orbInstance = Instantiate(orbPrefab, this.transform.position, Quaternion.identity);
+                }
+                else
+                {
+                    Debug.LogError("Orb prefab is null");
+                }
+            }
+            
+
             EventManager.TriggerEvent("Sound", this.transform.position);
             anim.SetTrigger ("Dead");
 
@@ -118,6 +144,19 @@ namespace Nightmare
             SetKinematics(true);
 
             ScoreManager.score += scoreValue;
+            if (type == enemyTypes.Keroco)
+            {
+                QuestManager.kerocoCount++;
+            } else if (type == enemyTypes.Kepala)
+            {
+                QuestManager.kepalaCount++;
+            } else if (type == enemyTypes.Jenderal)
+            {
+                QuestManager.jenderalCount++;
+            } else
+            {
+                QuestManager.rajaCount++;
+            }
         }
 
         public int CurrentHealth()

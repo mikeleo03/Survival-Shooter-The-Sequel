@@ -14,6 +14,15 @@ namespace Nightmare
 
         void Start ()
         {
+            int difficultyLvl = PlayerPrefs.GetInt("Difficulty", 0);
+            if (difficultyLvl == 1)
+            {
+                spawnTime /= 1.5f;
+            }
+            else if (difficultyLvl == 2)
+            {
+                spawnTime /= 2f;
+            }
             timer = spawnTime;
         }
 

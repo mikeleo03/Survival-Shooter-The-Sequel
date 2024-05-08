@@ -10216,7 +10216,7 @@ MonoBehaviour:
   hearingRange: 32
   wanderDistance: 20
   idleTimeRange: {x: 2, y: 6}
-  psychicLevels: 0.05
+  psychicLevels: 1
   timer: 0
 --- !u!114 &11402556
 MonoBehaviour:
@@ -10230,10 +10230,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa10cc87aff30c04dbe0aa648f5b6adc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 800
+  type: 3
+  startingHealth: 1500
   sinkSpeed: 2.5
-  scoreValue: 77
+  scoreValue: 500
   deathClip: {fileID: 8300000, guid: 8c615fd0429f34edf85539d70279360d, type: 3}
+  increaseDamageOrbPrefab: {fileID: 5928907673800009345, guid: eb4274969abbb7944acd2b2888294bba, type: 3}
+  restoreHealthOrbPrefab: {fileID: 108012326883433976, guid: cbc7c018424f013499d4f4feb5ff52db, type: 3}
+  increaseSpeedOrbPrefab: {fileID: 6926906167359508983, guid: 842d4cdd8e369c745bf786e8286b0723, type: 3}
 --- !u!114 &11415352
 MonoBehaviour:
   m_ObjectHideFlags: 0
