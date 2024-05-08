@@ -33,17 +33,17 @@ public class ShopManager : MonoBehaviour {
 		}
 	}
 
-    void Exit()
+    public void Exit()
 	{
 		canvas.enabled = false;
 	}
 
-	void SpawnHealingPet()
+	public void SpawnHealingPet()
 	{
         Instantiate(healingPet, player.position, Quaternion.identity);     
 	}
 
-	void SpawnAttackingPet()
+	public void SpawnAttackingPet()
 	{
 		Instantiate(attackingPet, player.position, Quaternion.identity);
 	}	

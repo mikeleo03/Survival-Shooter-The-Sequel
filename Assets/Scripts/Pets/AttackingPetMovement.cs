@@ -15,8 +15,8 @@ namespace Nightmare
         float currentVision; 
         Transform player;
         PlayerHealth playerHealth;
-        
-        // EnemyHealth enemyHealth;
+
+        Animator anim;        
         NavMeshAgent nav;
         public float timer = 0f;
 
@@ -27,6 +27,7 @@ namespace Nightmare
             player = GameObject.FindGameObjectWithTag ("Player").transform;
             playerHealth = player.GetComponent <PlayerHealth> ();
             nav = GetComponent<NavMeshAgent>();
+            anim = GetComponent<Animator>();
             StartPausible();
         }
 
@@ -55,11 +56,24 @@ namespace Nightmare
                 {
                     LookForEnemy();
                     WanderOrIdle();
+                    Animate();
                 }
                 else
                 {
                     nav.enabled = false;
                 }
+            }
+        }
+
+        void Animate()
+        {
+            if (nav.velocity.magnitude < 0.1f)
+            {
+                anim.SetBool("IsWalking", false);
+            }
+            else
+            {
+                anim.SetBool("IsWalking", true);
             }
         }
 

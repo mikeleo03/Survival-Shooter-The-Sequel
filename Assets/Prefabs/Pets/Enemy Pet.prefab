@@ -166,11 +166,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 153caed5adbb4494c8594bcd197dc164, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visionRange: 10
-  hearingRange: 20
   wanderDistance: 10
   idleTimeRange: {x: 0, y: 0}
-  psychicLevels: 0.2
   timer: 0
 --- !u!135 &4091910057909131193
 SphereCollider:
@@ -328,6 +325,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9500000, guid: 04eb5d04905503f4e821d22cfd8fb2f8, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 01a4305115e797046b18f38c9ca7420b, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
