@@ -17,16 +17,19 @@ using UnityEngine.Windows;
  * SKIPLEVEL    : Player skips 1 level
  */
 
+
+/* CHEATS THAT CAN BE SAVED */
+/*
+ * NODAMAGE
+ * ONEHITKILL
+ * XTWOSPEED
+ */
+
 public enum CheatsType
 {
     NODAMAGE,
     ONEHITKILL,
-    MOTHERLODE,
-    XTWOSPEED,
-    FULLHPPET,
-    KILLPET,
-    GETORB,
-    SKIPLEVEL
+    XTWOSPEED
 }
 
 public class CheatManager : MonoBehaviour
