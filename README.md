@@ -9,6 +9,7 @@
             <p><i>Extended version of Survival Shooter game from Unity tutorial</i></p>
     </div>
 </div>
+<br>
 
 <h1 align="center">Survival Shooter: The Sequel Game</h1>
 
@@ -94,20 +95,68 @@ Here's Survival Shooter The Sequel main game flows and its interface.
     <col width="49%">
     <col width="49%">
     <tr>
-        <td width="1%" align="center"><img src="./images/screenshots/Splash Screen.jpg"/></td>
-        <td width="1%" align="center"><img src="./images/screenshots/Login Page.jpg"/></td>
+        <td width="1%" align="center"><img src="./images/screenshots/Main Menu.png"/></td>
+        <td width="1%" align="center"><img src="./images/screenshots/Opening Cutscene.png"/></td>
     </tr>
     <tr>
-        <td width="1%" align="center">Features 1</td>
-        <td width="1%" align="center">Features 2</td>
+        <td width="1%" align="center">Main Menu</td>
+        <td width="1%" align="center">Opening Cutscene</td>
     </tr>
     <tr>
-        <td width="1%" align="center"><img src="./images/screenshots/Splash Screen.jpg"/></td>
-        <td width="1%" align="center"><img src="./images/screenshots/Login Page.jpg"/></td>
+        <td width="1%" align="center"><img src="./images/screenshots/Dialogue Cutscene.png"/></td>
+        <td width="1%" align="center"><img src="./images/screenshots/Quest.png"/></td>
     </tr>
     <tr>
-        <td width="1%" align="center">Features 1</td>
-        <td width="1%" align="center">Features 2</td>
+        <td width="1%" align="center">Dialogue Cutscene</td>
+        <td width="1%" align="center">Quest Detail</td>
+    </tr>
+    <tr>
+        <td width="1%" align="center"><img src="./images/screenshots/Shotgun Demo.png"/></td>
+        <td width="1%" align="center"><img src="./images/screenshots/Sword Demo.png"/></td>
+    </tr>
+    <tr>
+        <td width="1%" align="center">Shotgun Demo</td>
+        <td width="1%" align="center">Sword Demo</td>
+    </tr>
+    <tr>
+        <td width="1%" align="center"><img src="./images/screenshots/Mobs.png"/></td>
+        <td width="1%" align="center"><img src="./images/screenshots/Orb Power Up.png"/></td>
+    </tr>
+    <tr>
+        <td width="1%" align="center">Mobs</td>
+        <td width="1%" align="center">Orb Power Up</td>
+    </tr>
+    <tr>
+        <td width="1%" align="center"><img src="./images/screenshots/Pet.png"/></td>
+        <td width="1%" align="center"><img src="./images/screenshots/Shopkeeper.png"/></td>
+    </tr>
+    <tr>
+        <td width="1%" align="center">Pet</td>
+        <td width="1%" align="center">Shopkeeper</td>
+    </tr>
+    <tr>
+        <td width="1%" align="center"><img src="./images/screenshots/Statistics.png"/></td>
+        <td width="1%" align="center"><img src="./images/screenshots/Cheat.png"/></td>
+    </tr>
+    <tr>
+        <td width="1%" align="center">Statistics</td>
+        <td width="1%" align="center">Cheat</td>
+    </tr>
+    <tr>
+        <td width="1%" align="center"><img src="./images/screenshots/Pause.png"/></td>
+        <td width="1%" align="center"><img src="./images/screenshots/Game Over.png"/></td>
+    </tr>
+    <tr>
+        <td width="1%" align="center">Pause</td>
+        <td width="1%" align="center">Game Over</td>
+    </tr>
+    <tr>
+        <td width="1%" align="center"><img src="./images/screenshots/Save Game.png"/></td>
+        <td width="1%" align="center"><img src="./images/screenshots/Quest Completed.png"/></td>
+    </tr>
+    <tr>
+        <td width="1%" align="center">Save Game</td>
+        <td width="1%" align="center">Quest Completed</td>
     </tr>
 </table>
 
