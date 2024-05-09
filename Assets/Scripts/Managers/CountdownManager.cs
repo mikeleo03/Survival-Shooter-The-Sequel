@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using Nightmare;
 
 public class CountdownManager : MonoBehaviour {
 
@@ -18,7 +19,8 @@ public class CountdownManager : MonoBehaviour {
     }
 
     private IEnumerator CountdownToStart() {
-        while (countdownTime > 0) {
+        while (countdownTime > 0)
+        {
             countdownDisplay.text = countdownTime.ToString();
             yield return new WaitForSeconds(1);
             countdownTime--;
