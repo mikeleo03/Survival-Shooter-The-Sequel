@@ -1039,6 +1039,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   paused: {fileID: 24500000, guid: 5b84db49d40ea449aa4f3e3bd229ab5b, type: 2}
   unpaused: {fileID: 24500003, guid: 5b84db49d40ea449aa4f3e3bd229ab5b, type: 2}
+  canvas: {fileID: 244922610}
 --- !u!114 &244922612
 MonoBehaviour:
   m_ObjectHideFlags: 0
