@@ -9,7 +9,7 @@ using UnityEngine.Playables;
 
 namespace Nightmare
 {
-    public class PlayerShooting : PausibleObject
+    public class PlayerShooting : PausibleObject, IDataPersistance
     {
         public GameObject grenade;
         public float grenadeSpeed = 200f;
@@ -234,5 +234,16 @@ namespace Nightmare
         {
             damagePercent = 100000;
         }
+
+        public void LoadData(GameData data)
+        {
+            data.damagePercent = this.damagePercent;
+        }
+
+        public void SaveData(ref GameData data)
+        {
+            this.damagePercent = data.damagePercent;
+        }
+
     }
 }
