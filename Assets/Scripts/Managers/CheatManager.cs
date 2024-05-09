@@ -17,21 +17,6 @@ using UnityEngine.Windows;
  * SKIPLEVEL    : Player skips 1 level
  */
 
-
-/* CHEATS THAT CAN BE SAVED */
-/*
- * NODAMAGE
- * ONEHITKILL
- * XTWOSPEED
- */
-
-public enum CheatsType
-{
-    NODAMAGE,
-    ONEHITKILL,
-    XTWOSPEED
-}
-
 public class CheatManager : MonoBehaviour
 {
     HUDisplay hud;
@@ -152,14 +137,12 @@ public class CheatManager : MonoBehaviour
     {
         playerHealth.SetCheatNoDamage(true);
         hud.OpenPanel("No Damage Cheat Activated!");
-        cheats[(int)CheatsType.NODAMAGE] = true;
     }
 
     private void ActivateOneHitKill()
     {
         playerShooting.ActivateCheatOneHitKill();
         hud.OpenPanel("One Hit Kill Cheat Activated!");
-        cheats[(int)CheatsType.ONEHITKILL] = true;
     }
 
     private void ActivateMotherlode()
@@ -172,7 +155,6 @@ public class CheatManager : MonoBehaviour
     {
         playerMovement.ActivateCheatXTwoSpeed();
         hud.OpenPanel("Two Times Speed Cheat Activated!");
-        cheats[(int)CheatsType.XTWOSPEED] = true;
     }
 
     private void ActivateFullHPPet()
@@ -263,21 +245,5 @@ public class CheatManager : MonoBehaviour
         }
 
         hud.OpenPanel("Successfully Reset Cheat(s)!");
-    }
-
-    public void LoadCheat(bool[] gatheredCheats)
-    {
-        if (gatheredCheats[(int)CheatsType.NODAMAGE])
-        {
-            ActivateNoDamage();
-        }
-        if (gatheredCheats[(int)CheatsType.ONEHITKILL])
-        {
-            ActivateOneHitKill();
-        }
-        if (gatheredCheats[(int)CheatsType.XTWOSPEED])
-        {
-            ActivateXTwoSpeed();
-        }
     }
 }
