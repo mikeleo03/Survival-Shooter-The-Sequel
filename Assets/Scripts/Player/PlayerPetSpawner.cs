@@ -10,15 +10,15 @@ namespace Nightmare
 
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.P))
+            if (Input.GetKeyDown(KeyCode.Q))
             {
                 Instantiate(healingPet, transform.position, Quaternion.identity);
             }
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (Input.GetKeyDown(KeyCode.B))
             {
                 Instantiate(attackingPet, transform.position, Quaternion.identity);
             }
-            if (Input.GetKeyDown(KeyCode.O))
+            if (Input.GetKeyDown(KeyCode.V))
             {
                 Instantiate(enemyPet, transform.position, Quaternion.identity);
             }

@@ -40,13 +40,12 @@ namespace Nightmare
         {
             if (IsDead())
             {
-                // TODO: Set rigidbody to kinematic and sink instead of vanish immediately
-                Destroy(gameObject);
-                // transform.Translate (-Vector3.up * sinkSpeed * Time.deltaTime);
-                // if (transform.position.y < -1f)
-                // {
-                    // Destroy(gameObject);
-                // }
+                StartSinking();
+                transform.Translate (-Vector3.up * sinkSpeed * Time.deltaTime);
+                if (transform.position.y < -1f)
+                {
+                    Destroy(gameObject);
+                }
             }
         }
 
