@@ -3,12 +3,12 @@
     <div >
         <img height="150px" src="./images/Logo.png" alt=""/>
     </div>
+    <br>
     <div>
             <h3>Survival Shooter: The Sequel</h3>
             <p><i>Extended version of Survival Shooter game from Unity tutorial</i></p>
     </div>
 </div>
-<br>
 
 <h1 align="center">Survival Shooter: The Sequel Game</h1>
 
@@ -20,7 +20,7 @@ The enhanced main menu lets you fine-tune the experience. Adjust audio levels, t
 
 ## 📝 Table of Contents
 - [General Information](#general-information)
-- [Tech Stacks](#tech-stacks)
+- [Tech Stacks and Platforms](#tech-stacks-and-platforms)
 - [Libraries](#libraries)
 - [Main Features](#main-features)
 - [Bonus 1 - Build to Android](#bonus-1---build-to-android)
@@ -31,16 +31,24 @@ The enhanced main menu lets you fine-tune the experience. Adjust audio levels, t
 - [Contributors](#contributors)
 
 ## 📢 General Information
-insert general infos
+The construction project of the Bandung Bondowoso temple was a great success due to the Android application created by his genie. As a result, he gained immense wealth. Confused about how to spend his fortune, Bandung Bondowoso decided to assemble a PC so that he could play AAAA games. However, he felt that AAAA games did not meet his expectations. Therefore, Bandung Bondowoso asked for help from his genie to create a new game.
 
-## 👨🏻‍💻 Tech Stacks
+The genie of Bandung Bondowoso had previously tried to create a game from the [Unity tutorial](https://youtube.com/playlist?list=PL871udVFq7OF9w5RBjyp_lcyzFuViLe8x&si=gxYZvMOM8I1uHX8w) that is also available [here](https://drive.google.com/drive/folders/1kKue0ELQlIqWxppyJ0h3W-LZBtxNb2Up?usp=sharing). Therefore, the genie of Bandung Bondowoso decided to modify the game to make it more challenging.
+
+## 👨🏻‍💻 Tech Stacks and Platforms
 <div align="center">
 <kbd>
 <img src="./images/icons/Unity.png" height="60" />
 </kbd>
+<kbd>
+<img src="./images/icons/Visual Studio.png" height="60" />
+</kbd>
+<kbd>
+<img src="./images/icons/Android.png" height="60" />
+</kbd>
 </div>
 <div align="center">
-<h4>Unity</h4>
+<h4>Unity | Visual Studio | Android</h4>
 </div>
 
 ## 📖 Libraries
@@ -53,16 +61,32 @@ Here's list of libraries that used in this project.
     <th>Purposes</th>
   </tr>
   <tr>
-    <td>insert libs</td>
-    <td>insert purposes</td>
+    <td>TextMeshPro</td>
+    <td>Enables advanced text rendering with better performance and visual enhancements.</td>
   </tr>
   <tr>
-    <td>insert libs</td>
-    <td>insert purposes</td>
+    <td>Timeline</td>
+    <td>Creates cinematic sequences and animations with control over cameras, sound, and transitions.</td>
+  </tr>
+  <tr>
+    <td>Unity UI</td>
+    <td>Builds user interfaces within the game, including menus, buttons, and health bars.</td>
+  </tr>
+  <tr>
+    <td>Newtonsoft Json</td>
+    <td>Parses and manipulates JSON data for saving game data or working with external sources.</td>
+  </tr>
+  <tr>
+    <td>Version Control</td>
+    <td>Tracks changes to project files over time, allowing reverts and collaboration.</td>
+  </tr>
+  <tr>
+    <td>Visual Scripting</td>
+    <td>Creates game logic visually with nodes instead of writing code.</td>
   </tr>
 </table>
 
-And some **android core libraries** like appcompat, constraintLayout, livedata, viewmodel, fragment, navigation, and many more!
+And some **Unity core libraries** like Unity, UnityEngine, System, and many more!
 
 ## ⭐ Game Flows
 Here's Survival Shooter The Sequel main game flows and its interface.
@@ -394,6 +418,8 @@ The following is the division of tasks that we carry out.
 ## 👏 Contributors
 |Contributors|Preparation Time|Working Time|
 | --- | :---: | :---: |
-| 13521062 - Go Dillon Audris | 12 hours | 40 hours |
-| 13521063 - Salomo Reinhart Gregory Manalu | 12 hours  | 48 hours |
-| 13521108 - Michael Leon Putra Widhi | 16 hours | 36 hours |
+| 13521052 - Melvin Kent Jonathan | - hours  | - hours |
+| 13521056 - Daniel Egiant Sitanggang | - hours  | - hours |
+| 13521064 - Bill Clinton | - hours | - hours |
+| 13521108 - Michael Leon Putra Widhi | 20 hours | 48 hours |
+| 13521172 - Nathan Tenka | - hours | - hours |
