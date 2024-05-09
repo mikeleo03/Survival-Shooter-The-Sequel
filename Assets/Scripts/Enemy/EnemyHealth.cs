@@ -20,8 +20,6 @@ namespace Nightmare
         CapsuleCollider capsuleCollider;
         EnemyMovement enemyMovement;
 
-        bool isPet;
-
         // Orbs
         public GameObject increaseDamageOrbPrefab; // Increase Damage Orb
         public GameObject restoreHealthOrbPrefab; // Restore Health Orb
@@ -29,8 +27,6 @@ namespace Nightmare
 
         void Awake ()
         {
-            isPet = GetComponent<EnemyPetMovement>() != null;
-            if (isPet) { Debug.Log("Dogs");}
             anim = GetComponent <Animator> ();
             enemyAudio = GetComponent <AudioSource> ();
             hitParticles = GetComponentInChildren <ParticleSystem> ();
@@ -65,11 +61,6 @@ namespace Nightmare
         {
             if (IsDead())
             {
-                if (isPet) 
-                {
-                    // TODO: Set rigidbody to kinematic and sink instead of vanish immediately
-                    Destroy(gameObject);
-                };
                 transform.Translate (-Vector3.up * sinkSpeed * Time.deltaTime);
                 if (transform.position.y < -10f)
                 {
@@ -85,12 +76,10 @@ namespace Nightmare
 
         public void TakeDamage (int amount, Vector3 hitPoint)
         {
-            if (isPet) Debug.Log("kaing");
             if (!IsDead())
             {
-                if (!isPet) enemyAudio.Play();
+                // if (!isPet) enemyAudio.Play();
                 currentHealth -= amount;
-                if (isPet) Debug.Log("Dog health : " + currentHealth );
 
                 if (currentHealth <= 0)
                 {
