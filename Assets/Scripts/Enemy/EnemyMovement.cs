@@ -51,12 +51,12 @@ namespace Nightmare
         {
             if (isFreeze && nav.isOnNavMesh)
             {
-                nav.enabled = false;
+                nav.isStopped = true;
                 return;
             }
             else if (!isFreeze && nav.isOnNavMesh)
             {
-                nav.enabled = true;
+                nav.isStopped = false;
             }
 
             if (!isPaused)
