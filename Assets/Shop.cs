@@ -5,10 +5,11 @@ using UnityEngine;
 public class Shop : MonoBehaviour
 {
     // Start is called before the first frame update
-    bool isPlayerNearby;
+    ShopManager shopManager;
     void Start()
     {
-        
+        shopManager = FindFirstObjectByType<ShopManager>();
+
     }
 
     // Update is called once per frame
@@ -17,20 +18,20 @@ public class Shop : MonoBehaviour
         
     }
 
-    void OnCollisionEnter(Collision collision) 
+    void OnTriggerEnter(Collider other) 
     {
-        if (collision.gameObject.tag == "Player")
+        if (other.gameObject.CompareTag("Player"))
         {
-            isPlayerNearby = true;
+            shopManager.setAccessible(true);
             Debug.Log("Player is nearby");
         }
-    }
+    }   
 
-    void OnCollisionExit(Collision collision) 
+    void OnTriggerExit(Collider other) 
     {
-        if (collision.gameObject.tag == "Player")
+        if (other.gameObject.CompareTag("Player"))
         {
-            isPlayerNearby = false;
+            shopManager.setAccessible(false);
             Debug.Log("Player is not nearby");
         }
     }
