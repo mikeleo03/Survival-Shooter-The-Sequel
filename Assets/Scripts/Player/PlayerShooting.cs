@@ -4,6 +4,8 @@ using System.Text;
 using UnitySampleAssets.CrossPlatformInput;
 using System.Collections.Generic;
 using System;
+using System.Collections;
+using UnityEngine.Playables;
 
 namespace Nightmare
 {
@@ -21,6 +23,9 @@ namespace Nightmare
         private int currWeaponIdx;
         [SerializeField] Transform weaponPos;
         float realWeaponDamage;
+
+        // For skill cutscene
+        PlayableDirector director;
   
         private UnityAction listener;
 
@@ -30,6 +35,18 @@ namespace Nightmare
             grenadeTimer = 0;
             ChangeWeapon(0);
             AdjustGrenadeStock(0);
+
+            GameObject directorObject = GameObject.Find("Timeline");
+
+            // Get the PlayableDirector component
+            if (directorObject != null)
+            {
+                director = directorObject.GetComponent<PlayableDirector>();
+            }
+            else
+            {
+                Debug.Log("Director Object Null");
+            }
 
             listener = new UnityAction(CollectGrenade);
 
@@ -171,6 +188,7 @@ namespace Nightmare
 
         void ShootGrenade()
         {
+            StartCoroutine(PlayCutscene());
             AdjustGrenadeStock(-1);
             grenadeTimer = 0;
             GameObject clone = PoolManager.Pull("Grenade", transform.position, Quaternion.identity);
@@ -178,6 +196,31 @@ namespace Nightmare
             //GameObject clone = Instantiate(grenade, transform.position, Quaternion.identity);
             //Grenade grenadeClone = clone.GetComponent<Grenade>();
             //grenadeClone.Shoot(grenadeSpeed * transform.forward);
+        }
+
+        IEnumerator PlayCutscene()
+        {
+            // Freeze the enemies
+            FreezeEnemies();
+
+            // Play the cutscene
+            director.Play();
+
+            // Wait for the cutscene to finish
+            yield return new WaitForSeconds((float)director.duration);
+
+            // Unfreeze the enemies
+            UnfreezeEnemies();
+        }
+
+        public void FreezeEnemies()
+        {
+            EnemyMovement.isFreeze = true;
+        }
+
+        public void UnfreezeEnemies()
+        {
+            EnemyMovement.isFreeze = false;
         }
 
         public void ResetPlayerDamage()
