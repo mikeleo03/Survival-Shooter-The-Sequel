@@ -85,14 +85,14 @@ public class ShopManager : MonoBehaviour {
 		else if (isAccessible && !shopPanel.activeSelf) 
 		{
 			resetCanvas();
-			showMessage("Skibidi brok");
+			showMessage("Press key Space to open shop");
 			return;
 		}   
 		else if (!isAccessible && Input.GetKeyDown(KeyCode.Space)) 
 		{
 			messageTimer = messageDelay; 
 			resetCanvas();
-			showMessage("Error brok");
+			showMessage("Go to the shopkeeper to access the shop.");
 			return;
 		}
 		if (messageTimer < 0.01f && !shopPanel.activeSelf) 
