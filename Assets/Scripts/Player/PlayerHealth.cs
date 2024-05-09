@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 namespace Nightmare
 {
-    public class PlayerHealth : MonoBehaviour
+    public class PlayerHealth : MonoBehaviour, IDataPersistance
     {
         public int startingHealth = 100;
         public int currentHealth;
@@ -123,5 +123,17 @@ namespace Nightmare
         {
             isCheatNoDamage = isActive;
         }
+
+        public void LoadData(GameData data)
+        {
+            this.currentHealth = data.playerHealth;
+            healthSlider.value = this.currentHealth;
+        }
+
+        public void SaveData(ref GameData data)
+        {
+            data.playerHealth = this.currentHealth;
+        }
+
     }
 }

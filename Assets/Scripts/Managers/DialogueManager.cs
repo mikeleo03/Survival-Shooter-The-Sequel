@@ -11,8 +11,12 @@ public class DialogueManager : MonoBehaviour
     public string[] lines;
     public string[] talker;
     public float textSpeed;
+    [SerializeField] private Canvas QuestCanvas;
+    [SerializeField] private Canvas DialogueCanvas;
+    [SerializeField] private GameObject TalkerBox;
 
     private int index;
+    private bool isDialogueFinished = false;
     private Controls controls;
     private InputAction click;
 
@@ -22,6 +26,7 @@ public class DialogueManager : MonoBehaviour
         click = controls.UI.Click;
 
         Time.timeScale = 0;
+        QuestCanvas.enabled = false;
         textComponent.text = string.Empty;
         talkerComponent.text = string.Empty;
         StartDialogue();
@@ -43,15 +48,46 @@ public class DialogueManager : MonoBehaviour
 
     private void AdvanceDialog(InputAction.CallbackContext ctx)
     {
-        if (textComponent.text == lines[index])
+        if (isDialogueFinished == false)
         {
-            NextLine();
+            if (textComponent.text == lines[index])
+            {
+                NextLine();
+            }
+            else
+            {
+                StopAllCoroutines();
+                textComponent.text = lines[index];
+                talkerComponent.text = talker[index];
+                // TalkerBox.SetActive(!string.IsNullOrEmpty(talker[index]));
+            }
         }
         else
         {
-            StopAllCoroutines();
-            textComponent.text = lines[index];
-            talkerComponent.text = talker[index];
+            if (QuestCanvas.enabled == false)
+            {
+                QuestCanvas.enabled = true;
+                DialogueCanvas.enabled = false;
+            } 
+            else
+            {
+                QuestCanvas.enabled = false;
+                gameObject.SetActive(false);
+                Time.timeScale = 1;
+            }
+        }
+
+        // Check if talkerComponent is empty and disable the TalkerBox
+        if (TalkerBox != null)
+        {
+            if (string.IsNullOrEmpty(talkerComponent.text))
+            {
+                TalkerBox.SetActive(false);
+            }
+            else
+            {
+                TalkerBox.SetActive(true);
+            }
         }
     }
 
@@ -79,11 +115,12 @@ public class DialogueManager : MonoBehaviour
             textComponent.text = string.Empty;
             talkerComponent.text = string.Empty;
             StartCoroutine(TypeLine());
-        }
-        else
-        {
-            gameObject.SetActive(false);
-            Time.timeScale = 1;
+
+            // Check is it end?
+            if (index == lines.Length - 1)
+            {
+                isDialogueFinished = true;
+            }
         }
     }
 }

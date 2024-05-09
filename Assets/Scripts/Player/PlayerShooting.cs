@@ -4,18 +4,20 @@ using System.Text;
 using UnitySampleAssets.CrossPlatformInput;
 using System.Collections.Generic;
 using System;
+using System.Collections;
+using UnityEngine.Playables;
 using UnityEngine.InputSystem;
 using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 
 namespace Nightmare
 {
-    public class PlayerShooting : PausibleObject
+    public class PlayerShooting : PausibleObject, IDataPersistance
     {
         public GameObject grenade;
         public float grenadeSpeed = 200f;
         public float grenadeFireDelay = 0.5f;
         public float damagePercent = 1;
-        int grenadeStock = 99;
+        int grenadeStock = int.MaxValue;
         
         float timer, grenadeTimer;
         public List<GameObject> weaponsList;
@@ -23,6 +25,9 @@ namespace Nightmare
         private int currWeaponIdx;
         [SerializeField] Transform weaponPos;
         float realWeaponDamage;
+
+        // For skill cutscene
+        PlayableDirector director;
   
         private UnityAction listener;
 
@@ -42,6 +47,18 @@ namespace Nightmare
             grenadeTimer = 0;
             ChangeWeapon(0);
             AdjustGrenadeStock(0);
+
+            GameObject directorObject = GameObject.Find("Timeline");
+
+            // Get the PlayableDirector component
+            if (directorObject != null)
+            {
+                director = directorObject.GetComponent<PlayableDirector>();
+            }
+            else
+            {
+                Debug.Log("Director Object Null");
+            }
 
             listener = new UnityAction(CollectGrenade);
 
@@ -206,16 +223,41 @@ namespace Nightmare
 
         void ShootGrenade()
         {
-            if (grenadeTimer >= grenadeFireDelay && Time.timeScale != 0)
-            {
-                AdjustGrenadeStock(-1);
-                grenadeTimer = 0;
-                GameObject clone = PoolManager.Pull("Grenade", transform.position, Quaternion.identity);
-                EventManager.TriggerEvent("ShootGrenade", grenadeSpeed * transform.forward);
-                //GameObject clone = Instantiate(grenade, transform.position, Quaternion.identity);
-                //Grenade grenadeClone = clone.GetComponent<Grenade>();
-                //grenadeClone.Shoot(grenadeSpeed * transform.forward);
-            }
+            StartCoroutine(ShootCutscene());
+            
+            //GameObject clone = Instantiate(grenade, transform.position, Quaternion.identity);
+            //Grenade grenadeClone = clone.GetComponent<Grenade>();
+            //grenadeClone.Shoot(grenadeSpeed * transform.forward);
+        }
+
+        IEnumerator ShootCutscene()
+        {
+            // Freeze the enemies
+            FreezeEnemies();
+
+            // Play the cutscene
+            director.Play();
+
+            // Wait for the cutscene to finish
+            yield return new WaitForSeconds((float)director.duration);
+
+            // Unfreeze the enemies
+            UnfreezeEnemies();
+
+            AdjustGrenadeStock(-1);
+            grenadeTimer = 0;
+            GameObject clone = PoolManager.Pull("Grenade", transform.position, Quaternion.identity);
+            EventManager.TriggerEvent("ShootGrenade", grenadeSpeed * transform.forward);
+        }
+
+        public void FreezeEnemies()
+        {
+            EnemyMovement.isFreeze = true;
+        }
+
+        public void UnfreezeEnemies()
+        {
+            EnemyMovement.isFreeze = false;
         }
 
         public void ResetPlayerDamage()
@@ -227,5 +269,16 @@ namespace Nightmare
         {
             damagePercent = 100000;
         }
+
+        public void LoadData(GameData data)
+        {
+            data.damagePercent = this.damagePercent;
+        }
+
+        public void SaveData(ref GameData data)
+        {
+            this.damagePercent = data.damagePercent;
+        }
+
     }
 }

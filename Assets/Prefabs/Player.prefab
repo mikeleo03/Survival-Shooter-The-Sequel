@@ -164,7 +164,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grenade: {fileID: 1105787354104060, guid: 41a4c48eef428174cb5039adb608d30c, type: 3}
   grenadeSpeed: 400
-  grenadeFireDelay: 3
+  grenadeFireDelay: 0.75
   damagePercent: 1
   weaponsList:
   - {fileID: 6517554577502634727, guid: 654eb4aab37345147a96aba1eaf65063, type: 3}
@@ -216,7 +216,7 @@ GameObject:
   - component: {fileID: 11400002}
   - component: {fileID: 13600000}
   - component: {fileID: 8200002}
-  - component: {fileID: 5475400658131949190}
+  - component: {fileID: 7588598180635152441}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -473,6 +473,8 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &7588598180635152441
+  balance: 0
 --- !u!1 &100008
 GameObject:
   m_ObjectHideFlags: 0

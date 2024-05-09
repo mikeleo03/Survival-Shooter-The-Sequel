@@ -33,7 +33,11 @@ namespace Nightmare {
         }
 
         private void ResetLevel() {
-            ScoreManager.score = 0;
+            // ScoreManager.score = 0;
+            if (InGameTextStatistics.score > TextStatistics.highScore)
+            {
+                TextStatistics.highScore = InGameTextStatistics.score;
+            }
             // lm.LoadInitialLevel();
             // playerHealth.ResetPlayer();
             timerManager.ResetTimer();

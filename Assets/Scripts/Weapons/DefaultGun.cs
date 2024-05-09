@@ -12,7 +12,7 @@ public class DefaultGun : Weapons
     LineRenderer gunLine;
     Light gunLight;
     Light faceLight;
-    
+
     private void Awake()
     {
         // Set up the references.
@@ -44,6 +44,10 @@ public class DefaultGun : Weapons
         shootRay.origin = transform.position;
         shootRay.direction = transform.forward;
 
+        TextStatistics.shotsFired++;
+        InGameTextStatistics.shotsFired++;
+
+
         // Perform the raycast against gameobjects on the shootable layer and if it hits something...
         if (Physics.Raycast(shootRay, out shootHit, range, shootableMask, QueryTriggerInteraction.Ignore))
         {
@@ -55,6 +59,18 @@ public class DefaultGun : Weapons
             {
                 // ... the enemy should take damage.
                 enemyHealth.TakeDamage(damagePerShot, shootHit.point);
+                TextStatistics.shotsHit++;
+                InGameTextStatistics.shotsHit++;
+            }
+
+            // Try and find an EnemyPetHealth script on the gameobject hit.
+            EnemyPetHealth enemyPetHealth = shootHit.collider.GetComponent<EnemyPetHealth>();
+
+            // If the EnemyPetHealth component exist...
+            if (enemyPetHealth != null)
+            {
+                // ... the enemy pet should take damage.
+                enemyPetHealth.TakeDamage(damagePerShot, shootHit.point);
             }
 
             // Set the second position of the line renderer to the point the raycast hit.

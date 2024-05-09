@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: 36e3c5cd16db60e40bb73a4facc7eecd
   - enabled: 1
+    path: Assets/Scenes/Cutscene01.unity
+    guid: 1c87c940c35ecac43869e12de7984732
+  - enabled: 1
     path: Assets/Scenes/Main.unity
     guid: 11930b577543f644eb2aed6e2001fd38
   - enabled: 1
@@ -26,6 +29,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Quest04.unity
     guid: edc9a7d9952dc44489c1218e4a2c4e17
+  - enabled: 1
+    path: Assets/Scenes/Cutscene02.unity
+    guid: e7932cbf39964a84c9c3e5e4c12a57a4
+  - enabled: 1
+    path: Assets/Scenes/Shop.unity
+    guid: ae4bbbcc38360e84b9b2f40b8837854a
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: bdc52526ddc3306489d10221ce26f4ee, type: 2}
     com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 52a9862de58a2844cbb9a6de8093a794, type: 2}

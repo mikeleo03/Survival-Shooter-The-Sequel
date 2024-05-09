@@ -32,9 +32,20 @@ public class Shotgun : Weapons
         gunParticles.Stop();
         gunParticles.Play();
 
+        TextStatistics.shotsFired++;
+        InGameTextStatistics.shotsFired++;
+
+
         if (!isEnemyWeapon)
         {
             shootHit = Physics.SphereCastAll(transform.position, range, transform.forward, range, shootableMask, QueryTriggerInteraction.Ignore);
+
+            if (shootHit.Length > 0)
+            {
+                TextStatistics.shotsHit++;
+                InGameTextStatistics.shotsHit++;
+            }
+
             foreach (RaycastHit hit in shootHit)
             {
                 EnemyHealth enemyHealth = hit.collider.GetComponent<EnemyHealth>();
@@ -43,8 +54,18 @@ public class Shotgun : Weapons
                 {
                     // ... the enemy should take damage.
                     // Damage is lower the farther the enemy is.
-                    int finalDamage = Mathf.Max(10, Mathf.RoundToInt(damagePerShot - hit.distance/range*damagePerShot));
+                    int finalDamage = Mathf.Max(10, Mathf.RoundToInt(damagePerShot - hit.distance / range * damagePerShot));
                     enemyHealth.TakeDamage(finalDamage, hit.point);
+                }
+
+                EnemyPetHealth enemyPetHealth = hit.collider.GetComponent<EnemyPetHealth>();
+                // If the EnemyPetHealth component exist...
+                if (enemyPetHealth != null)
+                {
+                    // ... the enemy pet should take damage.
+                    // Damage is lower the farther the enemy pet is.
+                    int finalDamage = Mathf.Max(10, Mathf.RoundToInt(damagePerShot - hit.distance / range * damagePerShot));
+                    enemyPetHealth.TakeDamage(finalDamage, hit.point);
                 }
             }
         }

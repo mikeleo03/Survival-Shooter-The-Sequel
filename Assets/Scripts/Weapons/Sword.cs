@@ -53,6 +53,17 @@ public class Sword : Weapons
                     // ... the enemy should take damage.
                     enemyHealth.TakeDamage(damagePerShot, shootHit.point);
                 }
+
+                // Try and find an EnemyPetHealth script on the gameobject hit.
+                EnemyPetHealth enemyPetHealth = shootHit.collider.GetComponent<EnemyPetHealth>();
+
+                // If the EnemyPetHealth component exist...
+                if (enemyPetHealth != null)
+                {
+                    // ... the enemy pet should take damage.
+                    Debug.Log("SWORDD");
+                    enemyPetHealth.TakeDamage(damagePerShot, shootHit.point);
+                }
             }
         }
     }
