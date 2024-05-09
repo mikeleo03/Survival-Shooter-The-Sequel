@@ -12,17 +12,18 @@ namespace Nightmare
 
         Text sText;
 
-        void Awake ()
+        void Awake()
         {
-            sText = GetComponent <Text> ();
+            sText = GetComponent<Text>();
 
             score = 0;
             levelThreshhold = LEVEL_INCREASE;
         }
 
 
-        void Update ()
+        void Update()
         {
+            ScoreManager.score = InGameTextStatistics.score;
             sText.text = "Score: " + score;
         }
 
