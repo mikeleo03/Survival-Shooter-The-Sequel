@@ -7,16 +7,12 @@ using Nightmare;
 public class CountdownManager : MonoBehaviour {
 
     public int countdownTime;
-    private int countdown;
     public Text countdownDisplay;
     private bool isRunning = false;
     private Coroutine countdownCoroutine;
-    LevelManager lm;
 
     // Start the countdown coroutine if it's set to start automatically
     void Start() {
-        countdown = countdownTime;
-        lm = FindObjectOfType<LevelManager>();
         if (isRunning) {
             StartCountdown();
         }
@@ -32,16 +28,7 @@ public class CountdownManager : MonoBehaviour {
 
         countdownDisplay.text = "0";
         StopCountdown();
-
-        if (countdown == 10)
-        {
-            LoadMenuScene();
-        } 
-        else
-        {
-            lm.AdvanceLevel();
-        }
-
+        LoadMenuScene();
         ResetCountdown();
     }
 

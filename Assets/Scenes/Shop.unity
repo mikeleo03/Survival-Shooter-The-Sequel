@@ -1917,6 +1917,7 @@ GameObject:
   - component: {fileID: 697161331}
   - component: {fileID: 697161330}
   - component: {fileID: 697161329}
+  - component: {fileID: 697161333}
   m_Layer: 5
   m_Name: ShopCanvas
   m_TagString: Untagged
@@ -2009,6 +2010,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &697161333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 697161327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca490b40010d5634fa5994ed44b472be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  countdownTime: 30
+  countdownShop: {fileID: 709720794}
 --- !u!1 &703827268
 GameObject:
   m_ObjectHideFlags: 0
@@ -2073,7 +2088,6 @@ GameObject:
   - component: {fileID: 709720792}
   - component: {fileID: 709720795}
   - component: {fileID: 709720794}
-  - component: {fileID: 709720793}
   m_Layer: 5
   m_Name: CountdownText
   m_TagString: Untagged
@@ -2097,23 +2111,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -66, y: -48}
+  m_AnchoredPosition: {x: -58, y: -48}
   m_SizeDelta: {x: 130, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &709720793
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 709720791}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7b6e7c3c78b01d4eb3cc6223c46fc2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  countdownTime: 30
-  countdownDisplay: {fileID: 709720794}
 --- !u!114 &709720794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2147,7 +2147,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 30
+  m_Text: 0
 --- !u!222 &709720795
 CanvasRenderer:
   m_ObjectHideFlags: 0
