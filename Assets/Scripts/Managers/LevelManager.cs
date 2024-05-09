@@ -60,10 +60,7 @@ namespace Nightmare
             currentScene = scene;
 
             // Play realtime cinematic?
-            if (currentLevel > 1)
-                cinema.StartCinematic(CinematicController.CinematicType.Realtime);
-            else
-                cinema.StartCinematic(CinematicController.CinematicType.PreRendered);
+            cinema.StartCinematic(CinematicController.CinematicType.Realtime);
         }
 
         private void DisableOldScene()
