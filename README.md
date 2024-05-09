@@ -381,7 +381,7 @@ The following is the division of tasks that we carry out.
         <td></td>
     </tr>
     <tr id="merged-row">
-        <td colspan="4"><b>Bonus</b></td>
+        <td colspan="6"><b>Bonus</b></td>
     </tr>
     <tr>
         <td>Build ke Android</td>
