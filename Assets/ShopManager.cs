@@ -21,15 +21,30 @@ public class ShopManager : MonoBehaviour {
 
 	void Awake()
 	{
-		canvas = GetComponent<Canvas>();
-		player = GameObject.FindGameObjectWithTag("Player").transform;
-		playerCurrency = player.GetComponent<PlayerCurrency>();
-		balanceText = transform.Find("BalancePlaceholder").GetComponent<Text>();
 	}
 
 	void Start()
 	{
 		canvas = GetComponent<Canvas>();
+		player = GameObject.FindGameObjectWithTag("Player").transform;
+		playerCurrency = player.GetComponent<PlayerCurrency>();
+		balanceText = transform
+			.Find("ShopPanel")
+			.Find("BalancePlaceholder")
+			.GetComponent<Text>();
+		Text healingPetText = transform
+			.Find("ShopPanel")
+			.Find("HealingPetButton")
+			.Find("Text")
+			.GetComponent<Text>();
+		Text attackingPetText = transform
+			.Find("ShopPanel")
+			.Find("AttackingPetButton")
+			.Find("Text")
+			.GetComponent<Text>();
+		healingPetText.text += "\n$"+healingPetPrice;
+		attackingPetText.text += "\n$"+attackingPetPrice;
+
 	}
 	
 	void Update()
