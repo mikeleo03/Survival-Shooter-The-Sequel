@@ -20,6 +20,7 @@ namespace Nightmare
         EnemyHealth enemyHealth;
         NavMeshAgent nav;
         public float timer = 0f;
+        public static bool isFreeze = false;
 
         void Awake ()
         {
@@ -48,6 +49,16 @@ namespace Nightmare
 
         void Update ()
         {
+            if (isFreeze)
+            {
+                nav.isStopped = true;
+                return;
+            }
+            else
+            {
+                nav.isStopped = false;
+            }
+
             if (!isPaused)
             {
                 // If both the enemy and the player have health left...
