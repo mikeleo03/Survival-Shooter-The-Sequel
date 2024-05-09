@@ -82,7 +82,7 @@ public class ShopManager : MonoBehaviour {
 		else if (isAccessible && !shopPanel.activeSelf) 
 		{
 			resetCanvas();
-			showMessage("Press key E to open shop");
+			showMessage("Press key B to open shop");
 			return;
 		}   
 		else if (!isAccessible && Input.GetKeyDown(KeyCode.B)) 

@@ -18,6 +18,8 @@ public class TimerManager : MonoBehaviour {
     void Update() {
         if (isRunning) {
             time = time + Time.deltaTime;
+            TextStatistics.playTime += Time.deltaTime;
+            InGameTextStatistics.playTime += Time.deltaTime;
         }
         string timeText = System.TimeSpan.FromSeconds(time).ToString("mm':'ss");
         Timer.text = timeText;

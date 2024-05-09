@@ -19,6 +19,8 @@ namespace Nightmare
         float camRayLength = 100f;          // The length of the ray from the camera into the scene.
 #endif
 
+        private Vector3 lastPosition; // Variable to store the last position
+
         void Awake ()
         {
 #if !MOBILE_INPUT
@@ -65,6 +67,21 @@ namespace Nightmare
         {
             // Set the movement vector based on the axis input.
             movement.Set (h, 0f, v);
+
+            // Calculate the distance moved since the last frame
+            float distanceMoved = Vector3.Distance(transform.position, lastPosition);
+
+            // Update the last position to the current position
+            lastPosition = transform.position;
+
+            // If the distance moved is greater than a small threshold (to avoid counting tiny movements due to floating-point imprecision)
+            if (distanceMoved > 0.001f)
+            {
+                // Increment distanceTraveled by the distance moved
+                TextStatistics.distanceTraveled += distanceMoved;
+                InGameTextStatistics.distanceTraveled += distanceMoved;
+            }
+
             
             // Normalise the movement vector and make it proportional to the speed per second.
             movement = movement.normalized * speed * Time.deltaTime;
