@@ -49,14 +49,14 @@ namespace Nightmare
 
         void Update ()
         {
-            if (isFreeze)
+            if (isFreeze && nav.isOnNavMesh)
             {
-                nav.isStopped = true;
+                nav.enabled = false;
                 return;
             }
-            else
+            else if (!isFreeze && nav.isOnNavMesh)
             {
-                nav.isStopped = false;
+                nav.enabled = true;
             }
 
             if (!isPaused)
