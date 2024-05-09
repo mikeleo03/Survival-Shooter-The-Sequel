@@ -40,11 +40,13 @@ namespace Nightmare
         {
             if (IsDead())
             {
-                transform.Translate (-Vector3.up * sinkSpeed * Time.deltaTime);
-                if (transform.position.y < -10f)
-                {
-                    Destroy(gameObject);
-                }
+                // TODO: Set rigidbody to kinematic and sink instead of vanish immediately
+                Destroy(gameObject);
+                // transform.Translate (-Vector3.up * sinkSpeed * Time.deltaTime);
+                // if (transform.position.y < -1f)
+                // {
+                    // Destroy(gameObject);
+                // }
             }
         }
 
@@ -55,7 +57,7 @@ namespace Nightmare
 
         public void TakeDamage (int amount, Vector3 hitPoint)
         {
-            
+            Debug.Log("Enemy Pet: " + currentHealth);
             if (!IsDead())
             {
                 // enemyAudio.Play();
