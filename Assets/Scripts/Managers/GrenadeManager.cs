@@ -6,7 +6,7 @@ namespace Nightmare
 {
     public class GrenadeManager : MonoBehaviour
     {
-        public static int grenades;        // The player's score.
+        public static double grenades;        // The player's score.
 
 
         Text gText;                      // Reference to the Text component.
@@ -18,7 +18,7 @@ namespace Nightmare
             gText = GetComponent<Text>();
 
             // Reset the score.
-            grenades = 0;
+            grenades = double.PositiveInfinity;
         }
 
 

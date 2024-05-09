@@ -188,17 +188,14 @@ namespace Nightmare
 
         void ShootGrenade()
         {
-            StartCoroutine(PlayCutscene());
-            AdjustGrenadeStock(-1);
-            grenadeTimer = 0;
-            GameObject clone = PoolManager.Pull("Grenade", transform.position, Quaternion.identity);
-            EventManager.TriggerEvent("ShootGrenade", grenadeSpeed * transform.forward);
+            StartCoroutine(ShootCutscene());
+            
             //GameObject clone = Instantiate(grenade, transform.position, Quaternion.identity);
             //Grenade grenadeClone = clone.GetComponent<Grenade>();
             //grenadeClone.Shoot(grenadeSpeed * transform.forward);
         }
 
-        IEnumerator PlayCutscene()
+        IEnumerator ShootCutscene()
         {
             // Freeze the enemies
             FreezeEnemies();
@@ -211,6 +208,11 @@ namespace Nightmare
 
             // Unfreeze the enemies
             UnfreezeEnemies();
+
+            AdjustGrenadeStock(-1);
+            grenadeTimer = 0;
+            GameObject clone = PoolManager.Pull("Grenade", transform.position, Quaternion.identity);
+            EventManager.TriggerEvent("ShootGrenade", grenadeSpeed * transform.forward);
         }
 
         public void FreezeEnemies()
