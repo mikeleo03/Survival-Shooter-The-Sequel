@@ -2,23 +2,29 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using Nightmare;
 
 public class CountdownManager : MonoBehaviour {
 
     public int countdownTime;
+    private int countdown;
     public Text countdownDisplay;
     private bool isRunning = false;
     private Coroutine countdownCoroutine;
+    LevelManager lm;
 
     // Start the countdown coroutine if it's set to start automatically
     void Start() {
+        countdown = countdownTime;
+        lm = FindObjectOfType<LevelManager>();
         if (isRunning) {
             StartCountdown();
         }
     }
 
     private IEnumerator CountdownToStart() {
-        while (countdownTime > 0) {
+        while (countdownTime > 0)
+        {
             countdownDisplay.text = countdownTime.ToString();
             yield return new WaitForSeconds(1);
             countdownTime--;
@@ -26,7 +32,16 @@ public class CountdownManager : MonoBehaviour {
 
         countdownDisplay.text = "0";
         StopCountdown();
-        LoadMenuScene();
+
+        if (countdown == 10)
+        {
+            LoadMenuScene();
+        } 
+        else
+        {
+            lm.AdvanceLevel();
+        }
+
         ResetCountdown();
     }
 
