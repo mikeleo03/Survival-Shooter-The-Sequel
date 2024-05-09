@@ -20,11 +20,14 @@ public class QuestManager : MonoBehaviour
     [SerializeField] Text questText;
     [SerializeField] Canvas CompletedCanvas;
 
+    PlayerCurrency playerCurr;
+
     private void Awake()
     {
         currQuest = questList[0];
         CompletedCanvas.enabled = false;
         loadedNext = false;
+        playerCurr = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCurrency>();
     }
 
     public Quest getCurrentQuest()
@@ -38,6 +41,7 @@ public class QuestManager : MonoBehaviour
         {
             if (CompletedCanvas.enabled == true)
             {
+                rewardPlayer();
                 CompletedCanvas.enabled = false;
                 Time.timeScale = 1;
                 if (lm.GetCurrLevel() < 3)
@@ -122,5 +126,12 @@ public class QuestManager : MonoBehaviour
         kepalaCount = 0;
         jenderalCount = 0;
         rajaCount = 0;
+    }
+
+    void rewardPlayer()
+    {
+        Debug.Log("Player rewarded");
+        int reward = 200 * (lm.GetCurrLevel() +  1); 
+        playerCurr.add(reward);
     }
 }

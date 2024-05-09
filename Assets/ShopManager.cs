@@ -68,6 +68,7 @@ public class ShopManager : MonoBehaviour {
 	
 	void Update()
 	{
+		balanceText.text = playerCurrency.Balance().ToString();
 		messageTimer -= Time.deltaTime;
 		if (isAccessible && Input.GetKeyDown(KeyCode.Space)) 
 		{
@@ -78,7 +79,6 @@ public class ShopManager : MonoBehaviour {
 			}
 
 			resetCanvas();
-			balanceText.text = playerCurrency.Balance().ToString();
 			showShop();
 			return;
 		} 
@@ -113,7 +113,8 @@ public class ShopManager : MonoBehaviour {
 			return;
 		}
 		playerCurrency.subtract(healingPetPrice);
-        Instantiate(healingPet, player.position, Quaternion.identity);     
+        GameObject pet = Instantiate(healingPet, player.position, Quaternion.identity);     
+		pet.transform.SetParent(player, false);
 	}
 
 	public void SpawnAttackingPet()
@@ -122,7 +123,8 @@ public class ShopManager : MonoBehaviour {
 			return;
 		}
 		playerCurrency.subtract(attackingPetPrice);
-		Instantiate(attackingPet, player.position, Quaternion.identity);
+		GameObject pet = Instantiate(attackingPet, player.position, Quaternion.identity);
+		pet.transform.SetParent(player, false);
 	}	
 
 	public void setAccessible(bool value)
