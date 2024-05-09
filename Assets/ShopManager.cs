@@ -1,9 +1,6 @@
 using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
-using UnityEngine.Audio;
 using System;
-using UnityEditor.VersionControl;
 
 
 #if UNITY_EDITOR
@@ -70,7 +67,7 @@ public class ShopManager : MonoBehaviour {
 	{
 		balanceText.text = playerCurrency.Balance().ToString();
 		messageTimer -= Time.deltaTime;
-		if (isAccessible && Input.GetKeyDown(KeyCode.Space)) 
+		if (isAccessible && Input.GetKeyDown(KeyCode.B)) 
 		{
 			if (shopPanel.activeSelf)
 			{
@@ -85,10 +82,10 @@ public class ShopManager : MonoBehaviour {
 		else if (isAccessible && !shopPanel.activeSelf) 
 		{
 			resetCanvas();
-			showMessage("Press key Space to open shop");
+			showMessage("Press key E to open shop");
 			return;
 		}   
-		else if (!isAccessible && Input.GetKeyDown(KeyCode.Space)) 
+		else if (!isAccessible && Input.GetKeyDown(KeyCode.B)) 
 		{
 			messageTimer = messageDelay; 
 			resetCanvas();
