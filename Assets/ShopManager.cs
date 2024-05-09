@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using UnityEngine.InputSystem;
 
 
 #if UNITY_EDITOR
@@ -23,16 +24,17 @@ public class ShopManager : MonoBehaviour {
 	GameObject shopPanel;
 	GameObject messagePanel;
 	Canvas canvas;
+	InputAction shopAction;
 	float messageTimer;
 
 	bool isAccessible;
 
 	void Awake()
 	{
-	
+		shopAction = ControlRef.control.Player.Shop;
 	}
 
-	void Start()
+    void Start()
 	{
 		canvas = GetComponent<Canvas>();
 		canvas.enabled = false;
@@ -67,7 +69,7 @@ public class ShopManager : MonoBehaviour {
 	{
 		balanceText.text = playerCurrency.Balance().ToString();
 		messageTimer -= Time.deltaTime;
-		if (isAccessible && Input.GetKeyDown(KeyCode.B)) 
+		if (isAccessible && shopAction.WasPressedThisFrame()) 
 		{
 			if (shopPanel.activeSelf)
 			{
@@ -85,7 +87,7 @@ public class ShopManager : MonoBehaviour {
 			showMessage("Press key B to open shop");
 			return;
 		}   
-		else if (!isAccessible && Input.GetKeyDown(KeyCode.B)) 
+		else if (!isAccessible && shopAction.WasPressedThisFrame()) 
 		{
 			messageTimer = messageDelay; 
 			resetCanvas();

@@ -17,13 +17,11 @@ public class DialogueManager : MonoBehaviour
 
     private int index;
     private bool isDialogueFinished = false;
-    private Controls controls;
     private InputAction click;
 
     private void Awake()
     {
-        controls = new Controls();
-        click = controls.UI.Click;
+        click = ControlRef.control.UI.Click;
 
         Time.timeScale = 0;
         QuestCanvas.enabled = false;
@@ -34,16 +32,12 @@ public class DialogueManager : MonoBehaviour
 
     private void OnEnable()
     {
-        click.Enable();
-
         click.performed += AdvanceDialog;
     }
 
     private void OnDisable()
     {
         click.performed -= AdvanceDialog;
-
-        click.Disable();
     }
 
     private void AdvanceDialog(InputAction.CallbackContext ctx)

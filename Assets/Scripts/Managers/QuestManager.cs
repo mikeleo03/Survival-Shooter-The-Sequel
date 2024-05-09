@@ -17,14 +17,11 @@ public class QuestManager : MonoBehaviour
     [SerializeField] Canvas CompletedCanvas;
 
     PlayerCurrency playerCurr;
-
-    Controls controls;
     InputAction click;
 
     private void Awake()
     {
-        controls = new Controls();
-        click = controls.UI.Click;
+        click = ControlRef.control.UI.Click;
         currQuest = questList[0];
         CompletedCanvas.enabled = false;
         loadedNext = false;
@@ -34,12 +31,6 @@ public class QuestManager : MonoBehaviour
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-        click.Enable();
-    }
-
-    private void OnDisable()
-    {
-        click.Disable();
     }
 
     public Quest getCurrentQuest()

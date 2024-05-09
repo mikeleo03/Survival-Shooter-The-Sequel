@@ -35,16 +35,13 @@ public class CheatManager : MonoBehaviour
     string textInput;
     public InputField inputField;
     bool cheatOpened;
-
-    Controls control;
     InputAction cheatInput;
 
     bool[] cheats = new bool[3];
 
     private void Awake()
     {
-        control = new Controls();
-        cheatInput = control.Player.Cheat;
+        cheatInput = ControlRef.control.Player.Cheat;
         cheatOpened = false;
 
         hud = GameObject.Find("HUDCanvas").GetComponent<HUDisplay>();
@@ -57,15 +54,11 @@ public class CheatManager : MonoBehaviour
 
     private void OnEnable()
     {
-        cheatInput.Enable();
-
         cheatInput.performed += ToggleCheat;
     }
 
     private void OnDisable()
     {
-        cheatInput.Disable();
-
         cheatInput.performed -= ToggleCheat;
     }
 

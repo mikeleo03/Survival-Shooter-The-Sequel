@@ -13,24 +13,11 @@ public class PauseManager : MonoBehaviour {
 	public AudioMixerSnapshot unpaused;
 	
 	Canvas canvas;
-
-    private Controls control;
     private InputAction escape;
 
     private void Awake()
     {
-        control = new Controls();
-        escape = control.UI.Cancel;
-    }
-
-    private void OnEnable()
-    {
-        escape.Enable();
-    }
-
-    private void OnDisable()
-    {
-        escape.Disable();
+        escape = ControlRef.control.UI.Cancel;
     }
 
     void Start()

@@ -89,6 +89,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Shop"",
+                    ""type"": ""Button"",
+                    ""id"": ""56c20ab6-5f48-4039-9aad-b647a614abf0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -353,6 +362,17 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Scroll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""138f3252-18be-4009-be6e-76a4acbe357b"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Shop"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -967,6 +987,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player_Cheat = m_Player.FindAction("Cheat", throwIfNotFound: true);
         m_Player_Grenade = m_Player.FindAction("Grenade", throwIfNotFound: true);
         m_Player_Scroll = m_Player.FindAction("Scroll", throwIfNotFound: true);
+        m_Player_Shop = m_Player.FindAction("Shop", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1048,6 +1069,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Cheat;
     private readonly InputAction m_Player_Grenade;
     private readonly InputAction m_Player_Scroll;
+    private readonly InputAction m_Player_Shop;
     public struct PlayerActions
     {
         private @Controls m_Wrapper;
@@ -1059,6 +1081,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @Cheat => m_Wrapper.m_Player_Cheat;
         public InputAction @Grenade => m_Wrapper.m_Player_Grenade;
         public InputAction @Scroll => m_Wrapper.m_Player_Scroll;
+        public InputAction @Shop => m_Wrapper.m_Player_Shop;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1089,6 +1112,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Scroll.started += instance.OnScroll;
             @Scroll.performed += instance.OnScroll;
             @Scroll.canceled += instance.OnScroll;
+            @Shop.started += instance.OnShop;
+            @Shop.performed += instance.OnShop;
+            @Shop.canceled += instance.OnShop;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1114,6 +1140,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Scroll.started -= instance.OnScroll;
             @Scroll.performed -= instance.OnScroll;
             @Scroll.canceled -= instance.OnScroll;
+            @Shop.started -= instance.OnShop;
+            @Shop.performed -= instance.OnShop;
+            @Shop.canceled -= instance.OnShop;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1311,6 +1340,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnCheat(InputAction.CallbackContext context);
         void OnGrenade(InputAction.CallbackContext context);
         void OnScroll(InputAction.CallbackContext context);
+        void OnShop(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

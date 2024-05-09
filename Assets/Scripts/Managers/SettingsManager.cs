@@ -11,6 +11,7 @@ public class SettingsManager : MonoBehaviour
 
     private void Awake()
     {
+        ControlRef.control.Enable();
         nameInput.text = PlayerPrefs.GetString("PlayerName", "");
         toggles[PlayerPrefs.GetInt("Difficulty", 0)].isOn = true;
 

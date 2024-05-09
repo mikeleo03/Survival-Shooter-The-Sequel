@@ -20,25 +20,12 @@ namespace Nightmare
         private Camera mainCam;
         private VideoPlayer videoPlayer;
         private int currentCinematic;
-
-        private Controls control;
         private InputAction skip;
 
         // Use this for initialization
         private void Awake()
         {
-            control = new Controls();
-            skip = control.UI.Skip;
-        }
-
-        private void OnEnable()
-        {
-            skip.Enable();
-        }
-
-        private void OnDisable()
-        {
-            skip.Disable();
+            skip = ControlRef.control.UI.Skip;
         }
 
         void Start()
