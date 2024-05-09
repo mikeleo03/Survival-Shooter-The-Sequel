@@ -42,7 +42,7 @@ public class QuestManager : MonoBehaviour
                 Time.timeScale = 1;
                 if (lm.GetCurrLevel() < 3)
                 {
-                    lm.AdvanceLevel();
+                    SceneManager.LoadSceneAsync("Shop", LoadSceneMode.Additive);
                 }
                 else
                 {

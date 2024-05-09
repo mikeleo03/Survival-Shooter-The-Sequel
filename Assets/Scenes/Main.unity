@@ -5836,6 +5836,8 @@ MonoBehaviour:
   - Quest02
   - Quest03
   - Quest04
+  TimerTextComp: {fileID: 197920025}
+  QuestTextComp: {fileID: 837300820}
 --- !u!4 &1796129603
 Transform:
   m_ObjectHideFlags: 0
