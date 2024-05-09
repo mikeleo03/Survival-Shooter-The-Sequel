@@ -15,7 +15,7 @@ namespace Nightmare
         public float grenadeSpeed = 200f;
         public float grenadeFireDelay = 0.5f;
         public float damagePercent = 1;
-        int grenadeStock = 99;
+        int grenadeStock = int.MaxValue;
         
         float timer, grenadeTimer;
         public List<GameObject> weaponsList;
