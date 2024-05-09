@@ -43,15 +43,19 @@ namespace Nightmare
         {
             if (IsDead())
             {
-                //TODO: Add a death animation, set rigidbody to kinematic, and sink the pet into the ground
-                Destroy(gameObject);
-
-                // transform.Translate (-Vector3.up * sinkSpeed * Time.deltaTime);
-                // if (transform.position.y < -10f)
-                // {
-                //     Destroy(gameObject);
-                // }
+                StartSinking();
+                transform.Translate (-Vector3.up * sinkSpeed * Time.deltaTime);
+                if (transform.position.y < -10f)
+                {
+                    Destroy(gameObject);
+                }
             }
+        }
+
+        void StartSinking ()
+        {
+            GetComponent <UnityEngine.AI.NavMeshAgent> ().enabled = false;
+            SetKinematics(true);
         }
 
         public void TakeDamage (int amount)
@@ -77,5 +81,8 @@ namespace Nightmare
         {
             isCheatFullHPPet = isActive;
         }
+        
     }
+
+    
 }

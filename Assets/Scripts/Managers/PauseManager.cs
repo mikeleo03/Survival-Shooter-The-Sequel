@@ -10,8 +10,7 @@ public class PauseManager : MonoBehaviour {
 	
 	public AudioMixerSnapshot paused;
 	public AudioMixerSnapshot unpaused;
-	
-	Canvas canvas;
+    [SerializeField] private Canvas canvas;
 	
 	void Start()
 	{
@@ -22,29 +21,18 @@ public class PauseManager : MonoBehaviour {
 	{
 		if (Input.GetKeyDown(KeyCode.Escape))
 		{
-			canvas.enabled = !canvas.enabled;
-			Pause();
-		}
-	}
-	
-	public void Pause()
-	{
-		Time.timeScale = Time.timeScale == 0 ? 1 : 0;
-		Lowpass ();
-		
-	}
-	
-	void Lowpass()
-	{
-		if (Time.timeScale == 0)
-		{
-			paused.TransitionTo(.01f);
-		}
-		
-		else
-			
-		{
-			unpaused.TransitionTo(.01f);
+			if (canvas.isActiveAndEnabled == true)
+            {
+                canvas.enabled = false;
+				Time.timeScale = 1;
+                paused.TransitionTo(.01f);
+            }
+            else if (canvas.isActiveAndEnabled == false)
+            {
+                canvas.enabled = true;
+                Time.timeScale = 0;
+                unpaused.TransitionTo(.01f);
+            }
 		}
 	}
 	
