@@ -14,7 +14,11 @@ public class SettingsManager : MonoBehaviour
         nameInput.text = PlayerPrefs.GetString("PlayerName", "");
         toggles[PlayerPrefs.GetInt("Difficulty", 0)].isOn = true;
 
+#if MOBILE_INPUT
         arToggle.isOn = PlayerPrefs.GetInt("isAR", 0) != 0;
+#else 
+        arToggle.gameObject.SetActive(false);
+#endif
     }
 
     public void SetPlayerName(string name)
