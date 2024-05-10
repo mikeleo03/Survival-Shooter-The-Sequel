@@ -20,7 +20,9 @@ public class RestoreHealthOrbs : Orbs
 
     public override void ApplyOrbEffect()
     {
-        playerHealth.currentHealth += 20;
+        playerHealth.TakeDamage(-20); // Restore 20 HP
+
+        // Handle HP overflow
         if (playerHealth.currentHealth > 100)
         {
             playerHealth.currentHealth = 100;
