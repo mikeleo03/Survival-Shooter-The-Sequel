@@ -125,7 +125,9 @@ public class ShopManager : MonoBehaviour {
 		}
 		playerCurrency.subtract(healingPetPrice);
         GameObject pet = Instantiate(healingPet, player.position, Quaternion.identity);     
-		pet.transform.SetParent(player, false);
+		pet.transform.SetParent(player, true);
+		pet.transform.SetParent(null, true);
+
 	}
 
 	public void SpawnAttackingPet()
@@ -135,8 +137,8 @@ public class ShopManager : MonoBehaviour {
 		}
 		playerCurrency.subtract(attackingPetPrice);
 		GameObject pet = Instantiate(attackingPet, player.position, Quaternion.identity);
-		pet.transform.SetParent(player, false);
-	}	
+		pet.transform.SetParent(player, true);
+		pet.transform.SetParent(null, true);	}	
 
 	public void setAccessible(bool value)
 	{
