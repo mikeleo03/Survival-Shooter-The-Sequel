@@ -10,7 +10,7 @@ namespace Nightmare
 
         Animator anim;
         CapsuleCollider capsuleCollider;
-        int currentHealth;
+        public int currentHealth;
 
         // Cheat Full HP Pet
         public bool isCheatFullHPPet = false;
