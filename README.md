@@ -189,6 +189,18 @@ Since the game need to be run smoothly on Android, we also prepare and adapt to 
 
 In this task, we choose New Input System. We enable it by go to `Edit > Project Settings > Input System`, then check the box next to "Input System Package" and click "Play Mode" to enable it within the project. Here is the snippet on how we use it
 
+<script type="text/javascript" src="components/prism-core.min.js"></script>
+<script type="text/javascript" src="components/prism-clike.min.js"></script>
+<script type="text/javascript" src="components/prism-csharp.min.js"></script>
+<script type="text/javascript" src="bower_components/prism/components/prism-c.js"></script>
+
+<table style="width:100%;">
+    <col width="99%">
+    <tr>
+        <td width="1%"><a href="./Assets/Scripts/Player/PlayerShooting.cs">PlayerShooting.cs</a></td>
+    </tr>
+</table>
+
 ```cs
 #if !MOBILE_INPUT    
     // If the Fire1 button is being press and it's time to fire...
@@ -196,7 +208,6 @@ In this task, we choose New Input System. We enable it by go to `Edit > Project 
         // ... shoot the gun.
         Shoot();
     }
-
 #else
     // Detect the user touch point
     foreach (var touch in Touch.activeTouches) {
@@ -208,7 +219,6 @@ In this task, we choose New Input System. We enable it by go to `Edit > Project 
             }
         }
     }
-
 #endif
 ```
 
@@ -230,13 +240,13 @@ We implement the skill cutscene trigerred when the player throw the grenade usin
 1. **Create a Timeline object:** We add this Timeline object to the Main scene. This will serve as the container for the animation sequence.
 2. **Attach Player Animator:** Drag and drop the Player object onto the Timeline object. This will connect the Player's Animator to the Timeline, allowing us to animate the player's actions.
 3. **Create the Grenade Throwing Animation:** In the Animation window, we create an animation for the player throwing a grenade. The animation is inspired by this [Feeding Frenzy game animation](https://www.youtube.com/watch?v=z2QE-7HEtNI&t=1915s).
-4. **Add Animation Clip to Timeline:** Drag and drop the Grenade Throwing animation clip onto the Timeline. We position it within the Timeline to correspond with the timing of the grenade throw. Here is the [animation](https://gitlab.informatika.org/mikeleo03/if3210-2024-unity-dor/-/blob/main/Assets/Timeline/PlayerSkillCutscene.playable?ref_type=heads).
+4. **Add Animation Clip to Timeline:** Drag and drop the Grenade Throwing animation clip onto the Timeline. We position it within the Timeline to correspond with the timing of the grenade throw. Here is the [animation](./Assets/Timeline/PlayerSkillCutscene.playable).
 5. **Integrate PlayableDirector:** Add a PlayableDirector component to an empty GameObject in main scene. This component will control the playback of the cutscene.
 6. **Trigger Cutscene with PlayableDirector:** In the PlayerShooting script, when the player throws a grenade, call the PlayableDirector's `Play()` method to initiate the cutscene.
 7. **Freeze Enemies before Cutscene:** Before the cutscene plays, add code in the PlayerShooting script to disable enemy movement and interactions. This will ensure enemies remain frozen during the cutscene.
 8. **Unfreeze Enemies after Cutscene:** After the cutscene finishes playing, add code in the PlayerShooting script to re-enable enemy movement and interactions. This will allow enemies to resume their normal behavior.
 
-Here's the [detail implementation](https://gitlab.informatika.org/mikeleo03/if3210-2024-unity-dor/-/blob/main/Assets/Scripts/Player/PlayerShooting.cs?ref_type=heads#L198).
+Here's the [detail implementation](./Assets/Scripts/Player/PlayerShooting.cs#L198).
 
 ## 🥽 Bonus 4 - AR Version
 <table style="width:100%; text-align:center;">
@@ -251,7 +261,37 @@ Here's the [detail implementation](https://gitlab.informatika.org/mikeleo03/if32
         <td width="1%" align="center">AR Version View #2</td>
     </tr>
 </table>
-lorem
+
+In order to make the game more immersive, we also make the AR version. The implementation of AR is using the following additional libraries.
+<table style="width:100%">
+  <col width="35%">
+  <col width="65%">
+  <tr>
+    <th>Libraries</th>
+    <th>Purposes</th>
+  </tr>
+  <tr>
+    <td>AR Foundation</td>
+    <td>Unity's framework for building augmented reality (AR) experiences across different devices.</td>
+  </tr>
+  <tr>
+    <td>Google ARCore XR Plugin</td>
+    <td>Extends AR Foundation to leverage Google's ARCore technology for specific AR features on Android devices.</td>
+  </tr>
+</table>
+
+Here is the snippet on how we use AR environemnt for the camera movement.
+
+<table style="width:100%;">
+    <col width="99%">
+    <tr>
+        <td width="1%">PlayerMovement.cs</td>
+    </tr>
+</table>
+
+```cs
+HAYO KODENYA
+```
 
 ## 👨‍👨‍👦‍👦 Task Division
 The following is the division of tasks that we carry out.
