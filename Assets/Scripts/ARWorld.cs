@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ARWorld : MonoBehaviour
@@ -9,7 +7,7 @@ public class ARWorld : MonoBehaviour
     {
         if (PlayerPrefs.GetInt("isAR", 0) != 0)
         {
-            walls.SetActive(false);
+            walls.GetComponent<MeshRenderer>().enabled = false;
         }
     }
 }
