@@ -152,10 +152,18 @@ Here's Survival Shooter The Sequel main game flows and its interface.
     </tr>
     <tr>
         <td width="1%" align="center"><img src="./images/screenshots/Load Game.png"/></td>
+        <td width="1%" align="center"><img src="./images/screenshots/Save Game.png"/></td>
+    </tr>
+    <tr>
+        <td width="1%" align="center">Load Game</td>
+        <td width="1%" align="center">Save Game</td>
+    </tr>
+    <tr>
+        <td width="1%" align="center"><img src="./images/screenshots/Settings.png"/></td>
         <td width="1%" align="center"><img src="./images/screenshots/Quest Completed.png"/></td>
     </tr>
     <tr>
-        <td width="1%" align="center">Save & Load Game</td>
+        <td width="1%" align="center">Settings</td>
         <td width="1%" align="center">Quest Completed</td>
     </tr>
 </table>
@@ -165,12 +173,20 @@ Here's Survival Shooter The Sequel main game flows and its interface.
     <col width="49%">
     <col width="49%">
     <tr>
-        <td width="1%" align="center"><img src="./assets/screenshots/Twibbon Page.jpg"/></td>
-        <td width="1%" align="center"><img src="./assets/screenshots/Twibbon Result 1.jpg"/></td>
+        <td width="1%" align="center"><img src="./images/screenshots/Android 1.png"/></td>
+        <td width="1%" align="center"><img src="./images/screenshots/Android 2.png"/></td>
     </tr>
     <tr>
         <td width="1%" align="center">Android View #1</td>
         <td width="1%" align="center">Android View #2</td>
+    </tr>
+    <tr>
+        <td width="1%" align="center"><img src="./images/screenshots/Android 3.png"/></td>
+        <td width="1%" align="center"><img src="./images/screenshots/Android 4.png"/></td>
+    </tr>
+    <tr>
+        <td width="1%" align="center">Android View #3</td>
+        <td width="1%" align="center">Android View #4</td>
     </tr>
 </table>
 Here is how we build the Survival Shooter: The Sequel into Android:
@@ -227,20 +243,12 @@ In this task, we choose New Input System. We enable it by go to `Edit > Project 
     <col width="49%">
     <col width="49%">
     <tr>
-        <td width="1%" align="center"><img src="./assets/screenshots/Twibbon Page.jpg"/></td>
-        <td width="1%" align="center"><img src="./assets/screenshots/Twibbon Result 1.jpg"/></td>
+        <td width="1%" align="center"><img src="./images/screenshots/Cutscene 1.png"/></td>
+        <td width="1%" align="center"><img src="./images/screenshots/Cutscene 2.jpg"/></td>
     </tr>
     <tr>
-        <td width="1%" align="center">Skill Cutscene View #1</td>
-        <td width="1%" align="center">Skill Cutscene View #2</td>
-    </tr>
-    <tr>
-        <td width="1%" align="center"><img src="./assets/screenshots/Twibbon Page.jpg"/></td>
-        <td width="1%" align="center"><img src="./assets/screenshots/Twibbon Result 1.jpg"/></td>
-    </tr>
-    <tr>
-        <td width="1%" align="center">Skill Cutscene View #3</td>
-        <td width="1%" align="center">Skill Cutscene View #4</td>
+        <td width="1%" align="center">Skill Cutscene View #1 (Desktop)</td>
+        <td width="1%" align="center">Skill Cutscene View #2 (Android)</td>
     </tr>
 </table>
 We implement the skill cutscene trigerred when the player throw the grenade using right click on mouse. To create the skill cutscene, we are doing these steps:
@@ -261,16 +269,16 @@ Here's the [detail implementation](./Assets/Scripts/Player/PlayerShooting.cs#L19
     <col width="49%">
     <col width="49%">
     <tr>
-        <td width="1%" align="center"><img src="./assets/screenshots/Twibbon Page.jpg"/></td>
-        <td width="1%" align="center"><img src="./assets/screenshots/Twibbon Result 1.jpg"/></td>
+        <td width="1%" align="center"><img src="./images/screenshots/AR 1.png"/></td>
+        <td width="1%" align="center"><img src="./images/screenshots/AR 2.png"/></td>
     </tr>
     <tr>
         <td width="1%" align="center">AR Version View #1</td>
         <td width="1%" align="center">AR Version View #2</td>
     </tr>
     <tr>
-        <td width="1%" align="center"><img src="./assets/screenshots/Twibbon Page.jpg"/></td>
-        <td width="1%" align="center"><img src="./assets/screenshots/Twibbon Result 1.jpg"/></td>
+        <td width="1%" align="center"><img src="./images/screenshots/AR 3.png"/></td>
+        <td width="1%" align="center"><img src="./images/screenshots/AR 4.png"/></td>
     </tr>
     <tr>
         <td width="1%" align="center">AR Version View #3</td>
