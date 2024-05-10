@@ -5,29 +5,32 @@ using UnityEngine.Events;
 
 namespace Nightmare
 {
-    public class HealingPetMovement : PausibleObject
+    public class HealingPetMovement : PausibleObject, IDataPersistance
     {
         public float visionRange = 10f;
         public float hearingRange = 20f;
         public float wanderDistance = 10f;
         public Vector2 idleTimeRange;
-        [Range(0f,1f)]
+        [Range(0f, 1f)]
         public float psychicLevels = 0.2f;
 
-        float currentVision; 
+        float currentVision;
         Transform player;
         PlayerHealth playerHealth;
 
-        Animator anim; 
+        Animator anim;
 
         NavMeshAgent nav;
         public float timer = 0f;
-        void Awake ()
+
+        private AllyPetHealth allyPetHealthScript;
+        void Awake()
         {
             anim = GetComponent<Animator>();
-            player = GameObject.FindGameObjectWithTag ("Player").transform;
-            playerHealth = player.GetComponent <PlayerHealth> ();
+            player = GameObject.FindGameObjectWithTag("Player").transform;
+            playerHealth = player.GetComponent<PlayerHealth>();
             nav = GetComponent<NavMeshAgent>();
+            allyPetHealthScript = GetComponent<AllyPetHealth>();
             StartPausible();
         }
 
@@ -46,7 +49,7 @@ namespace Nightmare
                 nav.ResetPath();
         }
 
-        void Update ()
+        void Update()
         {
             if (!isPaused)
             {
@@ -120,7 +123,7 @@ namespace Nightmare
         {
             timer = -1f;
             SetDestination(position);
-   
+
         }
 
         private void SetDestination(Vector3 position)
@@ -153,7 +156,7 @@ namespace Nightmare
 
         private Vector3 GetRandomPoint(float distance, int layermask)
         {
-            Vector3 randomPoint = UnityEngine.Random.insideUnitSphere * distance + this.transform.position;;
+            Vector3 randomPoint = UnityEngine.Random.insideUnitSphere * distance + this.transform.position; ;
 
             NavMeshHit navHit;
             NavMesh.SamplePosition(randomPoint, out navHit, distance, layermask);
@@ -172,6 +175,19 @@ namespace Nightmare
             nav.SamplePathPosition(-1, 0.0f, out navHit);
 
             return navHit.mask;
+        }
+
+        public void LoadData(GameData data)
+        {
+            // Do nothing
+        }
+
+        public void SaveData(ref GameData data)
+        {
+            if (allyPetHealthScript.CurrentHealth() > 0)
+            {
+                data.healingPetHealths.Add(allyPetHealthScript.CurrentHealth());
+            }
         }
 
     }

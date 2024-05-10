@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class PlayerCurrency : MonoBehaviour
+public class PlayerCurrency : MonoBehaviour, IDataPersistance
 {
     public int balance = 0;
     int prevBalance;
@@ -39,5 +39,15 @@ public class PlayerCurrency : MonoBehaviour
     public void ResetMotherlode()
     {
         balance = prevBalance;
+    }
+
+    public void LoadData(GameData data)
+    {
+        this.balance = data.balance;
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.balance = this.balance;
     }
 }

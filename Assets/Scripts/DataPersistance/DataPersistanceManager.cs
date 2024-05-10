@@ -2,9 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Nightmare;
+
 
 public class DataPersistanceManager : MonoBehaviour
 {
+    [Header("Pet Prefabs")]
+
+    [SerializeField] public GameObject healingPet;
+    [SerializeField] public GameObject attackingPet;
+
+
     [Header("File Storage Config")]
     [SerializeField] private string fileName;
 
@@ -29,7 +37,6 @@ public class DataPersistanceManager : MonoBehaviour
     private void Start()
     {
         this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
-        this.dataPersistanceObjects = FindAllDataPersistanceObjects();
         LoadGame();
     }
 
@@ -49,6 +56,37 @@ public class DataPersistanceManager : MonoBehaviour
         {
             NewGame();
         }
+        else
+        {
+            if (this.gameData.healingPetHealths.Count != 0)
+            {
+                foreach (int healingPetHealth in this.gameData.healingPetHealths)
+                {
+                    GameObject pet = Instantiate(healingPet, gameData.playerPosition, Quaternion.identity);
+                    AllyPetHealth petHealthScript = pet.GetComponent<AllyPetHealth>();
+                    if (petHealthScript != null)
+                    {
+                        petHealthScript.currentHealth = healingPetHealth;
+                    }
+                }
+                this.gameData.healingPetHealths.Clear();
+            }
+            if (this.gameData.attackingPetHealths.Count != 0)
+            {
+                foreach (int attackingPetHealth in this.gameData.attackingPetHealths)
+                {
+                    GameObject pet = Instantiate(attackingPet, gameData.playerPosition, Quaternion.identity);
+                    AllyPetHealth petHealthScript = pet.GetComponent<AllyPetHealth>();
+                    if (petHealthScript != null)
+                    {
+                        petHealthScript.currentHealth = attackingPetHealth;
+                    }
+                }
+                this.gameData.attackingPetHealths.Clear();
+            }
+        }
+
+        this.dataPersistanceObjects = FindAllDataPersistanceObjects();
 
         // push the loaded data to all other scipts that need it
         foreach (IDataPersistance dataPersistanceObj in dataPersistanceObjects)
@@ -59,6 +97,8 @@ public class DataPersistanceManager : MonoBehaviour
     }
     public void SaveGame()
     {
+        this.dataPersistanceObjects = FindAllDataPersistanceObjects();
+
         // pass the data to other scripts so they can update it 
         foreach (IDataPersistance dataPersistanceObj in dataPersistanceObjects)
         {

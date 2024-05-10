@@ -8,10 +8,14 @@ public class GameData
 {
     // public int timer;
     public int playerHealth;
+    public Vector3 playerPosition;
+    public int balance;
+
     public float damagePercent;
 
-    public Vector3 playerPosition;
-    public Vector3 cameraPosition;
+    public List<int> healingPetHealths;
+    public List<int> attackingPetHealths;
+
 
     public int score;
     public int shotsFired;
@@ -29,7 +33,12 @@ public class GameData
         this.playerHealth = 100;
         this.damagePercent = 1;
         this.playerPosition = Vector3.zero;
-        this.cameraPosition = Vector3.zero;
+        this.balance = 0;
+
+
+
+        this.healingPetHealths = new List<int>();
+        this.attackingPetHealths = new List<int>();
 
         // Statistics
         this.score = 0;
