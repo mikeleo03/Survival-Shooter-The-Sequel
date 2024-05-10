@@ -273,12 +273,12 @@ namespace Nightmare
 
         public void LoadData(GameData data)
         {
-            data.damagePercent = this.damagePercent;
+            this.damagePercent = data.damagePercent;
         }
 
         public void SaveData(ref GameData data)
         {
-            this.damagePercent = data.damagePercent;
+            data.damagePercent = this.damagePercent;
         }
 
     }

@@ -126,10 +126,6 @@ namespace Nightmare
                 {
                     GameObject orbInstance = Instantiate(orbPrefab, this.transform.position, Quaternion.identity);
                 }
-                else
-                {
-                    Debug.Log("Orb prefab is null");
-                }
             }
 
 

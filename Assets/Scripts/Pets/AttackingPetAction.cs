@@ -33,7 +33,6 @@ namespace Nightmare
             {
                 nearbyEnemies.Add(other.gameObject);
             }
-            Debug.Log("SKEEBS");
         }
 
         void OnTriggerExit (Collider other)
@@ -76,7 +75,6 @@ namespace Nightmare
         {
             timer = 0f;
             targetedEnemy.GetComponent<EnemyHealth>().TakeDamage(attackDamage, new Vector3());
-            Debug.Log("Attacked");
         }
     }
 }

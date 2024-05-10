@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 namespace Nightmare
 {
-    public class LevelManager : MonoBehaviour
+    public class LevelManager : MonoBehaviour, IDataPersistance
     {
         public string[] levels;
 
-        private int currentLevel = 0;
+        private int currentLevel;
         private Scene currentScene;
         private PlayerMovement playerMove;
         private Vector3 playerRespawn;
@@ -27,7 +27,7 @@ namespace Nightmare
         void Start()
         {
             cinema = FindObjectOfType<CinematicController>();
-            SceneManager.LoadSceneAsync(levels[0], LoadSceneMode.Additive);
+            // SceneManager.LoadSceneAsync(levels[this.currentLevel], LoadSceneMode.Additive);            
             playerMove = FindObjectOfType<PlayerMovement>();
             playerRespawn = playerMove.transform.position;
         }
@@ -42,7 +42,7 @@ namespace Nightmare
             LoadLevel(0);
         }
 
-        private void LoadLevel(int level)
+        public void LoadLevel(int level)
         {
             currentLevel = level;
 
@@ -60,16 +60,12 @@ namespace Nightmare
             if (scene.name == "Shop")
             {
                 TimerTextComp.gameObject.SetActive(false);
-                Debug.Log("Setting " + TimerTextComp.gameObject.name + " to inactive.");
                 QuestTextComp.gameObject.SetActive(false);
-                Debug.Log("Setting " + QuestTextComp.gameObject.name + " to inactive.");
-            } 
+            }
             else
             {
                 TimerTextComp.gameObject.SetActive(true);
-                Debug.Log("Setting " + TimerTextComp.gameObject.name + " to active.");
                 QuestTextComp.gameObject.SetActive(true);
-                Debug.Log("Setting " + QuestTextComp.gameObject.name + " to active.");
             }
 
             playerMove.transform.position = playerRespawn;
@@ -124,6 +120,16 @@ namespace Nightmare
         public int GetCurrLevel()
         {
             return currentLevel;
+        }
+        public void LoadData(GameData data)
+        {
+            this.currentLevel = data.level;
+            SceneManager.LoadSceneAsync(levels[this.currentLevel], LoadSceneMode.Additive);
+        }
+
+        public void SaveData(ref GameData data)
+        {
+            data.level = this.currentLevel + 1;
         }
     }
 }

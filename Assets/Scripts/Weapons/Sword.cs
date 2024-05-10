@@ -61,7 +61,6 @@ public class Sword : Weapons
                 if (enemyPetHealth != null)
                 {
                     // ... the enemy pet should take damage.
-                    Debug.Log("SWORDD");
                     enemyPetHealth.TakeDamage(damagePerShot, shootHit.point);
                 }
             }
