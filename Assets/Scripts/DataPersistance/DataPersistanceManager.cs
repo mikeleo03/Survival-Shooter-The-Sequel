@@ -12,9 +12,7 @@ public class DataPersistanceManager : MonoBehaviour
     [SerializeField] public GameObject healingPet;
     [SerializeField] public GameObject attackingPet;
 
-
-    [Header("File Storage Config")]
-    [SerializeField] private string fileName;
+    public string fileName;
 
     private GameData gameData;
 
@@ -36,7 +34,7 @@ public class DataPersistanceManager : MonoBehaviour
 
     private void Start()
     {
-        this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
+        // this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
         LoadGame();
     }
 
@@ -47,6 +45,8 @@ public class DataPersistanceManager : MonoBehaviour
 
     public void LoadGame()
     {
+        this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
+
         // load any saved data form a file using the data handler
         this.gameData = dataHandler.Load();
 
@@ -97,6 +97,8 @@ public class DataPersistanceManager : MonoBehaviour
     }
     public void SaveGame()
     {
+        this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
+
         this.dataPersistanceObjects = FindAllDataPersistanceObjects();
 
         // pass the data to other scripts so they can update it 
@@ -109,10 +111,10 @@ public class DataPersistanceManager : MonoBehaviour
         dataHandler.Save(gameData);
     }
 
-    private void OnApplicationQuit()
-    {
-        SaveGame();
-    }
+    // private void OnApplicationQuit()
+    // {
+    //     SaveGame();
+    // }
 
     private List<IDataPersistance> FindAllDataPersistanceObjects()
     {

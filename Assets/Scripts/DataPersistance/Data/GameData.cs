@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 [System.Serializable]
 
 public class GameData
 {
     // public int timer;
+    public string saveName;
+    public long currentDateTicks;
+
     public int playerHealth;
     public Vector3 playerPosition;
     public int balance;
@@ -31,6 +35,9 @@ public class GameData
 
     public GameData()
     {
+        this.saveName = "Saved Data";
+        this.currentDateTicks = DateTime.Now.Ticks;
+
         this.playerHealth = 100;
         this.damagePercent = 1;
         this.playerPosition = Vector3.zero;
