@@ -239,8 +239,8 @@ We implement the skill cutscene trigerred when the player throw the grenade usin
 
 1. **Create a Timeline object:** We add this Timeline object to the Main scene. This will serve as the container for the animation sequence.
 2. **Attach Player Animator:** Drag and drop the Player object onto the Timeline object. This will connect the Player's Animator to the Timeline, allowing us to animate the player's actions.
-3. **Create the Grenade Throwing Animation:** In the Animation window, we create an animation for the player throwing a grenade. The animation is inspired by this [Feeding Frenzy game animation](https://www.youtube.com/watch?v=z2QE-7HEtNI&t=1915s).
-4. **Add Animation Clip to Timeline:** Drag and drop the Grenade Throwing animation clip onto the Timeline. We position it within the Timeline to correspond with the timing of the grenade throw. Here is the [animation](./Assets/Timeline/PlayerSkillCutscene.playable).
+3. **Create the Grenade Skill Animations' Clips:** In the Timeline window, we create the clips for the skill cutscene. The animation is inspired by this [Feeding Frenzy game animation](https://www.youtube.com/watch?v=z2QE-7HEtNI&t=1915s).
+4. **Modify the Clips' Position in the Timeline:** Customize the animation by adjusting and positioning the clips in the Timeline according to our needs. This allows us to create the desired animation sequence. Here is the [animation](https://gitlab.informatika.org/mikeleo03/if3210-2024-unity-dor/-/blob/main/Assets/Timeline/PlayerSkillCutscene.playable?ref_type=heads).
 5. **Integrate PlayableDirector:** Add a PlayableDirector component to an empty GameObject in main scene. This component will control the playback of the cutscene.
 6. **Trigger Cutscene with PlayableDirector:** In the PlayerShooting script, when the player throws a grenade, call the PlayableDirector's `Play()` method to initiate the cutscene.
 7. **Freeze Enemies before Cutscene:** Before the cutscene plays, add code in the PlayerShooting script to disable enemy movement and interactions. This will ensure enemies remain frozen during the cutscene.
@@ -462,6 +462,6 @@ The following is the division of tasks that we carry out.
 | --- | :---: | :---: |
 | 13521052 - Melvin Kent Jonathan | - hours  | - hours |
 | 13521056 - Daniel Egiant Sitanggang | - hours  | - hours |
-| 13521064 - Bill Clinton | - hours | - hours |
+| 13521064 - Bill Clinton | 10 hours | 60 hours |
 | 13521108 - Michael Leon Putra Widhi | 20 hours | 48 hours |
 | 13521172 - Nathan Tenka | - hours | - hours |
