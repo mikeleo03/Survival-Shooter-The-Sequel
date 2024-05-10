@@ -16,6 +16,7 @@ namespace Nightmare
         private CinematicController cinema;
         [SerializeField] private Text TimerTextComp;
         [SerializeField] private Text QuestTextComp;
+        [SerializeField] private Button shopBtn;
 
         void OnEnable()
         {
@@ -81,10 +82,14 @@ namespace Nightmare
             // Play realtime cinematic?
             if (scene.name != "Shop")
             {
+                shopBtn.gameObject.SetActive(false);
                 cinema.StartCinematic(CinematicController.CinematicType.Realtime);
             }
             else
             {
+                shopBtn.gameObject.SetActive(true);
+                ShopManager sm = FindObjectOfType<ShopManager>();
+                shopBtn.onClick.AddListener(sm.OpenShop);
                 cinema.StartCinematic(CinematicController.CinematicType.PreRendered);
             }
         }
