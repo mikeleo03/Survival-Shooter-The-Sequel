@@ -10,8 +10,11 @@ namespace Nightmare
 
         Animator anim;
         CapsuleCollider capsuleCollider;
-        int currentHealth;
-        
+        public int currentHealth;
+
+        // Cheat Full HP Pet
+        public bool isCheatFullHPPet = false;
+
 
         void Awake ()
         {
@@ -40,21 +43,29 @@ namespace Nightmare
         {
             if (IsDead())
             {
-                //TODO: Add a death animation, set rigidbody to kinematic, and sink the pet into the ground
-                Destroy(gameObject);
-
-                // transform.Translate (-Vector3.up * sinkSpeed * Time.deltaTime);
-                // if (transform.position.y < -10f)
-                // {
-                //     Destroy(gameObject);
-                // }
+                StartSinking();
+                transform.Translate (-Vector3.up * sinkSpeed * Time.deltaTime);
+                if (transform.position.y < -10f)
+                {
+                    Destroy(gameObject);
+                }
             }
+        }
+
+        void StartSinking ()
+        {
+            GetComponent <UnityEngine.AI.NavMeshAgent> ().enabled = false;
+            SetKinematics(true);
         }
 
         public void TakeDamage (int amount)
         {
             if (!IsDead())
             {
+                // Cheat Full HP Pet (Invicible)
+                if (isCheatFullHPPet)
+                    return;
+
                 Debug.Log("AllyPetHealth: " + currentHealth);
                 currentHealth -= amount;
             }
@@ -63,7 +74,15 @@ namespace Nightmare
         public int CurrentHealth()
         {
             return currentHealth;
-        }   
+        }        
+        
+        // Activate or deactivate cheat full hp pet
+        public void SetCheatFullHPPet(bool isActive)
+        {
+            isCheatFullHPPet = isActive;
+        }
         
     }
+
+    
 }

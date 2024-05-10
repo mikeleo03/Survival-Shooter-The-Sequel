@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Nightmare
 {
@@ -13,6 +14,9 @@ namespace Nightmare
         private PlayerMovement playerMove;
         private Vector3 playerRespawn;
         private CinematicController cinema;
+        [SerializeField] private Text TimerTextComp;
+        [SerializeField] private Text QuestTextComp;
+        [SerializeField] private Button shopBtn;
 
         void OnEnable()
         {
@@ -52,6 +56,22 @@ namespace Nightmare
             if (mode != LoadSceneMode.Additive)
                 return;
 
+            // Optionally, make the text component invisible
+            if (scene.name == "Shop")
+            {
+                TimerTextComp.gameObject.SetActive(false);
+                Debug.Log("Setting " + TimerTextComp.gameObject.name + " to inactive.");
+                QuestTextComp.gameObject.SetActive(false);
+                Debug.Log("Setting " + QuestTextComp.gameObject.name + " to inactive.");
+            } 
+            else
+            {
+                TimerTextComp.gameObject.SetActive(true);
+                Debug.Log("Setting " + TimerTextComp.gameObject.name + " to active.");
+                QuestTextComp.gameObject.SetActive(true);
+                Debug.Log("Setting " + QuestTextComp.gameObject.name + " to active.");
+            }
+
             playerMove.transform.position = playerRespawn;
             SceneManager.SetActiveScene(scene);
 
@@ -60,10 +80,18 @@ namespace Nightmare
             currentScene = scene;
 
             // Play realtime cinematic?
-            if (currentLevel > 1)
+            if (scene.name != "Shop")
+            {
+                shopBtn.gameObject.SetActive(false);
                 cinema.StartCinematic(CinematicController.CinematicType.Realtime);
+            }
             else
+            {
+                shopBtn.gameObject.SetActive(true);
+                ShopManager sm = FindObjectOfType<ShopManager>();
+                shopBtn.onClick.AddListener(sm.OpenShop);
                 cinema.StartCinematic(CinematicController.CinematicType.PreRendered);
+            }
         }
 
         private void DisableOldScene()

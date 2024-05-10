@@ -15,6 +15,7 @@ namespace Nightmare
         CapsuleCollider capsuleCollider;
         EnemyMovement enemyMovement;
 
+
         void Awake ()
         {
             anim = GetComponent <Animator> ();
@@ -39,8 +40,9 @@ namespace Nightmare
         {
             if (IsDead())
             {
+                StartSinking();
                 transform.Translate (-Vector3.up * sinkSpeed * Time.deltaTime);
-                if (transform.position.y < -10f)
+                if (transform.position.y < -1f)
                 {
                     Destroy(gameObject);
                 }
@@ -54,6 +56,7 @@ namespace Nightmare
 
         public void TakeDamage (int amount, Vector3 hitPoint)
         {
+            Debug.Log("Enemy Pet: " + currentHealth);
             if (!IsDead())
             {
                 // enemyAudio.Play();
@@ -70,9 +73,7 @@ namespace Nightmare
         }
 
         void Death ()
-        {
-            float orbSpawnProbability = 0.3f; // Orb Spawn Probability            
-
+        {        
             // EventManager.TriggerEvent("Sound", transform.position);
             anim.SetBool ("IsWalking", false);
 
@@ -91,6 +92,11 @@ namespace Nightmare
         public int CurrentHealth()
         {
             return currentHealth;
+        }
+
+        public void ActivateCheatKillPet()
+        {
+            currentHealth = 0;
         }
     }
 }

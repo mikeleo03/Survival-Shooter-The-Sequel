@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+using UnityEngine.InputSystem;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -12,15 +13,21 @@ public class PauseManager : MonoBehaviour {
 	public AudioMixerSnapshot unpaused;
 	
 	Canvas canvas;
-	
-	void Start()
+    private InputAction escape;
+
+    private void Awake()
+    {
+        escape = ControlRef.control.UI.Cancel;
+    }
+
+    void Start()
 	{
 		canvas = GetComponent<Canvas>();
 	}
 	
 	void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.Escape))
+		if (escape.WasPressedThisFrame())
 		{
 			canvas.enabled = !canvas.enabled;
 			Pause();
@@ -31,7 +38,6 @@ public class PauseManager : MonoBehaviour {
 	{
 		Time.timeScale = Time.timeScale == 0 ? 1 : 0;
 		Lowpass ();
-		
 	}
 	
 	void Lowpass()

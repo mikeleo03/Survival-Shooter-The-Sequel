@@ -20,21 +20,17 @@ namespace Nightmare
         CapsuleCollider capsuleCollider;
         EnemyMovement enemyMovement;
 
-        bool isPet;
-
         // Orbs
         public GameObject increaseDamageOrbPrefab; // Increase Damage Orb
         public GameObject restoreHealthOrbPrefab; // Restore Health Orb
         public GameObject increaseSpeedOrbPrefab; // Increase Speed Orb
 
-        void Awake ()
+        void Awake()
         {
-            isPet = GetComponent<EnemyPetMovement>() != null;
-            if (isPet) { Debug.Log("Dogs");}
-            anim = GetComponent <Animator> ();
-            enemyAudio = GetComponent <AudioSource> ();
-            hitParticles = GetComponentInChildren <ParticleSystem> ();
-            capsuleCollider = GetComponent <CapsuleCollider> ();
+            anim = GetComponent<Animator>();
+            enemyAudio = GetComponent<AudioSource>();
+            hitParticles = GetComponentInChildren<ParticleSystem>();
+            capsuleCollider = GetComponent<CapsuleCollider>();
             enemyMovement = this.GetComponent<EnemyMovement>();
 
             int difficultyLvl = PlayerPrefs.GetInt("Difficulty", 0);
@@ -42,7 +38,8 @@ namespace Nightmare
             {
                 startingHealth = Mathf.RoundToInt(startingHealth * 1.5f);
                 scoreValue *= 2;
-            } else if (difficultyLvl == 2)
+            }
+            else if (difficultyLvl == 2)
             {
                 startingHealth = Mathf.RoundToInt(startingHealth * 2f);
                 scoreValue *= 3;
@@ -61,16 +58,11 @@ namespace Nightmare
             capsuleCollider.attachedRigidbody.isKinematic = isKinematic;
         }
 
-        void Update ()
+        void Update()
         {
             if (IsDead())
             {
-                if (isPet) 
-                {
-                    // TODO: Set rigidbody to kinematic and sink instead of vanish immediately
-                    Destroy(gameObject);
-                };
-                transform.Translate (-Vector3.up * sinkSpeed * Time.deltaTime);
+                transform.Translate(-Vector3.up * sinkSpeed * Time.deltaTime);
                 if (transform.position.y < -10f)
                 {
                     Destroy(gameObject);
@@ -83,14 +75,12 @@ namespace Nightmare
             return (currentHealth <= 0f);
         }
 
-        public void TakeDamage (int amount, Vector3 hitPoint)
+        public void TakeDamage(int amount, Vector3 hitPoint)
         {
-            if (isPet) Debug.Log("kaing");
             if (!IsDead())
             {
-                if (!isPet) enemyAudio.Play();
+                // if (!isPet) enemyAudio.Play();
                 currentHealth -= amount;
-                if (isPet) Debug.Log("Dog health : " + currentHealth );
 
                 if (currentHealth <= 0)
                 {
@@ -102,12 +92,12 @@ namespace Nightmare
                     enemyMovement?.GoToPlayer();
                 }
             }
-                
+
             hitParticles.transform.position = hitPoint;
             hitParticles.Play();
         }
 
-        void Death ()
+        void Death()
         {
             float orbSpawnProbability = 0.3f; // Orb Spawn Probability
 
@@ -141,38 +131,44 @@ namespace Nightmare
                     Debug.Log("Orb prefab is null");
                 }
             }
-            
+
 
             EventManager.TriggerEvent("Sound", this.transform.position);
-            anim.SetTrigger ("Dead");
+            anim.SetTrigger("Dead");
 
             if (enemyAudio != null)
             {
                 enemyAudio.clip = deathClip;
-                enemyAudio.Play ();
+                enemyAudio.Play();
             }
-     
+
         }
 
-        public void StartSinking ()
+        public void StartSinking()
         {
-            GetComponent <UnityEngine.AI.NavMeshAgent> ().enabled = false;
+            GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
             SetKinematics(true);
-
-            ScoreManager.score += scoreValue;
+            InGameTextStatistics.score += scoreValue;
+            TextStatistics.allTimeScore += scoreValue;
             if (type == enemyTypes.Keroco)
             {
                 QuestManager.kerocoCount++;
-            } else if (type == enemyTypes.Kepala)
+            }
+            else if (type == enemyTypes.Kepala)
             {
                 QuestManager.kepalaCount++;
-            } else if (type == enemyTypes.Jenderal)
+            }
+            else if (type == enemyTypes.Jenderal)
             {
                 QuestManager.jenderalCount++;
-            } else
+            }
+            else
             {
                 QuestManager.rajaCount++;
             }
+            TextStatistics.enemiesKilled++;
+            InGameTextStatistics.enemiesKilled++;
+
         }
 
         public int CurrentHealth()

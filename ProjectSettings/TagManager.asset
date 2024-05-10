@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - AllyPet
   - EnemyPet
+  - Shop
   layers:
   - Default
   - TransparentFX
@@ -15,7 +16,7 @@ TagManager:
   - Water
   - UI
   - Enemy
-  - 
+  - Shootable
   - 
   - 
   - 

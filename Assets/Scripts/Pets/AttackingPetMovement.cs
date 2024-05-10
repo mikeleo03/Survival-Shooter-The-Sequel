@@ -5,29 +5,32 @@ using UnityEngine.Events;
 
 namespace Nightmare
 {
-    public class AttackingPetMovement : PausibleObject
+    public class AttackingPetMovement : PausibleObject, IDataPersistance
     {
         public float visionRange = 10f;
         public float wanderDistance = 10f;
         public Vector2 idleTimeRange;
-        [Range(0f,1f)]
+        [Range(0f, 1f)]
 
-        float currentVision; 
+        float currentVision;
         Transform player;
         PlayerHealth playerHealth;
 
-        Animator anim;        
+        Animator anim;
         NavMeshAgent nav;
         public float timer = 0f;
 
         float attackTimer = 0f;
 
-        void Awake ()
+        private AllyPetHealth allyPetHealthScript;
+
+        void Awake()
         {
-            player = GameObject.FindGameObjectWithTag ("Player").transform;
-            playerHealth = player.GetComponent <PlayerHealth> ();
+            player = GameObject.FindGameObjectWithTag("Player").transform;
+            playerHealth = player.GetComponent<PlayerHealth>();
             nav = GetComponent<NavMeshAgent>();
             anim = GetComponent<Animator>();
+            allyPetHealthScript = GetComponent<AllyPetHealth>();
             StartPausible();
         }
 
@@ -46,7 +49,7 @@ namespace Nightmare
                 nav.ResetPath();
         }
 
-        void Update ()
+        void Update()
         {
             if (!isPaused)
             {
@@ -95,7 +98,7 @@ namespace Nightmare
                 nav.isStopped = false;
         }
 
-        private GameObject getNearestEnemy() 
+        private GameObject getNearestEnemy()
         {
             GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
             float nearestDistance = Mathf.Infinity;
@@ -140,7 +143,7 @@ namespace Nightmare
             timer = -1f;
             // if (!enemyHealth.IsDead()) TODO: verify pet health
             // {
-                SetDestination(position);
+            SetDestination(position);
             // }
         }
 
@@ -174,7 +177,7 @@ namespace Nightmare
 
         private Vector3 GetRandomPoint(float distance, int layermask)
         {
-            Vector3 randomPoint = UnityEngine.Random.insideUnitSphere * distance + this.transform.position;;
+            Vector3 randomPoint = UnityEngine.Random.insideUnitSphere * distance + this.transform.position; ;
 
             NavMeshHit navHit;
             NavMesh.SamplePosition(randomPoint, out navHit, distance, layermask);
@@ -193,6 +196,19 @@ namespace Nightmare
             nav.SamplePathPosition(-1, 0.0f, out navHit);
 
             return navHit.mask;
+        }
+
+        public void LoadData(GameData data)
+        {
+            // Do Nothing
+        }
+
+        public void SaveData(ref GameData data)
+        {
+            if (allyPetHealthScript.CurrentHealth() > 0)
+            {
+                data.attackingPetHealths.Add(allyPetHealthScript.CurrentHealth());
+            }
         }
 
     }

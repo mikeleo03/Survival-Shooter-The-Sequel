@@ -1,9 +1,6 @@
 using Nightmare;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -19,24 +16,40 @@ public class QuestManager : MonoBehaviour
     [SerializeField] Text questText;
     [SerializeField] Canvas CompletedCanvas;
 
+    PlayerCurrency playerCurr;
+    InputAction click;
+
     private void Awake()
     {
+        click = ControlRef.control.UI.Click;
         currQuest = questList[0];
         CompletedCanvas.enabled = false;
         loadedNext = false;
+        playerCurr = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCurrency>();
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    public Quest getCurrentQuest()
+    {
+        return currQuest;
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) 
+        if (click.IsPressed()) 
         {
             if (CompletedCanvas.enabled == true)
             {
+                rewardPlayer();
                 CompletedCanvas.enabled = false;
                 Time.timeScale = 1;
                 if (lm.GetCurrLevel() < 3)
                 {
-                    lm.AdvanceLevel();
+                    SceneManager.LoadSceneAsync("Shop", LoadSceneMode.Additive);
                 }
                 else
                 {
@@ -44,11 +57,6 @@ public class QuestManager : MonoBehaviour
                 }
             }
         }
-    }
-
-    void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     void LateUpdate()
@@ -116,5 +124,12 @@ public class QuestManager : MonoBehaviour
         kepalaCount = 0;
         jenderalCount = 0;
         rajaCount = 0;
+    }
+
+    void rewardPlayer()
+    {
+        Debug.Log("Player rewarded");
+        int reward = 200 * (lm.GetCurrLevel() +  1); 
+        playerCurr.add(reward);
     }
 }

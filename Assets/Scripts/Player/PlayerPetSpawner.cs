@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Nightmare
 {
@@ -10,15 +11,15 @@ namespace Nightmare
 
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.P))
+            if (Keyboard.current.qKey.wasPressedThisFrame)
             {
                 Instantiate(healingPet, transform.position, Quaternion.identity);
             }
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (Keyboard.current.bKey.wasPressedThisFrame)
             {
                 Instantiate(attackingPet, transform.position, Quaternion.identity);
             }
-            if (Input.GetKeyDown(KeyCode.O))
+            if (Keyboard.current.vKey.wasPressedThisFrame)
             {
                 Instantiate(enemyPet, transform.position, Quaternion.identity);
             }

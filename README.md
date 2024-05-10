@@ -1,93 +1,467 @@
-# IF3210-2024-Unity-DOR
+<br>
+<div align="center">
+    <div >
+        <img height="150px" src="./images/Logo.png" alt=""/>
+    </div>
+    <br>
+    <div>
+            <h3>Survival Shooter: The Sequel</h3>
+            <p><i>Extended version of Survival Shooter game from Unity tutorial</i></p>
+    </div>
+</div>
+<br>
 
+<h1 align="center">Survival Shooter: The Sequel Game</h1>
 
+<img src="./images/Main.png" alt=""/>
 
-## Getting started
+Survival Shooter: The Sequel expands upon the original Unity tutorial with a wealth of new features. Dive into a world ravaged by Keroco, monstrous frog-like creatures. Embark on 4 challenging quests, following a captivating narrative revealed through 3 cinematic cut-scenes. Progress is tracked with a save system, ensuring your hard-earned victories aren't lost. Failing a quest or depleting your health results in a game over, but don't worry, you can review your performance through detailed gameplay statistics.
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+The enhanced main menu lets you fine-tune the experience. Adjust audio levels, toggle sound effects, and select difficulty to find your perfect challenge.  A loyal pet companion, purchasable with in-game currency earned from quests, fights alongside you.  Conquer a variety of enemies – from the basic Keroco to the formidable Raja Keroco and Jendral Keroco.  Multiple weapon types, including a default weapon, shotgun, and sword, offer strategic combat options.  Enhance your abilities with power-ups found within mysterious orbs scattered throughout the world. And for those who want to push the boundaries, a selection of cheats is available for a truly wild experience. With Survival Shooter: The Sequel, the adventure awaits!
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+## 📝 Table of Contents
+- [General Information](#general-information)
+- [Tech Stacks and Platforms](#tech-stacks-and-platforms)
+- [Libraries](#libraries)
+- [Main Features](#main-features)
+- [Bonus 1 - Build to Android](#bonus-1---build-to-android)
+- [Bonus 2 - Multitype Input](#bonus-2---multitype-input)
+- [Bonus 3 - Skill Cutscene](#bonus-3---skill-cutscene)
+- [Bonus 4 - AR Version](#bonus-4---ar-version)
+- [Task Division](#task-division)
+- [Contributors](#contributors)
 
-## Add your files
+## 📢 General Information
+The construction project of the Bandung Bondowoso temple was a great success due to the Android application created by his genie. As a result, he gained immense wealth. Confused about how to spend his fortune, Bandung Bondowoso decided to assemble a PC so that he could play AAAA games. However, he felt that AAAA games did not meet his expectations. Therefore, Bandung Bondowoso asked for help from his genie to create a new game.
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+The genie of Bandung Bondowoso had previously tried to create a game from the [Unity tutorial](https://youtube.com/playlist?list=PL871udVFq7OF9w5RBjyp_lcyzFuViLe8x&si=gxYZvMOM8I1uHX8w) that is also available [here](https://drive.google.com/drive/folders/1kKue0ELQlIqWxppyJ0h3W-LZBtxNb2Up?usp=sharing). Therefore, the genie of Bandung Bondowoso decided to modify the game to make it more challenging.
 
+## 👨🏻‍💻 Tech Stacks and Platforms
+<div align="center">
+<kbd>
+<img src="./images/icons/Unity.png" height="60" />
+</kbd>
+<kbd>
+<img src="./images/icons/Visual Studio.png" height="60" />
+</kbd>
+<kbd>
+<img src="./images/icons/Android.png" height="60" />
+</kbd>
+</div>
+<div align="center">
+<h4>Unity | Visual Studio | Android</h4>
+</div>
+
+## 📖 Libraries
+Here's list of libraries that used in this project.
+<table style="width:100%">
+  <col width="35%">
+  <col width="65%">
+  <tr>
+    <th>Libraries</th>
+    <th>Purposes</th>
+  </tr>
+  <tr>
+    <td>TextMeshPro</td>
+    <td>Enables advanced text rendering with better performance and visual enhancements.</td>
+  </tr>
+  <tr>
+    <td>Timeline</td>
+    <td>Creates cinematic sequences and animations with control over cameras, sound, and transitions.</td>
+  </tr>
+  <tr>
+    <td>Unity UI</td>
+    <td>Builds user interfaces within the game, including menus, buttons, and health bars.</td>
+  </tr>
+  <tr>
+    <td>Newtonsoft Json</td>
+    <td>Parses and manipulates JSON data for saving game data or working with external sources.</td>
+  </tr>
+  <tr>
+    <td>Version Control</td>
+    <td>Tracks changes to project files over time, allowing reverts and collaboration.</td>
+  </tr>
+  <tr>
+    <td>Visual Scripting</td>
+    <td>Creates game logic visually with nodes instead of writing code.</td>
+  </tr>
+</table>
+
+And some **Unity core libraries** like Unity, UnityEngine, System, and many more!
+
+## ⭐ Game Flows
+Here's Survival Shooter The Sequel main game flows and its interface.
+<table style="width:100%; text-align:center;">
+    <col width="49%">
+    <col width="49%">
+    <tr>
+        <td width="1%" align="center"><img src="./images/screenshots/Main Menu.png"/></td>
+        <td width="1%" align="center"><img src="./images/screenshots/Opening Cutscene.png"/></td>
+    </tr>
+    <tr>
+        <td width="1%" align="center">Main Menu</td>
+        <td width="1%" align="center">Opening Cutscene</td>
+    </tr>
+    <tr>
+        <td width="1%" align="center"><img src="./images/screenshots/Dialogue Cutscene.png"/></td>
+        <td width="1%" align="center"><img src="./images/screenshots/Quest.png"/></td>
+    </tr>
+    <tr>
+        <td width="1%" align="center">Dialogue Cutscene</td>
+        <td width="1%" align="center">Quest Detail</td>
+    </tr>
+    <tr>
+        <td width="1%" align="center"><img src="./images/screenshots/Shotgun Demo.png"/></td>
+        <td width="1%" align="center"><img src="./images/screenshots/Sword Demo.png"/></td>
+    </tr>
+    <tr>
+        <td width="1%" align="center">Shotgun Demo</td>
+        <td width="1%" align="center">Sword Demo</td>
+    </tr>
+    <tr>
+        <td width="1%" align="center"><img src="./images/screenshots/Mobs.png"/></td>
+        <td width="1%" align="center"><img src="./images/screenshots/Orb Power Up.png"/></td>
+    </tr>
+    <tr>
+        <td width="1%" align="center">Mobs</td>
+        <td width="1%" align="center">Orb Power Up</td>
+    </tr>
+    <tr>
+        <td width="1%" align="center"><img src="./images/screenshots/Pet.png"/></td>
+        <td width="1%" align="center"><img src="./images/screenshots/Shopkeeper.png"/></td>
+    </tr>
+    <tr>
+        <td width="1%" align="center">Pet</td>
+        <td width="1%" align="center">Shopkeeper</td>
+    </tr>
+    <tr>
+        <td width="1%" align="center"><img src="./images/screenshots/Statistics.png"/></td>
+        <td width="1%" align="center"><img src="./images/screenshots/Cheat.png"/></td>
+    </tr>
+    <tr>
+        <td width="1%" align="center">Statistics</td>
+        <td width="1%" align="center">Cheat</td>
+    </tr>
+    <tr>
+        <td width="1%" align="center"><img src="./images/screenshots/Pause.png"/></td>
+        <td width="1%" align="center"><img src="./images/screenshots/Game Over.png"/></td>
+    </tr>
+    <tr>
+        <td width="1%" align="center">Pause</td>
+        <td width="1%" align="center">Game Over</td>
+    </tr>
+    <tr>
+        <td width="1%" align="center"><img src="./images/screenshots/Save Game.png"/></td>
+        <td width="1%" align="center"><img src="./images/screenshots/Quest Completed.png"/></td>
+    </tr>
+    <tr>
+        <td width="1%" align="center">Save Game</td>
+        <td width="1%" align="center">Quest Completed</td>
+    </tr>
+</table>
+
+## 📱 Bonus 1 - Build to Android
+<table style="width:100%; text-align:center;">
+    <col width="49%">
+    <col width="49%">
+    <tr>
+        <td width="1%" align="center"><img src="./assets/screenshots/Twibbon Page.jpg"/></td>
+        <td width="1%" align="center"><img src="./assets/screenshots/Twibbon Result 1.jpg"/></td>
+    </tr>
+    <tr>
+        <td width="1%" align="center">Android View #1</td>
+        <td width="1%" align="center">Android View #2</td>
+    </tr>
+</table>
+Here is how we build the Survival Shooter: The Sequel into Android:
+
+1. **Open the Unity project.**
+2. **Configure Build Settings:** Go to `File > Build Settings`.
+3. **Switch Platform**: In the Build Settings window, select "Android" from the platform list and click "Switch Platform" to configure settings for Android.
+4. **Set Minimum API Level:** This determines the range of Android devices the game can support. Choose an appropriate level based on target audience (at this game, we set it to 24).
+5. **Build and Run (or Build):** Click "Build and Run" to deploy the game to a connected Android device or simply "Build" to create an APK file.
+
+## ⌨️ Bonus 2 - Multitype Input
+Since the game need to be run smoothly on Android, we also prepare and adapt to be able to handle touch screen interface. Unity offers two main approaches for handling touch screen input in Android game:
+
+1. **Legacy Input System:** This is the traditional method and works well for basic touch mechanics.
+2. **New Input System (NIS):** This is a more modern and powerful system offering greater flexibility for complex input handling.
+
+In this task, we choose New Input System. We enable it by go to `Edit > Project Settings > Input System`, then check the box next to "Input System Package" and click "Play Mode" to enable it within the project. Here is the snippet on how we use it
+
+<script type="text/javascript" src="components/prism-core.min.js"></script>
+<script type="text/javascript" src="components/prism-clike.min.js"></script>
+<script type="text/javascript" src="components/prism-csharp.min.js"></script>
+<script type="text/javascript" src="bower_components/prism/components/prism-c.js"></script>
+
+<table style="width:100%;">
+    <col width="99%">
+    <tr>
+        <td width="1%"><a href="./Assets/Scripts/Player/PlayerShooting.cs">PlayerShooting.cs</a></td>
+    </tr>
+</table>
+
+```cs
+#if !MOBILE_INPUT    
+    // If the Fire1 button is being press and it's time to fire...
+    if (fire.IsPressed()) {
+        // ... shoot the gun.
+        Shoot();
+    }
+#else
+    // Detect the user touch point
+    foreach (var touch in Touch.activeTouches) {
+        if (touch.startScreenPosition != Vector2.zero) {
+            if (touch.startScreenPosition.x > Screen.width / 2 &&
+                touch.startScreenPosition.x < Screen.width - Screen.width/7) {
+                // ... shoot the gun.
+                Shoot();
+            }
+        }
+    }
+#endif
 ```
-cd existing_repo
-git remote add origin https://gitlab.informatika.org/mikeleo03/if3210-2024-unity-dor.git
-git branch -M main
-git push -uf origin main
+
+## 💣 Bonus 3 - Skill Cutscene
+<table style="width:100%; text-align:center;">
+    <col width="49%">
+    <col width="49%">
+    <tr>
+        <td width="1%" align="center"><img src="./assets/screenshots/Twibbon Page.jpg"/></td>
+        <td width="1%" align="center"><img src="./assets/screenshots/Twibbon Result 1.jpg"/></td>
+    </tr>
+    <tr>
+        <td width="1%" align="center">Skill Cutscene View #1</td>
+        <td width="1%" align="center">Skill Cutscene View #2</td>
+    </tr>
+</table>
+We implement the skill cutscene trigerred when the player throw the grenade using right click on mouse. To create the skill cutscene, we are doing these steps:
+
+1. **Create a Timeline object:** We add this Timeline object to the Main scene. This will serve as the container for the animation sequence.
+2. **Attach Player Animator:** Drag and drop the Player object onto the Timeline object. This will connect the Player's Animator to the Timeline, allowing us to animate the player's actions.
+3. **Create the Grenade Skill Animations' Clips:** In the Timeline window, we create the clips for the skill cutscene. The animation is inspired by this [Feeding Frenzy game animation](https://www.youtube.com/watch?v=z2QE-7HEtNI&t=1915s).
+4. **Modify the Clips' Position in the Timeline:** Customize the animation by adjusting and positioning the clips in the Timeline according to our needs. This allows us to create the desired animation sequence. Here is the [animation](https://gitlab.informatika.org/mikeleo03/if3210-2024-unity-dor/-/blob/main/Assets/Timeline/PlayerSkillCutscene.playable?ref_type=heads).
+5. **Integrate PlayableDirector:** Add a PlayableDirector component to an empty GameObject in main scene. This component will control the playback of the cutscene.
+6. **Trigger Cutscene with PlayableDirector:** In the PlayerShooting script, when the player throws a grenade, call the PlayableDirector's `Play()` method to initiate the cutscene.
+7. **Freeze Enemies before Cutscene:** Before the cutscene plays, add code in the PlayerShooting script to disable enemy movement and interactions. This will ensure enemies remain frozen during the cutscene.
+8. **Unfreeze Enemies after Cutscene:** After the cutscene finishes playing, add code in the PlayerShooting script to re-enable enemy movement and interactions. This will allow enemies to resume their normal behavior.
+
+Here's the [detail implementation](./Assets/Scripts/Player/PlayerShooting.cs#L198).
+
+## 🥽 Bonus 4 - AR Version
+<table style="width:100%; text-align:center;">
+    <col width="49%">
+    <col width="49%">
+    <tr>
+        <td width="1%" align="center"><img src="./assets/screenshots/Twibbon Page.jpg"/></td>
+        <td width="1%" align="center"><img src="./assets/screenshots/Twibbon Result 1.jpg"/></td>
+    </tr>
+    <tr>
+        <td width="1%" align="center">AR Version View #1</td>
+        <td width="1%" align="center">AR Version View #2</td>
+    </tr>
+</table>
+
+In order to make the game more immersive, we also make the AR version. The implementation of AR is using the following additional libraries.
+<table style="width:100%">
+  <col width="35%">
+  <col width="65%">
+  <tr>
+    <th>Libraries</th>
+    <th>Purposes</th>
+  </tr>
+  <tr>
+    <td>AR Foundation</td>
+    <td>Unity's framework for building augmented reality (AR) experiences across different devices.</td>
+  </tr>
+  <tr>
+    <td>Google ARCore XR Plugin</td>
+    <td>Extends AR Foundation to leverage Google's ARCore technology for specific AR features on Android devices.</td>
+  </tr>
+</table>
+
+Here is the snippet on how we use AR environemnt for the camera movement.
+
+<table style="width:100%;">
+    <col width="99%">
+    <tr>
+        <td width="1%">PlayerMovement.cs</td>
+    </tr>
+</table>
+
+```cs
+HAYO KODENYA
 ```
 
-## Integrate with your tools
+## 👨‍👨‍👦‍👦 Task Division
+The following is the division of tasks that we carry out.
+<table style="width:100%">
+    <col width="50%">
+    <col width="10%">
+    <col width="10%">
+    <col width="10%">
+    <col width="10%">
+    <col width="10%">
+    <tr>
+        <th>Task</th>
+        <th>13521052</th>
+        <th>13521056</th>
+        <th>13521064</th>
+        <th>13521108</th>
+        <th>13521172</th>
+    </tr>
+    <tr id="merged-row">
+        <td colspan="6"><b>Initialization</b></td>
+    </tr>
+    <tr>
+        <td>Initiate Project</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td align="center">✅</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Setup Unity Project</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td align="center">✅</td>
+        <td align="center">✅</td>
+    </tr>
+    <tr id="merged-row">
+        <td colspan="6"><b>Main Features</b></td>
+    </tr>
+    <tr>
+        <td>Story Mode</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td align="center">✅</td>
+        <td align="center">✅</td>
+    </tr>
+    <tr>
+        <td>Save Game</td>
+        <td align="center">✅</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Game Over</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td align="center">✅</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Statistik Game</td>
+        <td align="center">✅</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Main Menu</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td align="center">✅</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Shopkeeper</td>
+        <td></td>
+        <td align="center">✅</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Weapon</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td align="center">✅</td>
+    </tr>
+    <tr>
+        <td>Pet</td>
+        <td></td>
+        <td align="center">✅</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Cheat</td>
+        <td></td>
+        <td></td>
+        <td align="center">✅</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Mobs</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td align="center">✅</td>
+    </tr>
+    <tr>
+        <td>Orb Power Up</td>
+        <td></td>
+        <td></td>
+        <td align="center">✅</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr id="merged-row">
+        <td colspan="6"><b>Bonus</b></td>
+    </tr>
+    <tr>
+        <td>Build ke Android</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td align="center">✅</td>
+    </tr>
+    <tr>
+        <td>Multitype Input</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td align="center">✅</td>
+    </tr>
+    <tr>
+        <td>Skill Cutscene</td>
+        <td></td>
+        <td></td>
+        <td align="center">✅</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Membuat versi AR</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td align="center">✅</td>
+    </tr>
+</table>
 
-- [ ] [Set up project integrations](https://gitlab.informatika.org/mikeleo03/if3210-2024-unity-dor/-/settings/integrations)
-
-## Collaborate with your team
-
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+## 👏 Contributors
+|Contributors|Preparation Time|Working Time|
+| --- | :---: | :---: |
+| 13521052 - Melvin Kent Jonathan | - hours  | - hours |
+| 13521056 - Daniel Egiant Sitanggang | - hours  | - hours |
+| 13521064 - Bill Clinton | 10 hours | 60 hours |
+| 13521108 - Michael Leon Putra Widhi | 20 hours | 48 hours |
+| 13521172 - Nathan Tenka | - hours | - hours |

@@ -2,6 +2,7 @@ using Nightmare;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.Windows;
 
@@ -17,22 +18,11 @@ using UnityEngine.Windows;
  * SKIPLEVEL    : Player skips 1 level
  */
 
-public enum CheatsType
-{
-    NODAMAGE,
-    ONEHITKILL,
-    MOTHERLODE,
-    XTWOSPEED,
-    FULLHPPET,
-    KILLPET,
-    GETORB,
-    SKIPLEVEL
-}
-
 public class CheatManager : MonoBehaviour
 {
     HUDisplay hud;
     PlayerHealth playerHealth;
+    PlayerCurrency playerCurrency;
     PlayerMovement playerMovement;
     PlayerShooting playerShooting;
     LevelManager levelManager;
@@ -44,38 +34,50 @@ public class CheatManager : MonoBehaviour
 
     string textInput;
     public InputField inputField;
+    bool cheatOpened;
+    InputAction cheatInput;
 
-    bool[] cheats = new bool[4];
+    bool[] cheats = new bool[3];
 
-    private void Start()
+    private void Awake()
     {
+        cheatInput = ControlRef.control.Player.Cheat;
+        cheatOpened = false;
+
         hud = GameObject.Find("HUDCanvas").GetComponent<HUDisplay>();
         playerHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();
-        playerMovement = GameObject.Find("Player").GetComponent<PlayerMovement>();
+        playerCurrency = GameObject.Find("Player").GetComponent<PlayerCurrency>();
+        playerMovement = GameObject.Find("Player").GetComponent<PlayerMovement>(); 
         playerShooting = GameObject.Find("Player").GetComponentInChildren<PlayerShooting>();
         levelManager = FindObjectOfType<LevelManager>();
     }
 
-    private void Update()
+    private void OnEnable()
     {
-        // Reason: the read string conditionals do not contain Y or Z character
-        // Open input field by pressing Y key
-        if (UnityEngine.Input.GetKeyDown(KeyCode.Y))
+        cheatInput.performed += ToggleCheat;
+    }
+
+    private void OnDisable()
+    {
+        cheatInput.performed -= ToggleCheat;
+    }
+
+    public void ToggleCheat(InputAction.CallbackContext ctx)
+    {
+        if (cheatOpened)
+        {
+            hud.CloseInput();
+        } else
         {
             hud.OpenInput();
         }
-
-        // Close input field by pressing Z key
-        if (UnityEngine.Input.GetKeyDown(KeyCode.Z))
-        {
-            hud.CloseInput();
-        }
+        cheatOpened = !cheatOpened;
     }
 
     public void ReadStringInput(string text)
     {
         textInput = text;
-
+        cheatOpened = false;
         // Activate cheats based on text input
         if (textInput == "NODAMAGE")
         {
@@ -89,10 +91,28 @@ public class CheatManager : MonoBehaviour
             ActivateOneHitKill();
             return;
         }
+        if (textInput == "MOTHERLODE")
+        {
+            ResetInputField();
+            ActivateMotherlode();
+            return;
+        }
         if (textInput == "XTWOSPEED")
         {
             ResetInputField();
             ActivateXTwoSpeed();
+            return;
+        }
+        if (textInput == "FULLHPPET")
+        {
+            ResetInputField();
+            ActivateFullHPPet();
+            return;
+        }
+        if (textInput == "KILLPET")
+        {
+            ResetInputField();
+            ActivateKillPet();
             return;
         }
         if (textInput == "GETORB")
@@ -129,21 +149,49 @@ public class CheatManager : MonoBehaviour
     {
         playerHealth.SetCheatNoDamage(true);
         hud.OpenPanel("No Damage Cheat Activated!");
-        cheats[(int)CheatsType.NODAMAGE] = true;
     }
 
     private void ActivateOneHitKill()
     {
         playerShooting.ActivateCheatOneHitKill();
         hud.OpenPanel("One Hit Kill Cheat Activated!");
-        cheats[(int)CheatsType.ONEHITKILL] = true;
+    }
+
+    private void ActivateMotherlode()
+    {
+        playerCurrency.ActivateMotherlode();
+        hud.OpenPanel("Motherlode Cheat Activated!");
     }
 
     private void ActivateXTwoSpeed()
     {
         playerMovement.ActivateCheatXTwoSpeed();
         hud.OpenPanel("Two Times Speed Cheat Activated!");
-        cheats[(int)CheatsType.XTWOSPEED] = true;
+    }
+
+    private void ActivateFullHPPet()
+    {
+        GameObject[] allyPets = GameObject.FindGameObjectsWithTag("AllyPet");
+        foreach (GameObject allyPet in allyPets)
+        {
+            AllyPetHealth allyPetHealth = allyPet.GetComponent<AllyPetHealth>();
+            allyPetHealth.SetCheatFullHPPet(true);
+        }
+        
+        hud.OpenPanel("Full HP Pet Cheat Activated!");
+    }
+
+    private void ActivateKillPet()
+    {
+        GameObject[] enemyPets = GameObject.FindGameObjectsWithTag("EnemyPet");
+        Debug.Log(enemyPets.Length);
+        foreach (GameObject enemyPet in enemyPets)
+        {
+            EnemyPetHealth enemyPetHealth = enemyPet.GetComponent<EnemyPetHealth>();
+            enemyPetHealth.ActivateCheatKillPet();
+        }
+
+        hud.OpenPanel("Kill Pet Cheat Activated!");
     }
 
     private void ActivateGetRandomOrb()
@@ -177,37 +225,37 @@ public class CheatManager : MonoBehaviour
         }
 
         hud.OpenPanel("Get Random Orb Cheat Activated!");
-        cheats[(int)CheatsType.GETORB] = true;
     }
 
     private void ActivateSkipLevel()
     {
         levelManager.AdvanceLevel();
         hud.OpenPanel("Skip Level Cheat Activated!");
-        cheats[(int)CheatsType.SKIPLEVEL] = true;
     }
+
+    /* RESET CHEATS DOCUMENTATION */
+    /*
+     * Makes player can take damage again
+     * Reset player's balance to previous balance
+     * Reset player's speed
+     * Reset player's attack damage
+     * Makes player's pets can take damage again
+     */
 
     private void ActivateReset()
     {
         playerHealth.SetCheatNoDamage(false);
+        playerCurrency.ResetMotherlode();
         playerMovement.ResetSpeed();
         playerShooting.ResetPlayerDamage();
-        hud.OpenPanel("Successfully Reset Cheat(s)!");
-    }
 
-    public void LoadCheat(bool[] gatheredCheats)
-    {
-        if (gatheredCheats[(int)CheatsType.NODAMAGE])
+        GameObject[] allyPets = GameObject.FindGameObjectsWithTag("AllyPet");
+        foreach (GameObject allyPet in allyPets)
         {
-            ActivateNoDamage();
+            AllyPetHealth allyPetHealth = allyPet.GetComponent<AllyPetHealth>();
+            allyPetHealth.SetCheatFullHPPet(false);
         }
-        if (gatheredCheats[(int)CheatsType.ONEHITKILL])
-        {
-            ActivateOneHitKill();
-        }
-        if (gatheredCheats[(int)CheatsType.XTWOSPEED])
-        {
-            ActivateXTwoSpeed();
-        }
+
+        hud.OpenPanel("Successfully Reset Cheat(s)!");
     }
 }

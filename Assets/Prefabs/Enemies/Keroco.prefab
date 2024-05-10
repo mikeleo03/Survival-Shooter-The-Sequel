@@ -140,7 +140,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100002}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: be66986effd141b4992d2d78be127139, type: 3}
   m_Controller: {fileID: 9100000, guid: 2cd6bf77cac24414c8e134b0c0e7aed3, type: 2}
   m_CullingMode: 1
@@ -277,7 +277,6 @@ MonoBehaviour:
   sinkSpeed: 2.5
   scoreValue: 7
   deathClip: {fileID: 8300000, guid: 1d3bfb9269f136947bf8ac164cace1ff, type: 3}
-  isCheatOneHitKill: 0
   increaseDamageOrbPrefab: {fileID: 5928907673800009345, guid: eb4274969abbb7944acd2b2888294bba, type: 3}
   restoreHealthOrbPrefab: {fileID: 108012326883433976, guid: cbc7c018424f013499d4f4feb5ff52db, type: 3}
   increaseSpeedOrbPrefab: {fileID: 6926906167359508983, guid: 842d4cdd8e369c745bf786e8286b0723, type: 3}

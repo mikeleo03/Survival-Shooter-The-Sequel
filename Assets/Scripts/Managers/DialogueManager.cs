@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -16,10 +17,12 @@ public class DialogueManager : MonoBehaviour
 
     private int index;
     private bool isDialogueFinished = false;
+    private InputAction click;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
+        click = ControlRef.control.UI.Click;
+
         Time.timeScale = 0;
         QuestCanvas.enabled = false;
         textComponent.text = string.Empty;
@@ -27,38 +30,44 @@ public class DialogueManager : MonoBehaviour
         StartDialogue();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        if (Input.GetMouseButtonDown(0))
+        click.performed += AdvanceDialog;
+    }
+
+    private void OnDisable()
+    {
+        click.performed -= AdvanceDialog;
+    }
+
+    private void AdvanceDialog(InputAction.CallbackContext ctx)
+    {
+        if (isDialogueFinished == false)
         {
-            if (isDialogueFinished == false)
+            if (textComponent.text == lines[index])
             {
-                if (textComponent.text == lines[index])
-                {
-                    NextLine();
-                }
-                else
-                {
-                    StopAllCoroutines();
-                    textComponent.text = lines[index];
-                    talkerComponent.text = talker[index];
-                    // TalkerBox.SetActive(!string.IsNullOrEmpty(talker[index]));
-                }
+                NextLine();
             }
             else
             {
-                if (QuestCanvas.enabled == false)
-                {
-                    QuestCanvas.enabled = true;
-                    DialogueCanvas.enabled = false;
-                } 
-                else
-                {
-                    QuestCanvas.enabled = false;
-                    gameObject.SetActive(false);
-                    Time.timeScale = 1;
-                }
+                StopAllCoroutines();
+                textComponent.text = lines[index];
+                talkerComponent.text = talker[index];
+                // TalkerBox.SetActive(!string.IsNullOrEmpty(talker[index]));
+            }
+        }
+        else
+        {
+            if (QuestCanvas.enabled == false)
+            {
+                QuestCanvas.enabled = true;
+                DialogueCanvas.enabled = false;
+            } 
+            else
+            {
+                QuestCanvas.enabled = false;
+                gameObject.SetActive(false);
+                Time.timeScale = 1;
             }
         }
 
