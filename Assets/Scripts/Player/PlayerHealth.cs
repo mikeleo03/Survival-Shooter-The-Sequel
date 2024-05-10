@@ -13,7 +13,8 @@ namespace Nightmare
         public Image damageImage;
         public AudioClip deathClip;
         public float flashSpeed = 5f;
-        public Color flashColour = new Color(1f, 0f, 0f, 0.1f);
+        public Color redColour = new Color(1f, 0f, 0f, 0.1f);
+        public Color greenColour = new Color(0f, 1f, 0f, 0.1f);
 
         Animator anim;
         AudioSource playerAudio;
@@ -21,6 +22,7 @@ namespace Nightmare
         PlayerShooting playerShooting;
         bool isDead;
         bool damaged;
+        int damageAmount = 0;
 
         // Cheat No Damage
         public bool isCheatNoDamage = false;
@@ -54,7 +56,14 @@ namespace Nightmare
             if (damaged)
             {
                 // ... set the colour of the damageImage to the flash colour.
-                damageImage.color = flashColour;
+                if (damageAmount > 0) // Take Damage
+                {
+                    damageImage.color = redColour;
+                }
+                else if (damageAmount < 0) // Restore Health
+                {
+                    damageImage.color = greenColour;
+                }
             }
             // Otherwise...
             else
@@ -75,6 +84,9 @@ namespace Nightmare
 
             // Set the damaged flag so the screen will flash.
             damaged = true;
+
+            // Set damage amount to get the right color effect
+            damageAmount = amount;
 
             // Reduce the current health by the damage amount.
             currentHealth -= amount;
