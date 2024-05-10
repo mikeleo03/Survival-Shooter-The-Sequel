@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 namespace Nightmare
 {
-    public class LevelManager : MonoBehaviour
+    public class LevelManager : MonoBehaviour, IDataPersistance
     {
         public string[] levels;
 
-        private int currentLevel = 0;
+        private int currentLevel;
         private Scene currentScene;
         private PlayerMovement playerMove;
         private Vector3 playerRespawn;
@@ -27,8 +27,7 @@ namespace Nightmare
         void Start()
         {
             cinema = FindObjectOfType<CinematicController>();
-            SceneManager.LoadSceneAsync(levels[0], LoadSceneMode.Additive);
-            playerMove = FindObjectOfType<PlayerMovement>();
+            // SceneManager.LoadSceneAsync(levels[this.currentLevel], LoadSceneMode.Additive);            playerMove = FindObjectOfType<PlayerMovement>();
             playerRespawn = playerMove.transform.position;
         }
 
@@ -63,7 +62,7 @@ namespace Nightmare
                 Debug.Log("Setting " + TimerTextComp.gameObject.name + " to inactive.");
                 QuestTextComp.gameObject.SetActive(false);
                 Debug.Log("Setting " + QuestTextComp.gameObject.name + " to inactive.");
-            } 
+            }
             else
             {
                 TimerTextComp.gameObject.SetActive(true);
@@ -124,6 +123,16 @@ namespace Nightmare
         public int GetCurrLevel()
         {
             return currentLevel;
+        }
+        public void LoadData(GameData data)
+        {
+            this.currentLevel = data.level;
+            SceneManager.LoadSceneAsync(levels[this.currentLevel], LoadSceneMode.Additive);
+        }
+
+        public void SaveData(ref GameData data)
+        {
+            data.level = this.currentLevel + 1;
         }
     }
 }

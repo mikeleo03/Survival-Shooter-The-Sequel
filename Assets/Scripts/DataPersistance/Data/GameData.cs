@@ -10,6 +10,7 @@ public class GameData
     public int playerHealth;
     public Vector3 playerPosition;
     public int balance;
+    public int level;
 
     public float damagePercent;
 
@@ -34,7 +35,7 @@ public class GameData
         this.damagePercent = 1;
         this.playerPosition = Vector3.zero;
         this.balance = 0;
-
+        this.level = 0;
 
 
         this.healingPetHealths = new List<int>();
