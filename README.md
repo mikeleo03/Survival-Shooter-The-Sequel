@@ -151,11 +151,11 @@ Here's Survival Shooter The Sequel main game flows and its interface.
         <td width="1%" align="center">Game Over</td>
     </tr>
     <tr>
-        <td width="1%" align="center"><img src="./images/screenshots/Save Game.png"/></td>
+        <td width="1%" align="center"><img src="./images/screenshots/Load Game.png"/></td>
         <td width="1%" align="center"><img src="./images/screenshots/Quest Completed.png"/></td>
     </tr>
     <tr>
-        <td width="1%" align="center">Save Game</td>
+        <td width="1%" align="center">Save & Load Game</td>
         <td width="1%" align="center">Quest Completed</td>
     </tr>
 </table>
@@ -194,8 +194,8 @@ In this task, we choose New Input System. We enable it by go to `Edit > Project 
 <script type="text/javascript" src="components/prism-csharp.min.js"></script>
 <script type="text/javascript" src="bower_components/prism/components/prism-c.js"></script>
 
-<table style="width:100%;">
-    <col width="99%">
+<table>
+    <col width="auto">
     <tr>
         <td width="1%"><a href="./Assets/Scripts/Player/PlayerShooting.cs">PlayerShooting.cs</a></td>
     </tr>
@@ -234,6 +234,14 @@ In this task, we choose New Input System. We enable it by go to `Edit > Project 
         <td width="1%" align="center">Skill Cutscene View #1</td>
         <td width="1%" align="center">Skill Cutscene View #2</td>
     </tr>
+    <tr>
+        <td width="1%" align="center"><img src="./assets/screenshots/Twibbon Page.jpg"/></td>
+        <td width="1%" align="center"><img src="./assets/screenshots/Twibbon Result 1.jpg"/></td>
+    </tr>
+    <tr>
+        <td width="1%" align="center">Skill Cutscene View #3</td>
+        <td width="1%" align="center">Skill Cutscene View #4</td>
+    </tr>
 </table>
 We implement the skill cutscene trigerred when the player throw the grenade using right click on mouse. To create the skill cutscene, we are doing these steps:
 
@@ -260,6 +268,14 @@ Here's the [detail implementation](./Assets/Scripts/Player/PlayerShooting.cs#L19
         <td width="1%" align="center">AR Version View #1</td>
         <td width="1%" align="center">AR Version View #2</td>
     </tr>
+    <tr>
+        <td width="1%" align="center"><img src="./assets/screenshots/Twibbon Page.jpg"/></td>
+        <td width="1%" align="center"><img src="./assets/screenshots/Twibbon Result 1.jpg"/></td>
+    </tr>
+    <tr>
+        <td width="1%" align="center">AR Version View #3</td>
+        <td width="1%" align="center">AR Version View #4</td>
+    </tr>
 </table>
 
 In order to make the game more immersive, we also make the AR version. The implementation of AR is using the following additional libraries.
@@ -280,18 +296,20 @@ In order to make the game more immersive, we also make the AR version. The imple
   </tr>
 </table>
 
-Here is the snippet on how we use AR environemnt for the camera movement.
+Here is how we use AR for camera tracking and input manager.
 
-<table style="width:100%;">
-    <col width="99%">
+<table style="width:100%; text-align:center;">
+    <col width="49%">
+    <col width="49%">
     <tr>
-        <td width="1%">PlayerMovement.cs</td>
+        <td width="1%" align="center"><img src="./images/screenshots/AR Version.png"/></td>
+        <td width="1%" align="center"><img src="./images/screenshots/XR Origin.png"/></td>
+    </tr>
+    <tr>
+        <td width="1%" align="center">AR Session for input manager in AR Version.</td>
+        <td width="1%" align="center">XR Origin for background based on camera-tracking.</td>
     </tr>
 </table>
-
-```cs
-HAYO KODENYA
-```
 
 ## 👨‍👨‍👦‍👦 Task Division
 The following is the division of tasks that we carry out.
@@ -460,8 +478,8 @@ The following is the division of tasks that we carry out.
 ## 👏 Contributors
 |Contributors|Preparation Time|Working Time|
 | --- | :---: | :---: |
-| 13521052 - Melvin Kent Jonathan | - hours  | - hours |
-| 13521056 - Daniel Egiant Sitanggang | - hours  | - hours |
+| 13521052 - Melvin Kent Jonathan | 10 hours  | 42 hours |
+| 13521056 - Daniel Egiant Sitanggang | 10 hours  | 52 hours |
 | 13521064 - Bill Clinton | 10 hours | 60 hours |
-| 13521108 - Michael Leon Putra Widhi | 20 hours | 48 hours |
-| 13521172 - Nathan Tenka | - hours | - hours |
+| 13521108 - Michael Leon Putra Widhi | 20 hours | 52 hours |
+| 13521172 - Nathan Tenka | 5 hours | 80 hours |
