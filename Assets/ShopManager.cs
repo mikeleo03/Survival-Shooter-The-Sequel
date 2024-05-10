@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using UnityEngine.InputSystem;
 
 
 #if UNITY_EDITOR
@@ -23,16 +24,17 @@ public class ShopManager : MonoBehaviour {
 	GameObject shopPanel;
 	GameObject messagePanel;
 	Canvas canvas;
+	InputAction shopAction;
 	float messageTimer;
 
 	bool isAccessible;
 
 	void Awake()
 	{
-	
+		shopAction = ControlRef.control.Player.Shop;
 	}
 
-	void Start()
+    void Start()
 	{
 		canvas = GetComponent<Canvas>();
 		canvas.enabled = false;
@@ -62,37 +64,49 @@ public class ShopManager : MonoBehaviour {
 		shopPanel.SetActive(false);
 		messagePanel.SetActive(false);
 	}
+
+	public void OpenShop()
+	{
+        if (isAccessible)
+        {
+            if (shopPanel.activeSelf)
+            {
+                showNothing();
+                return;
+            }
+
+            resetCanvas();
+            showShop();
+            return;
+        } 
+        else
+        {
+            messageTimer = messageDelay;
+            resetCanvas();
+            showMessage("Go to the shopkeeper to access the shop.");
+            return;
+        }
+    }
 	
 	void Update()
 	{
 		balanceText.text = playerCurrency.Balance().ToString();
 		messageTimer -= Time.deltaTime;
-		if (isAccessible && Input.GetKeyDown(KeyCode.B)) 
+		if (shopAction.WasPressedThisFrame())
 		{
-			if (shopPanel.activeSelf)
-			{
-				showNothing();
-				return;
-			}
-
-			resetCanvas();
-			showShop();
-			return;
-		} 
-		else if (isAccessible && !shopPanel.activeSelf) 
-		{
-			resetCanvas();
-			showMessage("Press key B to open shop");
-			return;
-		}   
-		else if (!isAccessible && Input.GetKeyDown(KeyCode.B)) 
-		{
-			messageTimer = messageDelay; 
-			resetCanvas();
-			showMessage("Go to the shopkeeper to access the shop.");
-			return;
+			OpenShop();
 		}
-		if (messageTimer < 0.01f && !shopPanel.activeSelf) 
+        if (isAccessible && !shopPanel.activeSelf)
+        {
+            resetCanvas();
+#if !MOBILE_INPUT
+            showMessage("Press key B to open shop");
+#else
+			showMessage("Press Shop Button to open shop");
+#endif
+            return;
+        }
+        if (messageTimer < 0.01f && !shopPanel.activeSelf) 
 		{
 			showNothing();
 		}

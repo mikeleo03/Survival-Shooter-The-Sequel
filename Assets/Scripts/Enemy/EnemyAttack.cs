@@ -79,7 +79,7 @@ namespace Nightmare
 
         void Update ()
         {
-            if (isPaused)
+            if (isPaused || EnemyMovement.isFreeze)
                 return;
             
             // Add the time since Update was last called to the timer.

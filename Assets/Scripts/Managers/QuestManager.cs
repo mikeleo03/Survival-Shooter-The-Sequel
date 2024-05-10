@@ -1,11 +1,7 @@
 using Nightmare;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using UnityEngine.SocialPlatforms;
 using UnityEngine.UI;
 
 public class QuestManager : MonoBehaviour
@@ -21,13 +17,20 @@ public class QuestManager : MonoBehaviour
     [SerializeField] Canvas CompletedCanvas;
 
     PlayerCurrency playerCurr;
+    InputAction click;
 
     private void Awake()
     {
+        click = ControlRef.control.UI.Click;
         currQuest = questList[0];
         CompletedCanvas.enabled = false;
         loadedNext = false;
         playerCurr = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCurrency>();
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     public Quest getCurrentQuest()
@@ -37,7 +40,7 @@ public class QuestManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) 
+        if (click.IsPressed()) 
         {
             if (CompletedCanvas.enabled == true)
             {
@@ -54,11 +57,6 @@ public class QuestManager : MonoBehaviour
                 }
             }
         }
-    }
-
-    void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     void LateUpdate()

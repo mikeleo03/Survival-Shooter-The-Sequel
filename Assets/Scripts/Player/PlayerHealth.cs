@@ -126,12 +126,15 @@ namespace Nightmare
 
         public void LoadData(GameData data)
         {
-            this.currentHealth = data.playerHealth;
-            healthSlider.value = this.currentHealth;
+            if (data.playerHealth > 0)
+            {
+                this.currentHealth = data.playerHealth;
+                healthSlider.value = this.currentHealth;
+            }
         }
 
         public void SaveData(ref GameData data)
-        {
+        { 
             data.playerHealth = this.currentHealth;
         }
 

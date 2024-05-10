@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System;
 using System.Collections;
 using UnityEngine.Playables;
+using UnityEngine.InputSystem;
+using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 
 namespace Nightmare
 {
@@ -13,7 +15,7 @@ namespace Nightmare
     {
         public GameObject grenade;
         public float grenadeSpeed = 200f;
-        public float grenadeFireDelay = 0.5f;
+        public float grenadeFireDelay = 5f;
         public float damagePercent = 1;
         int grenadeStock = int.MaxValue;
         
@@ -23,18 +25,29 @@ namespace Nightmare
         private int currWeaponIdx;
         [SerializeField] Transform weaponPos;
         float realWeaponDamage;
+        private bool isShootingGrenade;
 
         // For skill cutscene
         PlayableDirector director;
   
         private UnityAction listener;
 
+        // Input actions
+        PlayerInput pInput;
+        InputAction fire, grenadeAct, changeWeapon, scroll;
+
         void Awake ()
         {
+            pInput = GetComponent<PlayerInput>();
+            fire = pInput.actions["Fire"];
+            grenadeAct = pInput.actions["Grenade"];
+            changeWeapon = pInput.actions["ChangeWeapon"];
+            scroll = pInput.actions["Scroll"];
+
             timer = 0;
             grenadeTimer = 0;
             ChangeWeapon(0);
-            AdjustGrenadeStock(0);
+            isShootingGrenade = false;
 
             GameObject directorObject = GameObject.Find("Timeline");
 
@@ -55,6 +68,27 @@ namespace Nightmare
             StartPausible();
         }
 
+        private void OnEnable()
+        {
+            fire.Enable();
+            grenadeAct.Enable();
+            changeWeapon.Enable();
+            scroll.Enable();
+
+            changeWeapon.performed += OnChangeWeaponInput;
+
+        }
+
+        private void OnDisable()
+        {
+            changeWeapon.performed -= OnChangeWeaponInput;
+
+            fire.Disable();
+            grenadeAct.Disable();
+            changeWeapon.Disable();
+            scroll.Disable();
+        }
+
         void OnDestroy()
         {
             EventManager.StopListening("GrenadePickup", CollectGrenade);
@@ -72,52 +106,40 @@ namespace Nightmare
 
             currWeapon.damagePerShot = Mathf.RoundToInt(realWeaponDamage * damagePercent);
 
-            if (Input.GetAxis("Mouse ScrollWheel") != 0)
+            if (scroll.ReadValue<float>() != 0)
             {
-                currWeaponIdx -= Mathf.RoundToInt(Mathf.Sign(Input.GetAxis("Mouse ScrollWheel")));
-                ChangeWeapon(currWeaponIdx);
-            }
-
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                ChangeWeapon(0);
-            } else if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                ChangeWeapon(1);
-            } else if (Input.GetKeyDown(KeyCode.Alpha3))
-            {
-                ChangeWeapon(2);
+                IncOrDecWeapon(-Mathf.RoundToInt(Mathf.Sign(scroll.ReadValue<float>())));
             }
 
 #if !MOBILE_INPUT
-            if (grenadeTimer >= grenadeFireDelay && Time.timeScale != 0)
+            // If the Fire1 button is being press and it's time to fire...
+            if (grenadeAct.IsPressed() && grenadeStock > 0)
             {
-                // If the Fire1 button is being press and it's time to fire...
-                if (Input.GetButton("Fire2") && grenadeStock > 0)
-                {
-                    // ... shoot a grenade.
-                    ShootGrenade();
-                }
+                // ... shoot a grenade.
+                ShootGrenade();
             }
 
-            if (timer >= currWeapon.timeBetweenBullets && Time.timeScale != 0)
-            {
-                // If the Fire1 button is being press and it's time to fire...
-                if (Input.GetButton("Fire1"))
-                {
-                    // ... shoot the gun.
-                    Shoot();
-                }
-            }
             
-#else
-            // If there is input on the shoot direction stick and it's time to fire...
-            if ((CrossPlatformInputManager.GetAxisRaw("Mouse X") != 0 || CrossPlatformInputManager.GetAxisRaw("Mouse Y") != 0) && timer >= timeBetweenBullets)
+            // If the Fire1 button is being press and it's time to fire...
+            if (fire.IsPressed())
             {
-                // ... shoot the gun
+                // ... shoot the gun.
                 Shoot();
             }
+#else
+                foreach (var touch in Touch.activeTouches)
+                {
+                    if (touch.startScreenPosition != Vector2.zero)
+                    {
+                        if (touch.startScreenPosition.x > Screen.width / 2 &&
+                            touch.startScreenPosition.x < Screen.width-Screen.width/7)
+                        {
+                            Shoot();
+                        }
+                    }
+                }
 #endif
+
             // If the timer has exceeded the proportion of timeBetweenBullets that the effects should be displayed for...
             if(timer >= currWeapon.timeBetweenBullets * currWeapon.effectsDisplayTime)
             {
@@ -130,6 +152,11 @@ namespace Nightmare
         public void DisableEffects ()
         {
             currWeapon.DisableEffects();
+        }
+
+        void OnChangeWeaponInput(InputAction.CallbackContext ctx)
+        {
+            ChangeWeapon(Mathf.RoundToInt(ctx.ReadValue<float>()-1));
         }
 
         void ChangeWeapon(int idx)
@@ -157,11 +184,20 @@ namespace Nightmare
             realWeaponDamage = currWeapon.damagePerShot;
         }
 
+        public void IncOrDecWeapon(int amount)
+        {
+            currWeaponIdx += amount;
+            ChangeWeapon(currWeaponIdx);
+        }
+
         void Shoot ()
         {
-            // Reset the timer.
-            timer = 0f;
-            currWeapon.Shoot();
+            if (timer >= currWeapon.timeBetweenBullets && Time.timeScale != 0 && !isShootingGrenade)
+            {
+                // Reset the timer.
+                timer = 0f;
+                currWeapon.Shoot();
+            }
         }
 
         //private void ChangeGunLine(float midPoint)
@@ -177,18 +213,15 @@ namespace Nightmare
 
         public void CollectGrenade()
         {
-            AdjustGrenadeStock(1);
         }
 
-        private void AdjustGrenadeStock(int change)
+        public void ShootGrenade()
         {
-            grenadeStock += change;
-            GrenadeManager.grenades = grenadeStock;
-        }
-
-        void ShootGrenade()
-        {
-            StartCoroutine(ShootCutscene());
+            if (!isShootingGrenade && grenadeTimer >= grenadeFireDelay)
+            {
+                isShootingGrenade = true;
+                StartCoroutine(ShootCutscene());
+            }
             
             //GameObject clone = Instantiate(grenade, transform.position, Quaternion.identity);
             //Grenade grenadeClone = clone.GetComponent<Grenade>();
@@ -209,10 +242,13 @@ namespace Nightmare
             // Unfreeze the enemies
             UnfreezeEnemies();
 
-            AdjustGrenadeStock(-1);
+            for (int i=0; i<30; i++)
+            {
+                GameObject clone = PoolManager.Pull("Grenade", transform.position, Quaternion.identity);
+                EventManager.TriggerEvent("ShootGrenade", grenadeSpeed * transform.forward);
+            }
             grenadeTimer = 0;
-            GameObject clone = PoolManager.Pull("Grenade", transform.position, Quaternion.identity);
-            EventManager.TriggerEvent("ShootGrenade", grenadeSpeed * transform.forward);
+            isShootingGrenade = false;
         }
 
         public void FreezeEnemies()

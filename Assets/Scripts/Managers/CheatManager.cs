@@ -2,6 +2,7 @@ using Nightmare;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.Windows;
 
@@ -33,11 +34,16 @@ public class CheatManager : MonoBehaviour
 
     string textInput;
     public InputField inputField;
+    bool cheatOpened;
+    InputAction cheatInput;
 
     bool[] cheats = new bool[3];
 
-    private void Start()
+    private void Awake()
     {
+        cheatInput = ControlRef.control.Player.Cheat;
+        cheatOpened = false;
+
         hud = GameObject.Find("HUDCanvas").GetComponent<HUDisplay>();
         playerHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();
         playerCurrency = GameObject.Find("Player").GetComponent<PlayerCurrency>();
@@ -46,26 +52,32 @@ public class CheatManager : MonoBehaviour
         levelManager = FindObjectOfType<LevelManager>();
     }
 
-    private void Update()
+    private void OnEnable()
     {
-        // Reason: the read string conditionals do not contain Y or Z character
-        // Open input field by pressing Y key
-        if (UnityEngine.Input.GetKeyDown(KeyCode.Y))
+        cheatInput.performed += ToggleCheat;
+    }
+
+    private void OnDisable()
+    {
+        cheatInput.performed -= ToggleCheat;
+    }
+
+    public void ToggleCheat(InputAction.CallbackContext ctx)
+    {
+        if (cheatOpened)
+        {
+            hud.CloseInput();
+        } else
         {
             hud.OpenInput();
         }
-
-        // Close input field by pressing Z key
-        if (UnityEngine.Input.GetKeyDown(KeyCode.Z))
-        {
-            hud.CloseInput();
-        }
+        cheatOpened = !cheatOpened;
     }
 
     public void ReadStringInput(string text)
     {
         textInput = text;
-
+        cheatOpened = false;
         // Activate cheats based on text input
         if (textInput == "NODAMAGE")
         {

@@ -1,6 +1,8 @@
 ﻿using System;
 using UnityEngine;
-using UnitySampleAssets.CrossPlatformInput;
+using UnityEngine.InputSystem;
+using EnchancedTouch = UnityEngine.InputSystem.EnhancedTouch;
+using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 
 namespace Nightmare
 {
@@ -10,22 +12,33 @@ namespace Nightmare
         public float originalSpeed = 6f;    // For speed orb purpose
         public float prevSpeed;             // For twice speed cheat purpose
 
+        // Input actions
+        PlayerInput pInput;
+        InputAction move;
 
         Vector3 movement;                   // The vector to store the direction of the player's movement.
         Animator anim;                      // Reference to the animator component.
         Rigidbody playerRigidbody;          // Reference to the player's rigidbody.
+        int isAR = 0;
 #if !MOBILE_INPUT
         int floorMask;                      // A layer mask so that a ray can be cast just at gameobjects on the floor layer.
         float camRayLength = 100f;          // The length of the ray from the camera into the scene.
+#else 
+        Vector2 lookDir;
 #endif
 
         private Vector3 lastPosition; // Variable to store the last position
 
         void Awake ()
         {
+            pInput = GetComponent<PlayerInput>();
+            move = pInput.actions["Move"];
 #if !MOBILE_INPUT
             // Create a layer mask for the floor layer.
             floorMask = LayerMask.GetMask ("Floor");
+#else 
+            EnchancedTouch.EnhancedTouchSupport.Enable();
+            isAR = PlayerPrefs.GetInt("isAR", 0);
 #endif
 
             // Set up references.
@@ -36,6 +49,16 @@ namespace Nightmare
             prevSpeed = speed;
 
             StartPausible();
+        }
+
+        private void OnEnable()
+        {
+            move.Enable();
+        }
+
+        private void OnDisable()
+        {
+            move.Disable();
         }
 
         void OnDestroy()
@@ -49,9 +72,29 @@ namespace Nightmare
                 return;
 
             // Store the input axes.
-            float h = CrossPlatformInputManager.GetAxisRaw("Horizontal");
-            float v = CrossPlatformInputManager.GetAxisRaw("Vertical");
+#if !MOBILE_INPUT
+            float h = move.ReadValue<Vector2>().x;
+            float v = move.ReadValue<Vector2>().y;
+#else
+            float h = 0;
+            float v = 0;
 
+            foreach (var touch in Touch.activeTouches)
+            {
+                if (touch.startScreenPosition != Vector2.zero) {
+                    Vector2 currDelta = (
+                            touch.screenPosition - touch.startScreenPosition).normalized;
+                    if (touch.startScreenPosition.x < Screen.width / 2)
+                    {
+                        h = currDelta.x;
+                        v = currDelta.y;
+                    } else if (touch.startScreenPosition.x < Screen.width - Screen.width / 7 && isAR == 0)
+                    {
+                        lookDir = currDelta;
+                    }
+                }
+            }
+#endif
             // Move the player around the scene.
             Move (h, v);
 
@@ -66,7 +109,13 @@ namespace Nightmare
         void Move (float h, float v)
         {
             // Set the movement vector based on the axis input.
-            movement.Set (h, 0f, v);
+            if (isAR == 0)
+            {
+                movement.Set(h, 0f, v);
+            } else
+            {
+                movement = transform.right * h + transform.forward * v;
+            }
 
             // Calculate the distance moved since the last frame
             float distanceMoved = Vector3.Distance(transform.position, lastPosition);
@@ -81,7 +130,6 @@ namespace Nightmare
                 TextStatistics.distanceTraveled += distanceMoved;
                 InGameTextStatistics.distanceTraveled += distanceMoved;
             }
-
             
             // Normalise the movement vector and make it proportional to the speed per second.
             movement = movement.normalized * speed * Time.deltaTime;
@@ -95,7 +143,7 @@ namespace Nightmare
         {
 #if !MOBILE_INPUT
             // Create a ray from the mouse cursor on screen in the direction of the camera.
-            Ray camRay = Camera.main.ScreenPointToRay (Input.mousePosition);
+            Ray camRay = Camera.main.ScreenPointToRay (Mouse.current.position.ReadValue());
 
             // Create a RaycastHit variable to store information about what was hit by the ray.
             RaycastHit floorHit;
@@ -117,7 +165,7 @@ namespace Nightmare
             }
 #else
 
-            Vector3 turnDir = new Vector3(CrossPlatformInputManager.GetAxisRaw("Mouse X") , 0f , CrossPlatformInputManager.GetAxisRaw("Mouse Y"));
+            Vector3 turnDir = new Vector3(lookDir.x, 0f, lookDir.y);
 
             if (turnDir != Vector3.zero)
             {
