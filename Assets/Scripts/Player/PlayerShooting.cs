@@ -15,7 +15,7 @@ namespace Nightmare
     {
         public GameObject grenade;
         public float grenadeSpeed = 200f;
-        public float grenadeFireDelay = 0.5f;
+        public float grenadeFireDelay = 5f;
         public float damagePercent = 1;
         int grenadeStock = int.MaxValue;
         
@@ -25,6 +25,7 @@ namespace Nightmare
         private int currWeaponIdx;
         [SerializeField] Transform weaponPos;
         float realWeaponDamage;
+        private bool isShootingGrenade;
 
         // For skill cutscene
         PlayableDirector director;
@@ -46,7 +47,7 @@ namespace Nightmare
             timer = 0;
             grenadeTimer = 0;
             ChangeWeapon(0);
-            AdjustGrenadeStock(0);
+            isShootingGrenade = false;
 
             GameObject directorObject = GameObject.Find("Timeline");
 
@@ -191,7 +192,7 @@ namespace Nightmare
 
         void Shoot ()
         {
-            if (timer >= currWeapon.timeBetweenBullets && Time.timeScale != 0)
+            if (timer >= currWeapon.timeBetweenBullets && Time.timeScale != 0 && !isShootingGrenade)
             {
                 // Reset the timer.
                 timer = 0f;
@@ -212,18 +213,15 @@ namespace Nightmare
 
         public void CollectGrenade()
         {
-            AdjustGrenadeStock(1);
         }
 
-        private void AdjustGrenadeStock(int change)
+        public void ShootGrenade()
         {
-            grenadeStock += change;
-            GrenadeManager.grenades = grenadeStock;
-        }
-
-        void ShootGrenade()
-        {
-            StartCoroutine(ShootCutscene());
+            if (!isShootingGrenade && grenadeTimer >= grenadeFireDelay)
+            {
+                isShootingGrenade = true;
+                StartCoroutine(ShootCutscene());
+            }
             
             //GameObject clone = Instantiate(grenade, transform.position, Quaternion.identity);
             //Grenade grenadeClone = clone.GetComponent<Grenade>();
@@ -244,10 +242,13 @@ namespace Nightmare
             // Unfreeze the enemies
             UnfreezeEnemies();
 
-            AdjustGrenadeStock(-1);
+            for (int i=0; i<30; i++)
+            {
+                GameObject clone = PoolManager.Pull("Grenade", transform.position, Quaternion.identity);
+                EventManager.TriggerEvent("ShootGrenade", grenadeSpeed * transform.forward);
+            }
             grenadeTimer = 0;
-            GameObject clone = PoolManager.Pull("Grenade", transform.position, Quaternion.identity);
-            EventManager.TriggerEvent("ShootGrenade", grenadeSpeed * transform.forward);
+            isShootingGrenade = false;
         }
 
         public void FreezeEnemies()
