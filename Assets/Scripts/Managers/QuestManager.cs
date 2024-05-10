@@ -128,7 +128,6 @@ public class QuestManager : MonoBehaviour
 
     void rewardPlayer()
     {
-        Debug.Log("Player rewarded");
         int reward = 200 * (lm.GetCurrLevel() +  1); 
         playerCurr.add(reward);
     }

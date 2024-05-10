@@ -23,7 +23,6 @@ public class Shop : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             shopManager.setAccessible(true);
-            Debug.Log("Player is nearby");
         }
     }   
 
@@ -32,7 +31,6 @@ public class Shop : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             shopManager.setAccessible(false);
-            Debug.Log("Player is not nearby");
         }
     }
 }

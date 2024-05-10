@@ -41,7 +41,6 @@ namespace Nightmare
 
         void OnTriggerEnter (Collider other)
         {
-            Debug.Log("OnTriggerEnter" + isPlayerInRange);
             if(other.CompareTag("Player"))
             {
                 isPlayerInRange = true;
@@ -81,7 +80,6 @@ namespace Nightmare
 
         void AvoidPlayer()
         {
-            Debug.Log("Avoiding Player");
             GoToPosition(new Vector3(-player.position.x, -player.position.y, -player.position.z));
         }
 

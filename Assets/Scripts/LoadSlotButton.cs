@@ -56,8 +56,6 @@ public class LoadSlotButton : MonoBehaviour
     public void LoadGame()
     {
         DataPersistanceManager.loadedFileName = fileName;
-        Debug.Log(DataPersistanceManager.loadedFileName);
-
         GameManager.startGame();
     }
 }

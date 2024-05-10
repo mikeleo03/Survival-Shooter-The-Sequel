@@ -66,7 +66,6 @@ namespace Nightmare
                 if (isCheatFullHPPet)
                     return;
 
-                Debug.Log("AllyPetHealth: " + currentHealth);
                 currentHealth -= amount;
             }
         }

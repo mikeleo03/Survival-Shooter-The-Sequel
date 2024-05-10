@@ -56,7 +56,6 @@ namespace Nightmare
 
         public void TakeDamage (int amount, Vector3 hitPoint)
         {
-            Debug.Log("Enemy Pet: " + currentHealth);
             if (!IsDead())
             {
                 // enemyAudio.Play();

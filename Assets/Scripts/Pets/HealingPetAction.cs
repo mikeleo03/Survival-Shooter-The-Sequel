@@ -70,7 +70,6 @@ namespace Nightmare
             timer = 0f;
             healHitPoint = Mathf.Min(healHitPoint, playerHealth.startingHealth - playerHealth.currentHealth);
             playerHealth.TakeDamage(-healHitPoint);
-            Debug.Log("Healed");
         }
     }
 }

@@ -184,7 +184,6 @@ public class CheatManager : MonoBehaviour
     private void ActivateKillPet()
     {
         GameObject[] enemyPets = GameObject.FindGameObjectsWithTag("EnemyPet");
-        Debug.Log(enemyPets.Length);
         foreach (GameObject enemyPet in enemyPets)
         {
             EnemyPetHealth enemyPetHealth = enemyPet.GetComponent<EnemyPetHealth>();

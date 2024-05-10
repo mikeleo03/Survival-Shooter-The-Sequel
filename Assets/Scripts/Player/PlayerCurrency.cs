@@ -22,7 +22,6 @@ public class PlayerCurrency : MonoBehaviour, IDataPersistance
         }
         balance -= nominal;
 
-        Debug.Log("Balance: " + balance);
     }
 
     public int Balance() 

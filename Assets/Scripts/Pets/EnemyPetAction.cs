@@ -14,14 +14,11 @@ namespace Nightmare
         {
             attack = GetComponentInParent<EnemyAttack>();
             attack.Buff();
-            Debug.Log("Buffed!");
         }
 
         void OnDestroy()
         {
             attack.Debuff();
-            Debug.Log("Debuffed!");
-
         }
     }
 }
