@@ -5523,6 +5523,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 4e5a0d387dc27394b81600988ad0216f, type: 3}
+      propertyPath: grenadeFireDelay
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: 4e5a0d387dc27394b81600988ad0216f, type: 3}
       propertyPath: damageImage
       value: 
@@ -6192,7 +6196,7 @@ MonoBehaviour:
   pools:
   - key: Grenade
     poolObject: {fileID: 1105787354104060, guid: 41a4c48eef428174cb5039adb608d30c, type: 3}
-    size: 10
+    size: 100
     parentingGroup: {fileID: 1222083999}
     expandable: 1
 --- !u!114 &1796129607
