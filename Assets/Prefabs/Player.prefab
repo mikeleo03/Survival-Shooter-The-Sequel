@@ -216,7 +216,7 @@ GameObject:
   - component: {fileID: 11400002}
   - component: {fileID: 13600000}
   - component: {fileID: 8200002}
-  - component: {fileID: 7588598180635152441}
+  - component: {fileID: 5475400658131949190}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -324,6 +324,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 6
+  originalSpeed: 6
+  prevSpeed: 0
 --- !u!136 &13600000
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -473,8 +475,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &7588598180635152441
-  balance: 0
 --- !u!1 &100008
 GameObject:
   m_ObjectHideFlags: 0

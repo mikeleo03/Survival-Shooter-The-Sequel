@@ -424,7 +424,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""id"": ""4cd0b8b9-709b-4ffb-8dcc-2861b7e586d3"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Tap"",
                     ""initialStateCheck"": true
                 },
                 {
