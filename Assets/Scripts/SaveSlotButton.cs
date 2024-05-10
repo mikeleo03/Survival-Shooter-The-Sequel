@@ -9,7 +9,7 @@ public class SaveSlotButton : MonoBehaviour, IDataPersistance
     public int slot;
 
     [Header("File Storage Config")]
-    [SerializeField] private string fileName;
+    public string fileName;
 
     private DataPersistanceManager dataPersistanceManager;
 
@@ -23,7 +23,8 @@ public class SaveSlotButton : MonoBehaviour, IDataPersistance
 
         this.dataPersistanceManager = GameObject.Find("DataPersistanceManager").GetComponent<DataPersistanceManager>();
         this.slotTitleTextComponent = GetComponentInChildren<Text>();
-        this.slotTitle = (new FileDataHandler(Application.persistentDataPath, this.fileName)).Load().saveName;
+        // this.slotTitle = (new FileDataHandler(Application.persistentDataPath, this.fileName)).Load().saveName;
+        this.slotTitle = (new FileDataHandler(Application.persistentDataPath, this.fileName)).Load() == null ? "" : (new FileDataHandler(Application.persistentDataPath, this.fileName)).Load().saveName;
         this.slotTitleTextComponent.text = this.slotTitle;
     }
 
@@ -46,7 +47,7 @@ public class SaveSlotButton : MonoBehaviour, IDataPersistance
 
     public void SaveGame()
     {
-        this.slotTitle = PlayerPrefs.GetString("PlayerName") + DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss");
+        this.slotTitle = PlayerPrefs.GetString("PlayerName") + "_" + DateTime.Now.ToString("MM-dd HH-mm-ss");
         this.dataPersistanceManager.fileName = this.fileName;
         this.dataPersistanceManager.SaveGame();
     }

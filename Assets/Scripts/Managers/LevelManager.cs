@@ -27,7 +27,8 @@ namespace Nightmare
         void Start()
         {
             cinema = FindObjectOfType<CinematicController>();
-            // SceneManager.LoadSceneAsync(levels[this.currentLevel], LoadSceneMode.Additive);            playerMove = FindObjectOfType<PlayerMovement>();
+            // SceneManager.LoadSceneAsync(levels[this.currentLevel], LoadSceneMode.Additive);            
+            playerMove = FindObjectOfType<PlayerMovement>();
             playerRespawn = playerMove.transform.position;
         }
 
@@ -41,7 +42,7 @@ namespace Nightmare
             LoadLevel(0);
         }
 
-        private void LoadLevel(int level)
+        public void LoadLevel(int level)
         {
             currentLevel = level;
 
