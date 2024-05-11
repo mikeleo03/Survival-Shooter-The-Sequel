@@ -205,11 +205,6 @@ Since the game need to be run smoothly on Android, we also prepare and adapt to 
 
 In this task, we choose New Input System. We enable it by go to `Edit > Project Settings > Input System`, then check the box next to "Input System Package" and click "Play Mode" to enable it within the project. Here is the snippet on how we use it
 
-<script type="text/javascript" src="components/prism-core.min.js"></script>
-<script type="text/javascript" src="components/prism-clike.min.js"></script>
-<script type="text/javascript" src="components/prism-csharp.min.js"></script>
-<script type="text/javascript" src="bower_components/prism/components/prism-c.js"></script>
-
 <table>
     <col width="auto">
     <tr>
